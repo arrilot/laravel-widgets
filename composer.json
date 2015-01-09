@@ -1,0 +1,19 @@
+{
+    "name": "arrilot/widget",
+    "description": "",
+    "authors": [
+        {
+            "name": "Nekrasov Ilya",
+            "email": "nekrasov.ilya90@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Arrilot\\Widget\\": "src/Arrilot/Widget"
+        }
+    },
+    "minimum-stability": "stable"
+}
