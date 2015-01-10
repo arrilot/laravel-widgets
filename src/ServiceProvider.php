@@ -1,8 +1,6 @@
 <?php namespace Arrilot\Widget;
 
-use Illuminate\Support\ServiceProvider;
-
-class WidgetServiceProvider extends ServiceProvider {
+class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 
 	/**
 	 * Indicates if loading of the provider is deferred.
@@ -18,6 +16,7 @@ class WidgetServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
+		$this->app['config']->package('arrilot/widget', __DIR__ . '/config');
 		$this->package('arrilot/widget');
 	}
 
@@ -28,7 +27,9 @@ class WidgetServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		//
+		$this->app->bind('arrilot_widget', function(){
+			return new WidgetFactory();
+		});
 	}
 
 	/**
@@ -38,7 +39,7 @@ class WidgetServiceProvider extends ServiceProvider {
 	 */
 	public function provides()
 	{
-		return array();
+		return ['arrilot_widget'];
 	}
 
 }

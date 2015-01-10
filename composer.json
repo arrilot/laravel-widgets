@@ -1,6 +1,8 @@
 {
     "name": "arrilot/widget",
     "description": "",
+    "license": "MIT",
+    "keywords": ["laravel", "widget"],
     "authors": [
         {
             "name": "Nekrasov Ilya",
@@ -8,11 +10,12 @@
         }
     ],
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=5.4.0",
+        "illuminate/support": "~4.0"
     },
     "autoload": {
         "psr-4": {
-            "Arrilot\\Widget\\": "src/Arrilot/Widget"
+            "Arrilot\\Widget\\": "src/"
         }
     },
     "minimum-stability": "stable"
