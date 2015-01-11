@@ -19,8 +19,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 	 */
 	public function boot()
 	{
-		Config::package('arrilot/widget', __DIR__ . '/config');
-		$this->package('arrilot/widget');
+		Config::package('arrilot/laravel-widgets', __DIR__ . '/config');
+		$this->package('arrilot/laravel-widgets');
 	}
 
 

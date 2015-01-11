@@ -16,8 +16,8 @@ class WidgetFactory
 		$config = $params[0] ?: [];
 
 		$widgetName       = studly_case($widgetName);
-		$customNamespaces = Config::get('widget::custom_namespaces_for_specific_widgets', []);
-		$defaultNamespace = Config::get('widget::base_namespace');
+		$customNamespaces = Config::get('laravel-widgets::custom_namespaces_for_specific_widgets', []);
+		$defaultNamespace = Config::get('laravel-widgets::default_namespace');
 
 		$namespace        = $this->determineNamespace($widgetName, $customNamespaces, $defaultNamespace);
 
