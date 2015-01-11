@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/Arrilot/laravel-widgets.svg?branch=master)](https://travis-ci.org/Arrilot/laravel-widgets)
-Easy widgets for Laravel
 
+#Easy widgets for Laravel
 =====================
 
 *This packages provides a basic widget functionality to boost your views. Really fast and convinient workflow at the expense of limitted flexibility*
@@ -39,7 +39,7 @@ Register a service provider in `app/config/app.php`.
 ?>
 ```
 
-Add a facade here too
+Add a facade here too.
 
 ```php
 <?php
@@ -49,7 +49,7 @@ Add a facade here too
     'App'        => 'Illuminate\Support\Facades\App',
     'Artisan'    => 'Illuminate\Support\Facades\Artisan',
     ...
-    'Widget'       => 'Arrilot\Widgets\Facade',
+    'Widget'     => 'Arrilot\Widgets\Facade',
 
 ),
 ?>
@@ -59,7 +59,7 @@ Add a facade here too
 
 Lets consider we want to make a list of recent news and reuse it in several views.
 
-First of all we create a Widget using artisan generator provided by the package
+First of all we can create a Widget using artisan generator provided by the package.
 ```bash
 php artisan make:widget RecentNews
 ```
@@ -87,7 +87,7 @@ As soon as domain logic is implemented inside the run() method, it can be includ
 ```php
 {{ Widget::recentNews() }}
 ```
-Make sure the widget class can be autoloaded by composer
+Make sure the widget class can be autoloaded by composer.
 
 ## Configuration
 
@@ -96,7 +96,7 @@ By default package tries to find your widget in
 ```php
 App\Widgets
 ```
-namespace
+namespace.
 
 You can override it by changing 'default namespace' property in the package config (Do not forget to publish package config before that).
 
@@ -110,9 +110,9 @@ Althought using default namespace is very convinient, you can also set custom na
 
 ### Widget configuratuion
 
-Let's move on with the "recent news" example.
+Let's carry on with the "recent news" example.
 
-Imagine that we need to show 5 news most of the time and 10 news in some views.
+Imagine that we usually need to show 5 news, but in some views we need to show 10.
 This can be easily achieved like that:
 
 ```php
@@ -127,4 +127,4 @@ class RecentNews extends AbstractWidget {
 ...
 {{ Widget::recentNews(['count' => 10]) }}
 ```
-Notice that you don't need to map ['count' => 10] and class property in constructor. It's done automatically
+Notice that you don't need to map ['count' => 10] and class property in constructor. It's done automatically.
