@@ -6,7 +6,7 @@ use Way\Generators\Commands\GeneratorCommand;
 class MakeWidgetCommand extends GeneratorCommand {
 
 	protected $name = 'make:widget';
-	protected $description = 'Creates a widget';
+	protected $description = 'Create a new widget (arrilot/laravel-widgets)';
 
 
 	/**
