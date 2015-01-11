@@ -97,7 +97,11 @@ App\Widgets
 ```
 namespace.
 
-You can override this by changing 'default namespace' property in the package config (Do not forget to publish package config before that).
+You can override this by changing 'default namespace' property in the package config 
+Note: do not forget to publish package config before that.
+```bash
+php artisan config:publish arrilot/laravel-widgets
+```
 
 Althought using default namespace is very convinient, you can also set custom namespaces for specific widgets:
 ```php
