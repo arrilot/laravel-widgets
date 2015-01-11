@@ -1,7 +1,6 @@
 [![Build Status](https://travis-ci.org/Arrilot/laravel-widgets.svg?branch=master)](https://travis-ci.org/Arrilot/laravel-widgets)
 
 #Easy widgets for Laravel
-=====================
 
 *This packages provides a basic widget functionality to boost your views. Really fast and convinient workflow at the expense of limitted flexibility*
 
@@ -64,7 +63,7 @@ First of all we can create a Widget using artisan generator provided by the pack
 php artisan make:widget RecentNews
 ```
 
-It creates the folowing widget skeleton:
+Now the folowing widget skeleton is created:
 ```php
 <?php namespace App\Widgets;
 
@@ -98,7 +97,7 @@ App\Widgets
 ```
 namespace.
 
-You can override it by changing 'default namespace' property in the package config (Do not forget to publish package config before that).
+You can override this by changing 'default namespace' property in the package config (Do not forget to publish package config before that).
 
 Althought using default namespace is very convinient, you can also set custom namespaces for specific widgets:
 ```php
