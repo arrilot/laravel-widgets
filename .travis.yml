@@ -7,7 +7,8 @@ php:
   - hhvm
 
 before_script:
-  - travis_retry composer self-update
-  - travis_retry composer install --prefer-source --no-interaction --dev
+  - composer self-update
+  - composer install --prefer-source --no-interaction --dev
 
-script: phpunit
+script:
+  - vendor/bin/phpspec run

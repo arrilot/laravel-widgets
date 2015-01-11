@@ -1,6 +1,6 @@
-<?php namespace Arrilot\Widget;
+<?php namespace Arrilot\Widgets;
 
-use Config;
+use Illuminate\Support\Facades\Config;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 
@@ -19,8 +19,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 	 */
 	public function boot()
 	{
-		Config::package('arrilot/widget', __DIR__ . '/config');
-		$this->package('arrilot/widget');
+
 	}
 
 
@@ -31,8 +30,13 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 	 */
 	public function register()
 	{
+		$this->app['config']->set('laravel-widgets', require __DIR__ .'/../config/config.php');
+
+
 		$this->app->bind('arrilot_widget', function(){
-			return new WidgetFactory();
+			$defaultNamespace = Config::get('laravel-widgets.default_namespace');
+			$customNamespaces = Config::get('laravel-widgets.custom_namespaces_for_specific_widgets', []);
+			return new WidgetFactory($defaultNamespace, $customNamespaces);
 		});
 
 
@@ -40,7 +44,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 		{
 			$generator = $this->app->make('Way\Generators\Generator');
 
-			return new Commands\MakeWidgetCommand($generator);
+			return new MakeWidgetCommand($generator);
 		});
 		$this->commands('make.widget');
 	}

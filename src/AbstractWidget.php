@@ -1,4 +1,4 @@
-<?php namespace Arrilot\Widget;
+<?php namespace Arrilot\Widgets;
 
 abstract class AbstractWidget {
 

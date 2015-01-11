@@ -1,4 +1,4 @@
-<?php namespace Arrilot\Widget;
+<?php namespace Arrilot\Widgets;
 
 class Facade extends \Illuminate\Support\Facades\Facade
 {

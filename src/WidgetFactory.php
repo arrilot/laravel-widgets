@@ -1,9 +1,22 @@
-<?php namespace Arrilot\Widget;
+<?php namespace Arrilot\Widgets;
 
-use Config;
+class WidgetFactory {
 
-class WidgetFactory
-{
+	protected $defaultNamespace;
+	protected $customNamespaces;
+
+
+	/**
+	 * Constructor
+	 * @param $defaultNamespace
+	 * @param $customNamespaces
+	 */
+	public function __construct($defaultNamespace, $customNamespaces)
+	{
+		$this->defaultNamespace = $defaultNamespace;
+		$this->customNamespaces = $customNamespaces;
+	}
+
 
 	/**
 	 * Magic method that catches all widget calls
@@ -13,15 +26,15 @@ class WidgetFactory
 	 */
 	public function __call($widgetName, $params = [])
 	{
-		$config = $params[0] ?: [];
+		$config = isset($params[0]) ? $params[0] : [];
 
-		$widgetName  = studly_case($widgetName);
-		$namespace   = $this->determineNamespace($widgetName);
-		$widgetClass = $namespace.'\\'.$widgetName;
+		$widgetName       = studly_case($widgetName);
+
+		$namespace        = $this->determineNamespace($widgetName);
+		$widgetClass      = $namespace . '\\' . $widgetName;
 
 		$widget = new $widgetClass($config);
-		$widget->run();
-
+		return $widget->run();
 	}
 
 
@@ -29,21 +42,21 @@ class WidgetFactory
 	 * @param $widgetName
 	 * @return mixed
 	 */
-	protected function determineNamespace($widgetName)
+	public function determineNamespace($widgetName)
 	{
-		$customNamespaces = Config::get('widget::custom_namespaces_for_specific_widgets', []);
 
-		if (array_key_exists($widgetName, $customNamespaces))
+		if (array_key_exists($widgetName, $this->customNamespaces))
 		{
-			return $customNamespaces[$widgetName];
+			return $this->customNamespaces[$widgetName];
 		}
 
 		$widgetName = strtolower($widgetName);
-		if (array_key_exists($widgetName, $customNamespaces))
+
+		if (array_key_exists($widgetName, $this->customNamespaces))
 		{
-			return $customNamespaces[$widgetName];
+			return $this->customNamespaces[$widgetName];
 		}
 
-		return Config::get('widget::base_namespace');
+		return $this->defaultNamespace;
 	}
 }
