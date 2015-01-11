@@ -1,12 +1,12 @@
 [![Build Status](https://travis-ci.org/Arrilot/laravel-widgets.svg?branch=master)](https://travis-ci.org/Arrilot/laravel-widgets)
 
-#Easy widgets for Laravel
+#Easy widgets for Laravel (Alpha)
 
 *This packages provides a basic widget functionality to boost your views. Really fast and convinient workflow at the expense of limitted flexibility*
 
 ## Installation
 
-In the `require` key of `composer.json` file add `arrilot/laravel-widgets": "*`:
+In the `require` key of `composer.json` file add `"arrilot/laravel-widgets": "*"`:
 
 ```
 ...
