@@ -6,23 +6,15 @@
 
 ## Installation
 
-In the `require` key of `composer.json` file add `"arrilot/laravel-widgets": "*"`:
+In the `require` key of `composer.json` file add `"arrilot/laravel-widgets": "*"`.
 
-```
-...
-"require": {
-	"laravel/framework": "4.2.*",
-	"lavary/laravel-menu": "dev-master"
-  }  
-```
-  
 Run the composer update command:
 
 ```bash
 composer update
 ```
 
-Register a service provider in `app/config/app.php`.
+Register a service provider in your `app.php` config file
 
 ```php
 <?php
@@ -82,7 +74,7 @@ class RecentNews extends AbstractWidget {
 }
 ```
 
-As soon as domain logic is implemented inside the run() method, it can be included to a view like that:
+As soon as domain logic is implemented inside the `run()` method, it can be included to a view like that:
 ```php
 {{ Widget::recentNews() }}
 ```
@@ -91,13 +83,9 @@ Make sure the widget class can be autoloaded by composer.
 ## Configuration
 
 ### Namespaces configuration
-By default package tries to find your widget in
-```php
-App\Widgets
-```
-namespace.
+By default package tries to find your widget in ```App\Widgets``` namespace.
 
-You can override this by changing 'default namespace' property in the package config.
+You can override this by changing `default namespace` property in the package config.
 
 Althought using default namespace is very convinient, you can also set custom namespaces for specific widgets:
 ```php
@@ -131,4 +119,4 @@ class RecentNews extends AbstractWidget {
 ...
 {{ Widget::recentNews(['count' => 10]) }}
 ```
-Notice that you don't need to map ['count' => 10] and class property in constructor. It's done automatically.
+Notice that you don't need to map `['count' => 10]` and class property in constructor. It's done automatically.
