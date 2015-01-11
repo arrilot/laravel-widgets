@@ -1,9 +1,8 @@
 <?php namespace Arrilot\Widgets;
 
-use Config;
+use Illuminate\Support\Facades\Config;
 
-class WidgetFactory
-{
+class WidgetFactory {
 
 	/**
 	 * Magic method that catches all widget calls
@@ -13,14 +12,13 @@ class WidgetFactory
 	 */
 	public function __call($widgetName, $params = [])
 	{
-		$config = $params[0] ?: [];
+		$config = isset($params[0]) ? $params[0] : [];
 
 		$widgetName       = studly_case($widgetName);
-		$customNamespaces = Config::get('laravel-widgets::custom_namespaces_for_specific_widgets', []);
-		$defaultNamespace = Config::get('laravel-widgets::default_namespace');
+		$defaultNamespace = Config::get('laravel-widgets.default_namespace');
+		$customNamespaces = Config::get('laravel-widgets.custom_namespaces_for_specific_widgets', []);
 
 		$namespace        = $this->determineNamespace($widgetName, $customNamespaces, $defaultNamespace);
-
 		$widgetClass      = $namespace . '\\' . $widgetName;
 
 		$widget = new $widgetClass($config);

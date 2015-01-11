@@ -29,7 +29,13 @@ class MakeWidgetCommand extends GeneratorCommand {
 	 */
 	protected function getFileGenerationPath()
 	{
-		return app_path('Widgets') . '/' . studly_case($this->argument('widgetName')) . '.php';
+		$widgets_dir = app_path('Widgets');
+		if (!file_exists($widgets_dir))
+		{
+			mkdir($widgets_dir, 0777, true);
+		}
+
+		return $widgets_dir . '/' . studly_case($this->argument('widgetName')) . '.php';
 	}
 
 
