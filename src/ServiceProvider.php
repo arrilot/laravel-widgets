@@ -1,4 +1,4 @@
-<?php namespace Arrilot\Widget;
+<?php namespace Arrilot\Widgets;
 
 use Config;
 
@@ -40,7 +40,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 		{
 			$generator = $this->app->make('Way\Generators\Generator');
 
-			return new Commands\MakeWidgetCommand($generator);
+			return new MakeWidgetCommand($generator);
 		});
 		$this->commands('make.widget');
 	}

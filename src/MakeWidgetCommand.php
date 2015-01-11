@@ -1,4 +1,4 @@
-<?php namespace Arrilot\Widget\Commands;
+<?php namespace Arrilot\Widgets;
 
 use Symfony\Component\Console\Input\InputArgument;
 use Way\Generators\Commands\GeneratorCommand;
@@ -40,7 +40,7 @@ class MakeWidgetCommand extends GeneratorCommand {
 	 */
 	protected function getTemplatePath()
 	{
-		return "workbench/Arrilot/Widget/src/templates/widget.txt";
+		return str_replace( base_path() . "/", "", __DIR__) . "/templates/widget.txt";
 	}
 
 

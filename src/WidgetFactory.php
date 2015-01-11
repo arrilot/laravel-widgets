@@ -1,4 +1,4 @@
-<?php namespace Arrilot\Widget;
+<?php namespace Arrilot\Widgets;
 
 use Config;
 
@@ -15,9 +15,12 @@ class WidgetFactory
 	{
 		$config = $params[0] ?: [];
 
-		$widgetName  = studly_case($widgetName);
-		$namespace   = $this->determineNamespace($widgetName);
-		$widgetClass = $namespace.'\\'.$widgetName;
+		$widgetName       = studly_case($widgetName);
+		$customNamespaces = Config::get('widget::custom_namespaces_for_specific_widgets', []);
+		$defaultNamespace = Config::get('widget::base_namespace');
+
+		$namespace        = $this->determineNamespace($widgetName, $customNamespaces, $defaultNamespace);
+		$widgetClass      = $namespace . '\\' . $widgetName;
 
 		$widget = new $widgetClass($config);
 		$widget->run();
@@ -27,11 +30,12 @@ class WidgetFactory
 
 	/**
 	 * @param $widgetName
+	 * @param $customNamespaces
+	 * @param $defaultNamespace
 	 * @return mixed
 	 */
-	protected function determineNamespace($widgetName)
+	public function determineNamespace($widgetName, $customNamespaces, $defaultNamespace)
 	{
-		$customNamespaces = Config::get('widget::custom_namespaces_for_specific_widgets', []);
 
 		if (array_key_exists($widgetName, $customNamespaces))
 		{
@@ -44,6 +48,6 @@ class WidgetFactory
 			return $customNamespaces[$widgetName];
 		}
 
-		return Config::get('widget::base_namespace');
+		return $defaultNamespace;
 	}
 }
