@@ -20,6 +20,7 @@ class WidgetFactory
 		$defaultNamespace = Config::get('widget::base_namespace');
 
 		$namespace        = $this->determineNamespace($widgetName, $customNamespaces, $defaultNamespace);
+
 		$widgetClass      = $namespace . '\\' . $widgetName;
 
 		$widget = new $widgetClass($config);
