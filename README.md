@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/Arrilot/laravel-widgets.svg?branch=master)](https://travis-ci.org/Arrilot/laravel-widgets)
 
-#Easy widgets for Laravel (Alpha)
+#Easy widgets for Laravel
 
 *This packages provides a basic widget functionality to boost your views. Really fast and convinient workflow at the expense of limitted flexibility*
 
