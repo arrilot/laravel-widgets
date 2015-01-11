@@ -4,14 +4,17 @@ use Config;
 
 class WidgetFactory
 {
+
 	/**
 	 * Magic method that catches all widget calls
 	 *
 	 * @param $widgetName
-	 * @param array $config
+	 * @param array $params
 	 */
-	public function __call($widgetName, array $config = [])
+	public function __call($widgetName, $params = [])
 	{
+		$config = $params[0] ?: [];
+
 		$widgetName  = studly_case($widgetName);
 		$namespace   = $this->determineNamespace($widgetName);
 		$widgetClass = $namespace.'\\'.$widgetName;

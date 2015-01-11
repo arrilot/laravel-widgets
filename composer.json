@@ -9,9 +9,11 @@
             "email": "nekrasov.ilya90@gmail.com"
         }
     ],
+    "homepage": "https://github.com/Arrilot/widget",
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "~4.0"
+        "illuminate/support": "~4.0",
+        "way/generators": "~2.0"
     },
     "autoload": {
         "psr-4": {

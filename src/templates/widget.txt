@@ -1,0 +1,15 @@
+<?php namespace App\Widgets;
+
+use Arrilot\Widget\AbstractWidget;
+
+class $NAME$ extends AbstractWidget {
+
+    /**
+     * You can treat this method just like a controller action.
+     * Return a view or anything you want to display
+     */
+	public function run()
+	{
+
+	}
+}

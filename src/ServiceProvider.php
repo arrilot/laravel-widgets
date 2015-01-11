@@ -1,5 +1,7 @@
 <?php namespace Arrilot\Widget;
 
+use Config;
+
 class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 
 	/**
@@ -9,6 +11,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 	 */
 	protected $defer = false;
 
+
 	/**
 	 * Bootstrap the application events.
 	 *
@@ -16,9 +19,10 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 	 */
 	public function boot()
 	{
-		$this->app['config']->package('arrilot/widget', __DIR__ . '/config');
+		Config::package('arrilot/widget', __DIR__ . '/config');
 		$this->package('arrilot/widget');
 	}
+
 
 	/**
 	 * Register the service provider.
@@ -30,7 +34,17 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 		$this->app->bind('arrilot_widget', function(){
 			return new WidgetFactory();
 		});
+
+
+		$this->app['make.widget'] = $this->app->share(function($app)
+		{
+			$generator = $this->app->make('Way\Generators\Generator');
+
+			return new Commands\MakeWidgetCommand($generator);
+		});
+		$this->commands('make.widget');
 	}
+
 
 	/**
 	 * Get the services provided by the provider.
