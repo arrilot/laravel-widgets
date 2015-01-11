@@ -13,7 +13,7 @@
     "require": {
         "php": ">=5.4.0",
         "illuminate/support": "~4|~5",
-        "way/generators": "~2"
+        "way/generators": "~2|~3"
     },
     "require-dev": {
         "phpspec/phpspec": "~2.0"
