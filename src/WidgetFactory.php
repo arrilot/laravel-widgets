@@ -24,8 +24,7 @@ class WidgetFactory
 		$widgetClass      = $namespace . '\\' . $widgetName;
 
 		$widget = new $widgetClass($config);
-		$widget->run();
-
+		return $widget->run();
 	}
 
 
