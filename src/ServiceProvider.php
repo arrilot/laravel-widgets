@@ -19,8 +19,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 	 */
 	public function boot()
 	{
-		Config::package('arrilot/laravel-widgets', __DIR__ . '/config');
-		$this->package('arrilot/laravel-widgets');
+
 	}
 
 
@@ -31,6 +30,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 	 */
 	public function register()
 	{
+		$this->app['config']->set('laravel-widgets', require __DIR__ .'/../config/config.php');
+
+
 		$this->app->bind('arrilot_widget', function(){
 			return new WidgetFactory();
 		});

@@ -1,28 +1,20 @@
 [![Build Status](https://travis-ci.org/Arrilot/laravel-widgets.svg?branch=master)](https://travis-ci.org/Arrilot/laravel-widgets)
 
-#Easy widgets for Laravel (Alpha)
+#Simple widgets for Laravel
 
 *This packages provides a basic widget functionality to boost your views. Really fast and convinient workflow at the expense of limitted flexibility*
 
 ## Installation
 
-In the `require` key of `composer.json` file add `"arrilot/laravel-widgets": "*"`:
+In the `require` key of `composer.json` file add `"arrilot/laravel-widgets": "*"`.
 
-```
-...
-"require": {
-	"laravel/framework": "4.2.*",
-	"lavary/laravel-menu": "dev-master"
-  }  
-```
-  
 Run the composer update command:
 
 ```bash
 composer update
 ```
 
-Register a service provider in `app/config/app.php`.
+Register a service provider in your `app.php` config file
 
 ```php
 <?php
@@ -56,9 +48,9 @@ Add a facade here too.
 
 ## Usage
 
-Lets consider we want to make a list of recent news and reuse it in several views.
+Lets consider we want to make a list of recent news and to reuse it in several views.
 
-First of all we can create a Widget using artisan generator provided by the package.
+First of all we can create a Widget using artisan command provided by the package.
 ```bash
 php artisan make:widget RecentNews
 ```
@@ -82,7 +74,7 @@ class RecentNews extends AbstractWidget {
 }
 ```
 
-As soon as domain logic is implemented inside the run() method, it can be included to a view like that:
+As soon as domain logic is implemented inside the `run()` method, the widget can be included to a view like that:
 ```php
 {{ Widget::recentNews() }}
 ```
@@ -91,15 +83,11 @@ Make sure the widget class can be autoloaded by composer.
 ## Configuration
 
 ### Namespaces configuration
-By default package tries to find your widget in
-```php
-App\Widgets
-```
-namespace.
+By default package tries to find your widget in the ```App\Widgets``` namespace.
 
-You can override this by changing 'default namespace' property in the package config.
+You can override this by changing `default_namespace` property in the package config.
 
-Althought using default namespace is very convinient, you can also set custom namespaces for specific widgets:
+Althought using the default namespace is very convinient and keeps you from doing unnecessary actions, you can also set custom namespaces for specific widgets:
 ```php
     'custom_namespaces_for_specific_widgets' => [
         'widgetName' => 'Widget\Namespace\Here'
@@ -131,4 +119,4 @@ class RecentNews extends AbstractWidget {
 ...
 {{ Widget::recentNews(['count' => 10]) }}
 ```
-Notice that you don't need to map ['count' => 10] and class property in constructor. It's done automatically.
+Notice that you don't need to map `['count' => 10]` and class property in constructor. It's done automatically behind the scene
