@@ -48,9 +48,9 @@ Add a facade here too.
 
 ## Usage
 
-Lets consider we want to make a list of recent news and reuse it in several views.
+Lets consider we want to make a list of recent news and to reuse it in several views.
 
-First of all we can create a Widget using artisan generator provided by the package.
+First of all we can create a Widget using artisan command provided by the package.
 ```bash
 php artisan make:widget RecentNews
 ```
@@ -74,7 +74,7 @@ class RecentNews extends AbstractWidget {
 }
 ```
 
-As soon as domain logic is implemented inside the `run()` method, it can be included to a view like that:
+As soon as domain logic is implemented inside the `run()` method, the widget can be included to a view like that:
 ```php
 {{ Widget::recentNews() }}
 ```
@@ -87,7 +87,7 @@ By default package tries to find your widget in ```App\Widgets``` namespace.
 
 You can override this by changing `default namespace` property in the package config.
 
-Althought using default namespace is very convinient, you can also set custom namespaces for specific widgets:
+Althought using the default namespace is very convinient and keeps you from doing unnecessary actions, you can also set custom namespaces for specific widgets:
 ```php
     'custom_namespaces_for_specific_widgets' => [
         'widgetName' => 'Widget\Namespace\Here'
@@ -119,4 +119,4 @@ class RecentNews extends AbstractWidget {
 ...
 {{ Widget::recentNews(['count' => 10]) }}
 ```
-Notice that you don't need to map `['count' => 10]` and class property in constructor. It's done automatically.
+Notice that you don't need to map `['count' => 10]` and class property in constructor. It's done automatically behind the scene
