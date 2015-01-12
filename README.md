@@ -83,9 +83,9 @@ Make sure the widget class can be autoloaded by composer.
 ## Configuration
 
 ### Namespaces configuration
-By default package tries to find your widget in ```App\Widgets``` namespace.
+By default package tries to find your widget in the ```App\Widgets``` namespace.
 
-You can override this by changing `default namespace` property in the package config.
+You can override this by changing `default_namespace` property in the package config.
 
 Althought using the default namespace is very convinient and keeps you from doing unnecessary actions, you can also set custom namespaces for specific widgets:
 ```php
