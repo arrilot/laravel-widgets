@@ -100,7 +100,7 @@ Note: do not forget to publish package config before making these changes.
 php artisan config:publish arrilot/laravel-widgets
 ```
 
-### Widget configuratuion
+### Widget configuration
 
 Let's carry on with the "recent news" example.
 
@@ -110,7 +110,7 @@ This can be easily achieved like that:
 ```php
 class RecentNews extends AbstractWidget {
     ...
-    protected count = 5;
+    protected $count = 5;
     ...
 }
 
