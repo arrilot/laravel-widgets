@@ -1,8 +1,22 @@
 <?php namespace Arrilot\Widgets;
 
-use Illuminate\Support\Facades\Config;
-
 class WidgetFactory {
+
+	protected $defaultNamespace;
+	protected $customNamespaces;
+
+
+	/**
+	 * Constructor
+	 * @param $defaultNamespace
+	 * @param $customNamespaces
+	 */
+	public function __construct($defaultNamespace, $customNamespaces)
+	{
+		$this->defaultNamespace = $defaultNamespace;
+		$this->customNamespaces = $customNamespaces;
+	}
+
 
 	/**
 	 * Magic method that catches all widget calls
@@ -15,10 +29,8 @@ class WidgetFactory {
 		$config = isset($params[0]) ? $params[0] : [];
 
 		$widgetName       = studly_case($widgetName);
-		$defaultNamespace = Config::get('laravel-widgets.default_namespace');
-		$customNamespaces = Config::get('laravel-widgets.custom_namespaces_for_specific_widgets', []);
 
-		$namespace        = $this->determineNamespace($widgetName, $customNamespaces, $defaultNamespace);
+		$namespace        = $this->determineNamespace($widgetName);
 		$widgetClass      = $namespace . '\\' . $widgetName;
 
 		$widget = new $widgetClass($config);
@@ -28,24 +40,23 @@ class WidgetFactory {
 
 	/**
 	 * @param $widgetName
-	 * @param $customNamespaces
-	 * @param $defaultNamespace
 	 * @return mixed
 	 */
-	public function determineNamespace($widgetName, $customNamespaces, $defaultNamespace)
+	public function determineNamespace($widgetName)
 	{
 
-		if (array_key_exists($widgetName, $customNamespaces))
+		if (array_key_exists($widgetName, $this->customNamespaces))
 		{
-			return $customNamespaces[$widgetName];
+			return $this->customNamespaces[$widgetName];
 		}
 
 		$widgetName = strtolower($widgetName);
-		if (array_key_exists($widgetName, $customNamespaces))
+
+		if (array_key_exists($widgetName, $this->customNamespaces))
 		{
-			return $customNamespaces[$widgetName];
+			return $this->customNamespaces[$widgetName];
 		}
 
-		return $defaultNamespace;
+		return $this->defaultNamespace;
 	}
 }

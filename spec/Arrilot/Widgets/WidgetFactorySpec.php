@@ -7,7 +7,16 @@ use Prophecy\Argument;
 
 class WidgetFactorySpec extends ObjectBehavior
 {
-    protected $default_namespace = 'App\Widgets';
+    public $configDefaultNamespace = 'App\Widgets';
+    public $configCustomNamespaces = [
+        'testWidgetName'  => 'Acme\Widgets',
+        'testWidgetName2' => ''
+    ];
+
+    function let()
+    {
+        $this->beConstructedWith($this->configDefaultNamespace, $this->configCustomNamespaces);
+    }
 
 
     function it_is_initializable()
@@ -16,35 +25,34 @@ class WidgetFactorySpec extends ObjectBehavior
     }
 
 
+    function it_returns_a_string_by_determine_namesace_method()
+    {
+        $this->determineNamespace("Slider")->shouldBeString();
+    }
+
+
     function it_determines_default_namespace()
     {
-        $widgetName = "testWidgetName";
-        $customNamespaces = [];
-        $this->determineNamespace($widgetName, $customNamespaces, $this->default_namespace)
-             ->shouldReturn($this->default_namespace);
+        $widgetName = "Slider";
+        $this->determineNamespace($widgetName)
+             ->shouldReturn($this->configDefaultNamespace);
     }
 
 
     function it_determines_custom_namespace()
     {
         $widgetName = "testWidgetName";
-        $customNamespaces = [
-            'testWidgetName' => 'Acme\Widgets',
-            'test2'          => 'Another\Namespace'
-        ];
-        $this->determineNamespace($widgetName, $customNamespaces, $this->default_namespace)
-            ->shouldReturn($customNamespaces[$widgetName]);
+
+        $this->determineNamespace($widgetName)
+            ->shouldReturn($this->configCustomNamespaces[$widgetName]);
     }
 
 
     function it_determines_empty_namespace()
     {
-        $widgetName = "testWidgetName";
-        $customNamespaces = [
-            'testWidgetName' => '',
-            'test2'          => 'Another\Namespace'
-        ];
-        $this->determineNamespace($widgetName, $customNamespaces, $this->default_namespace)
+        $widgetName = "testWidgetName2";
+
+        $this->determineNamespace($widgetName)
             ->shouldReturn('');
     }
 }
