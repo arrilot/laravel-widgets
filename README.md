@@ -110,7 +110,7 @@ This can be easily achieved like that:
 ```php
 class RecentNews extends AbstractWidget {
     ...
-    protected count = 5;
+    protected $count = 5;
     ...
 }
 
