@@ -1,62 +1,60 @@
 <?php namespace Arrilot\Widgets;
 
-class WidgetFactory {
+class WidgetFactory{
 
-	protected $defaultNamespace;
-	protected $customNamespaces;
+    protected $config;
 
-
-	/**
-	 * Constructor
-	 * @param $defaultNamespace
-	 * @param $customNamespaces
-	 */
-	public function __construct($defaultNamespace, $customNamespaces)
-	{
-		$this->defaultNamespace = $defaultNamespace;
-		$this->customNamespaces = $customNamespaces;
-	}
+    /**
+     * Constructor
+     * @param $config
+     */
+    public function __construct($config)
+    {
+        $this->config = $config;
+    }
 
 
-	/**
-	 * Magic method that catches all widget calls
-	 *
-	 * @param $widgetName
-	 * @param array $params
-	 */
-	public function __call($widgetName, $params = [])
-	{
-		$config = isset($params[0]) ? $params[0] : [];
+    /**
+     * Magic method that catches all widget calls
+     *
+     * @param $widgetName
+     * @param array $params
+     * @return mixed
+     * @throws \Exception
+     */
+    public function __call($widgetName, $params = [])
+    {
+        $config = isset($params[0]) ? $params[0] : [];
 
-		$widgetName       = studly_case($widgetName);
+        $widgetName = studly_case($widgetName);
 
-		$namespace        = $this->determineNamespace($widgetName);
-		$widgetClass      = $namespace . '\\' . $widgetName;
+        $namespace   = $this->determineNamespace($widgetName);
+        $widgetClass = $namespace . '\\' . $widgetName;
 
-		$widget = new $widgetClass($config);
-		return $widget->run();
-	}
+        $widget = new $widgetClass($config);
+        if ($widget instanceof AbstractWidget === false)
+        {
+            throw new InvalidWidgetClassException;
+        }
+
+        return $widget->run();
+    }
 
 
-	/**
-	 * @param $widgetName
-	 * @return mixed
-	 */
-	public function determineNamespace($widgetName)
-	{
+    /**
+     * @param $widgetName
+     * @return mixed
+     */
+    protected function determineNamespace($widgetName)
+    {
+        foreach ([$widgetName, strtolower($widgetName)] as $name)
+        {
+            if (array_key_exists($name, $this->config['customNamespaces']))
+            {
+                return $this->config['customNamespaces'][$name];
+            }
+        }
 
-		if (array_key_exists($widgetName, $this->customNamespaces))
-		{
-			return $this->customNamespaces[$widgetName];
-		}
-
-		$widgetName = strtolower($widgetName);
-
-		if (array_key_exists($widgetName, $this->customNamespaces))
-		{
-			return $this->customNamespaces[$widgetName];
-		}
-
-		return $this->defaultNamespace;
-	}
+        return $this->config['defaultNamespace'];
+    }
 }

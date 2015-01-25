@@ -34,9 +34,12 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 
 
 		$this->app->bind('arrilot_widget', function(){
-			$defaultNamespace = Config::get('laravel-widgets.default_namespace');
-			$customNamespaces = Config::get('laravel-widgets.custom_namespaces_for_specific_widgets', []);
-			return new WidgetFactory($defaultNamespace, $customNamespaces);
+
+			$config = [
+				'defaultNamespace' => Config::get('laravel-widgets.default_namespace'),
+				'customNamespaces' => Config::get('laravel-widgets.custom_namespaces_for_specific_widgets', [])
+			];
+			return new WidgetFactory($config);
 		});
 
 

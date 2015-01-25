@@ -1,21 +1,26 @@
-<?php
+<?php namespace spec\Arrilot\Widgets;
 
-namespace spec\Arrilot\Widgets;
+require "Dummies/DefaultTestSlider.php";
+require "Dummies/Slider.php";
+require "Dummies/BadTestSlider.php";
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class WidgetFactorySpec extends ObjectBehavior
-{
-    public $configDefaultNamespace = 'App\Widgets';
-    public $configCustomNamespaces = [
-        'testWidgetName'  => 'Acme\Widgets',
-        'testWidgetName2' => ''
-    ];
+class WidgetFactorySpec extends ObjectBehavior {
+
+    protected $config = [
+        'defaultNamespace' => 'App\Widgets',
+        'customNamespaces' => [
+                'slider'          => 'spec\Arrilot\Widgets\Dummies',
+                'testWidgetName'  => ''
+            ]
+        ];
+
 
     function let()
     {
-        $this->beConstructedWith($this->configDefaultNamespace, $this->configCustomNamespaces);
+        $this->beConstructedWith($this->config);
     }
 
 
@@ -25,34 +30,27 @@ class WidgetFactorySpec extends ObjectBehavior
     }
 
 
-    function it_returns_a_string_by_determine_namesace_method()
+    function it_can_run_widget_from_default_namespace()
     {
-        $this->determineNamespace("Slider")->shouldBeString();
+        $this->defaultTestSlider()->shouldReturn("Default test slider was executed with \$slides = 6");
     }
 
 
-    function it_determines_default_namespace()
+    function it_can_run_widget_from_custom_namespace()
     {
-        $widgetName = "Slider";
-        $this->determineNamespace($widgetName)
-             ->shouldReturn($this->configDefaultNamespace);
+        $this->slider()->shouldReturn("Slider was executed with \$slides = 6");
     }
 
 
-    function it_determines_custom_namespace()
+    function it_provides_config_override()
     {
-        $widgetName = "testWidgetName";
-
-        $this->determineNamespace($widgetName)
-            ->shouldReturn($this->configCustomNamespaces[$widgetName]);
+        $this->slider(['slides' => 5])->shouldReturn("Slider was executed with \$slides = 5");
     }
 
 
-    function it_determines_empty_namespace()
+    function it_throws_exception_for_bad_widget_class()
     {
-        $widgetName = "testWidgetName2";
-
-        $this->determineNamespace($widgetName)
-            ->shouldReturn('');
+        $this->shouldThrow('\Arrilot\Widgets\InvalidWidgetClassException')->during('badTestSlider');
     }
+
 }
