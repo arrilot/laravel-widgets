@@ -1,6 +1,6 @@
 <?php namespace Arrilot\Widgets;
 
-class WidgetFactory{
+class WidgetFactory {
 
     protected $config;
 
