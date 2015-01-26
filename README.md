@@ -6,11 +6,17 @@
 
 ## Installation
 
-First, use some composer awesomeness:
+First, use some composer awesomeness.
 
-```bash
-composer require arrilot/laravel-widgets
-```
+Laravel 5:
+
+1) Make sure that you have `"minimul-stability" : "dev"` in your composer.json
+
+2) ```composer require arrilot/laravel-widgets ~2.0```
+
+Laravel 4:
+
+```composer require arrilot/laravel-widgets ~2.0```
 
 Then, register a service provider in your `app.php` config file
 
@@ -18,12 +24,8 @@ Then, register a service provider in your `app.php` config file
 <?php
 
 'providers' => array(
-
-    'Illuminate\Foundation\Providers\ArtisanServiceProvider',
-    'Illuminate\Auth\AuthServiceProvider',
     ...
     'Arrilot\Widgets\ServiceProvider',
-
 ),
 ?>
 ```
@@ -34,12 +36,8 @@ Finally, add a facade here too.
 <?php
 
 'aliases' => array(
-
-    'App'        => 'Illuminate\Support\Facades\App',
-    'Artisan'    => 'Illuminate\Support\Facades\Artisan',
     ...
     'Widget'     => 'Arrilot\Widgets\Facade',
-
 ),
 ?>
 ```
@@ -94,6 +92,13 @@ Althought using the default namespace is very convinient and keeps you from doin
 ```
 
 Note: do not forget to publish package config before making these changes.
+
+Laravel 5:
+```bash
+php artisan vendor:publish
+```
+
+Laravel 4:
 ```bash
 php artisan config:publish arrilot/laravel-widgets
 ```
