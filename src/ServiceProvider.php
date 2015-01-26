@@ -30,11 +30,12 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app['config']->set('laravel-widgets', require __DIR__ .'/../config/config.php');
+		$this->publishes([
+			__DIR__.'/config/config.php' => config_path('laravel-widgets.php'),
+		]);
 
-
-		$this->app->bind('arrilot_widget', function(){
-
+		$this->app->bind('arrilot_widget', function()
+		{
 			$config = [
 				'defaultNamespace' => Config::get('laravel-widgets.default_namespace'),
 				'customNamespaces' => Config::get('laravel-widgets.custom_namespaces_for_specific_widgets', [])
