@@ -19,7 +19,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 	 */
 	public function boot()
 	{
-
+		$this->app['config']->package('arrilot/laravel-widgets', __DIR__ . '/config');
 	}
 
 
@@ -30,14 +30,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app['config']->set('laravel-widgets', require __DIR__ .'/../config/config.php');
-
-
 		$this->app->bind('arrilot_widget', function(){
 
 			$config = [
-				'defaultNamespace' => Config::get('laravel-widgets.default_namespace'),
-				'customNamespaces' => Config::get('laravel-widgets.custom_namespaces_for_specific_widgets', [])
+				'defaultNamespace' => Config::get('laravel-widgets::default_namespace'),
+				'customNamespaces' => Config::get('laravel-widgets::custom_namespaces_for_specific_widgets', [])
 			];
 			return new WidgetFactory($config);
 		});
