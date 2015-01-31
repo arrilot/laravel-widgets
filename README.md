@@ -16,7 +16,7 @@ Laravel 5:
 
 Laravel 4:
 
-```composer require arrilot/laravel-widgets ~2.0```
+```composer require arrilot/laravel-widgets ~1.0```
 
 Then, register a service provider in your `app.php` config file
 
