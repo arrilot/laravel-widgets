@@ -6,39 +6,33 @@
 
 ## Installation
 
-First, use some composer awesomeness.
+First, use some composer awesomeness:
 
-Laravel 5:
+```composer require arrilot/laravel-widgets```
 
-1) Make sure that you have `"minimul-stability" : "dev"` in your composer.json
-
-2) ```composer require arrilot/laravel-widgets ~2.0```
-
-Laravel 4:
-
-```composer require arrilot/laravel-widgets ~1.0```
+Note: for Laravel 4 use  ```composer require arrilot/laravel-widgets ~1.0```
 
 Then, register a service provider in your `app.php` config file
 
 ```php
 <?php
 
-'providers' => array(
+'providers' => [
     ...
     'Arrilot\Widgets\ServiceProvider',
-),
+],
 ?>
 ```
 
-Finally, add a facade here too.
+Finally, add a Facade here too.
 
 ```php
 <?php
 
-'aliases' => array(
+'aliases' => [
     ...
     'Widget'     => 'Arrilot\Widgets\Facade',
-),
+],
 ?>
 ```
 
