@@ -9,7 +9,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 	 */
 	protected $defer = false;
 
-
 	/**
 	 * Bootstrap the application events.
 	 *
@@ -22,7 +21,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 		]);
 	}
 
-
 	/**
 	 * Register the service provider.
 	 *
@@ -30,7 +28,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 	 */
 	public function register()
 	{
-
 		$this->mergeConfigFrom(
 			__DIR__.'/config/config.php', 'laravel-widgets'
 		);
@@ -44,17 +41,13 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 			return new WidgetFactory($config);
 		});
 
-
-		$this->app['make.widget'] = $this->app->share(function($app)
+		$this->app->singleton('command.widget.make', function($app)
 		{
-			$generator = $this->app->make('Way\Generators\Generator');
-
-			return new MakeWidgetCommand($generator);
+			return new WidgetMakeCommand($app['files']);
 		});
 
-		$this->commands('make.widget');
+		$this->commands('command.widget.make');
 	}
-
 
 	/**
 	 * Get the services provided by the provider.

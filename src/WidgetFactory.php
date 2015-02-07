@@ -13,7 +13,6 @@ class WidgetFactory {
         $this->config = $config;
     }
 
-
     /**
      * Magic method that catches all widget calls
      *
@@ -39,7 +38,6 @@ class WidgetFactory {
 
         return $widget->run();
     }
-
 
     /**
      * @param $widgetName
