@@ -2,7 +2,7 @@
 
 #Simple widgets for Laravel
 
-*This packages provides a basic widget functionality to boost your views. Really fast and convinient workflow at the expense of limitted flexibility*
+*This package provides basic widget functionality to boost your views. Really fast and convinient workflow at the expense of limitted flexibility*
 
 ## Installation
 
