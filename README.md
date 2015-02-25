@@ -66,7 +66,7 @@ class RecentNews extends AbstractWidget {
 
 As soon as domain logic is implemented inside the `run()` method, the widget can be included to a view like that:
 ```php
-{{ Widget::recentNews() }}
+{!! Widget::recentNews() !!}
 ```
 Make sure the widget class can be autoloaded by composer.
 
@@ -112,8 +112,8 @@ class RecentNews extends AbstractWidget {
 }
 
 ...
-{{ Widget::recentNews() }}
+{!! Widget::recentNews() !!}
 ...
-{{ Widget::recentNews(['count' => 10]) }}
+{!! Widget::recentNews(['count' => 10]) !!}
 ```
 Notice that you don't need to map `['count' => 10]` and class property in constructor. It's done automatically behind the scene
