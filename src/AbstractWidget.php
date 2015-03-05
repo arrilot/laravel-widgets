@@ -2,6 +2,8 @@
 
 abstract class AbstractWidget {
 
+    private static $incrementingId;
+
 	public function __construct($config)
 	{
 		foreach ($config as $property => $value)
@@ -12,6 +14,11 @@ abstract class AbstractWidget {
 			}
 		}
 	}
+
+    public static function incrementId()
+    {
+        self::$incrementingId++;
+    }
 
 	abstract public function run();
 }

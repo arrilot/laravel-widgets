@@ -32,13 +32,19 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
             __DIR__.'/config/config.php', 'laravel-widgets'
         );
 
-        $this->app->bind('arrilot.widget', function()
+        $config = [
+            'defaultNamespace' => config('laravel-widgets.default_namespace'),
+            'customNamespaces' => config('laravel-widgets.custom_namespaces_for_specific_widgets', [])
+        ];
+
+        $this->app->bind('arrilot.widget', function() use ($config)
         {
-            $config = [
-                'defaultNamespace' => config('laravel-widgets.default_namespace'),
-                'customNamespaces' => config('laravel-widgets.custom_namespaces_for_specific_widgets', [])
-            ];
             return new WidgetFactory($config);
+        });
+
+        $this->app->bind('arrilot.async-widget', function() use ($config)
+        {
+            return new AsyncWidgetFactory($config);
         });
 
         $this->app->singleton('command.widget.make', function($app)
@@ -56,7 +62,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
      */
     public function provides()
     {
-        return ['arrilot.widget'];
+        return ['arrilot.widget', 'arrilot.async-widget'];
     }
 
 }
