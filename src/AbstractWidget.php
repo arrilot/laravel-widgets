@@ -2,7 +2,7 @@
 
 abstract class AbstractWidget {
 
-    private static $incrementingId;
+    private static $incrementingId = 0;
 
 	public function __construct($config)
 	{
@@ -20,5 +20,11 @@ abstract class AbstractWidget {
         self::$incrementingId++;
     }
 
-	abstract public function run();
+    public static function getId()
+    {
+        return self::$incrementingId;
+    }
+
+    abstract public function run();
+
 }

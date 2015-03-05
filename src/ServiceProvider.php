@@ -10,18 +10,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
     protected $defer = false;
 
     /**
-     * Bootstrap the application events.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        $this->publishes([
-            __DIR__.'/config/config.php' => config_path('laravel-widgets.php'),
-        ]);
-    }
-
-    /**
      * Register the service provider.
      *
      * @return void
@@ -32,19 +20,16 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
             __DIR__.'/config/config.php', 'laravel-widgets'
         );
 
-        $config = [
-            'defaultNamespace' => config('laravel-widgets.default_namespace'),
-            'customNamespaces' => config('laravel-widgets.custom_namespaces_for_specific_widgets', [])
-        ];
 
-        $this->app->bind('arrilot.widget', function() use ($config)
+
+        $this->app->bind('arrilot.widget', function()
         {
-            return new WidgetFactory($config);
+            return new WidgetFactory();
         });
 
-        $this->app->bind('arrilot.async-widget', function() use ($config)
+        $this->app->bind('arrilot.async-widget', function()
         {
-            return new AsyncWidgetFactory($config);
+            return new AsyncWidgetFactory();
         });
 
         $this->app->singleton('command.widget.make', function($app)
@@ -53,6 +38,28 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
         });
 
         $this->commands('command.widget.make');
+    }
+
+    /**
+     * Bootstrap the application events.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->publishes([
+            __DIR__.'/config/config.php' => config_path('laravel-widgets.php'),
+        ]);
+
+        $routeConfig = [
+            'namespace' => 'Arrilot\Widgets\Controllers',
+            'prefix' => 'arrilot',
+        ];
+
+        $this->app['router']->group($routeConfig, function($router)
+        {
+            $router->get('async-widget','WidgetController@showAsyncWidget');
+        });
     }
 
     /**

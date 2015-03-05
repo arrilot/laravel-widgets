@@ -15,6 +15,23 @@ class AsyncWidgetFactory extends AbstractWidgetFactory
     {
         AbstractWidget::incrementId();
 
+        $ajaxLink = $this->getAjaxLink($widgetName, $params);
+
+        $divId  = 'async-widget-'.AbstractWidget::getId();
+        $div    = "<div id='{$divId}'></div>";
+        $loader = "<script>$('#{$divId}').load('{$ajaxLink}')</script>";
+
+        return $div.$loader;
+    }
+
+
+    /**
+     * @param $widgetName
+     * @param $params
+     * @return string
+     */
+    protected function getAjaxLink($widgetName, $params)
+    {
         $config = isset($params[0]) ? $params[0] : [];
 
         $query = http_build_query([
@@ -23,11 +40,8 @@ class AsyncWidgetFactory extends AbstractWidgetFactory
                 'config' => $config
             ]
         ]);
-        $resourceLink = "/arrilot/async-widgets?".$query;
 
-        dd($resourceLink);
-
-        return "1";
+        return "/arrilot/async-widget?" . $query;
     }
 
 }

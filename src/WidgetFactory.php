@@ -2,6 +2,19 @@
 
 class WidgetFactory extends AbstractWidgetFactory {
 
+    protected $config;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->config = [
+            'defaultNamespace' => config('laravel-widgets.default_namespace'),
+            'customNamespaces' => config('laravel-widgets.custom_namespaces_for_specific_widgets', [])
+        ];
+    }
+
     /**
      * Magic method that catches all widget calls
      *

@@ -2,17 +2,6 @@
 
 abstract class AbstractWidgetFactory {
 
-    protected $config;
-
-    /**
-     * Constructor
-     * @param $config
-     */
-    public function __construct($config)
-    {
-        $this->config = $config;
-    }
-
     /**
      * Magic method that catches all widget calls
      *
