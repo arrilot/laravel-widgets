@@ -2,45 +2,37 @@
 
 #Simple widgets for Laravel
 
-*This packages provides a basic widget functionality to boost your views. Really fast and convinient workflow at the expense of limitted flexibility*
+*This package provides basic widget functionality to boost your views. Really fast and convinient workflow at the expense of limitted flexibility*
 
 ## Installation
 
 First, use some composer awesomeness:
 
-```bash
-composer require arrilot/laravel-widgets
-```
+```composer require arrilot/laravel-widgets```
+
+Note: for Laravel 4 use  ```composer require arrilot/laravel-widgets ~1.0```
 
 Then, register a service provider in your `app.php` config file
 
 ```php
 <?php
 
-'providers' => array(
-
-    'Illuminate\Foundation\Providers\ArtisanServiceProvider',
-    'Illuminate\Auth\AuthServiceProvider',
+'providers' => [
     ...
     'Arrilot\Widgets\ServiceProvider',
-
-),
+],
 ?>
 ```
 
-Finally, add a facade here too.
+Finally, add a Facade here too.
 
 ```php
 <?php
 
-'aliases' => array(
-
-    'App'        => 'Illuminate\Support\Facades\App',
-    'Artisan'    => 'Illuminate\Support\Facades\Artisan',
+'aliases' => [
     ...
     'Widget'     => 'Arrilot\Widgets\Facade',
-
-),
+],
 ?>
 ```
 
@@ -74,7 +66,7 @@ class RecentNews extends AbstractWidget {
 
 As soon as domain logic is implemented inside the `run()` method, the widget can be included to a view like that:
 ```php
-{{ Widget::recentNews() }}
+{!! Widget::recentNews() !!}
 ```
 Make sure the widget class can be autoloaded by composer.
 
@@ -94,6 +86,13 @@ Althought using the default namespace is very convinient and keeps you from doin
 ```
 
 Note: do not forget to publish package config before making these changes.
+
+Laravel 5:
+```bash
+php artisan vendor:publish
+```
+
+Laravel 4:
 ```bash
 php artisan config:publish arrilot/laravel-widgets
 ```
@@ -113,8 +112,8 @@ class RecentNews extends AbstractWidget {
 }
 
 ...
-{{ Widget::recentNews() }}
+{!! Widget::recentNews() !!}
 ...
-{{ Widget::recentNews(['count' => 10]) }}
+{!! Widget::recentNews(['count' => 10]) !!}
 ```
 Notice that you don't need to map `['count' => 10]` and class property in constructor. It's done automatically behind the scene

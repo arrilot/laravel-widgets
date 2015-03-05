@@ -12,8 +12,7 @@
     "homepage": "https://github.com/Arrilot/laravel-widgets",
     "require": {
         "php": ">=5.4.0",
-        "illuminate/support": "~4|~5",
-        "way/generators": "~2|~3"
+        "illuminate/support": "5.*"
     },
     "require-dev": {
         "phpspec/phpspec": "~2.0"
@@ -23,5 +22,5 @@
             "Arrilot\\Widgets\\": "src/"
         }
     },
-    "minimum-stability": "stable"
+    "minimum-stability": "dev"
 }

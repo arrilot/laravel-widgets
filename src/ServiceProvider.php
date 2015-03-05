@@ -1,63 +1,62 @@
 <?php namespace Arrilot\Widgets;
 
-use Illuminate\Support\Facades\Config;
-
 class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 
-	/**
-	 * Indicates if loading of the provider is deferred.
-	 *
-	 * @var bool
-	 */
-	protected $defer = false;
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
+    protected $defer = false;
 
+    /**
+     * Bootstrap the application events.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->publishes([
+            __DIR__.'/config/config.php' => config_path('laravel-widgets.php'),
+        ]);
+    }
 
-	/**
-	 * Bootstrap the application events.
-	 *
-	 * @return void
-	 */
-	public function boot()
-	{
-		$this->app['config']->package('arrilot/laravel-widgets', __DIR__ . '/config');
-	}
+    /**
+     * Register the service provider.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->mergeConfigFrom(
+            __DIR__.'/config/config.php', 'laravel-widgets'
+        );
 
+        $this->app->bind('arrilot.widget', function()
+        {
+            $config = [
+                'defaultNamespace' => config('laravel-widgets.default_namespace'),
+                'customNamespaces' => config('laravel-widgets.custom_namespaces_for_specific_widgets', [])
+            ];
+            return new WidgetFactory($config);
+        });
 
-	/**
-	 * Register the service provider.
-	 *
-	 * @return void
-	 */
-	public function register()
-	{
-		$this->app->bind('arrilot_widget', function(){
+        $this->app->singleton('command.widget.make', function($app)
+        {
+            return new WidgetMakeCommand($app['files']);
+        });
 
-			$config = [
-				'defaultNamespace' => Config::get('laravel-widgets::default_namespace'),
-				'customNamespaces' => Config::get('laravel-widgets::custom_namespaces_for_specific_widgets', [])
-			];
-			return new WidgetFactory($config);
-		});
+        $this->commands('command.widget.make');
+    }
 
-
-		$this->app['make.widget'] = $this->app->share(function($app)
-		{
-			$generator = $this->app->make('Way\Generators\Generator');
-
-			return new MakeWidgetCommand($generator);
-		});
-		$this->commands('make.widget');
-	}
-
-
-	/**
-	 * Get the services provided by the provider.
-	 *
-	 * @return array
-	 */
-	public function provides()
-	{
-		return ['arrilot_widget'];
-	}
+    /**
+     * Get the services provided by the provider.
+     *
+     * @return array
+     */
+    public function provides()
+    {
+        return ['arrilot.widget'];
+    }
 
 }

@@ -2,8 +2,5 @@
 
 class Facade extends \Illuminate\Support\Facades\Facade {
 
-	protected static function getFacadeAccessor()
-	{
-		return 'arrilot_widget';
-	}
+	protected static function getFacadeAccessor() { return 'arrilot.widget'; }
 }
