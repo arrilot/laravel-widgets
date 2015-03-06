@@ -1,4 +1,4 @@
-<?php namespace spec\Arrilot\Widgets;
+<?php namespace spec\Arrilot\Widgets\Factories;
 
 require "Dummies/DefaultTestSlider.php";
 require "Dummies/Slider.php";
@@ -26,7 +26,7 @@ class WidgetFactorySpec extends ObjectBehavior {
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Arrilot\Widgets\WidgetFactory');
+        $this->shouldHaveType('Arrilot\Widgets\Factories\WidgetFactory');
     }
 
 

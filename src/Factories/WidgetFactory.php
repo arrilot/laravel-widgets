@@ -1,6 +1,9 @@
-<?php namespace Arrilot\Widgets;
+<?php namespace Arrilot\Widgets\Factories;
 
-abstract class AbstractWidgetFactory {
+use Arrilot\Widgets\AbstractWidget;
+use Arrilot\Widgets\InvalidWidgetClassException;
+
+class WidgetFactory extends AbstractWidgetFactory {
 
     /**
      * Magic method that catches all widget calls
@@ -8,7 +11,7 @@ abstract class AbstractWidgetFactory {
      * @param $widgetName
      * @param array $params
      * @return mixed
-     * @throws \Exception
+     * @throws InvalidWidgetClassException
      */
     public function __call($widgetName, $params = [])
     {
@@ -28,20 +31,4 @@ abstract class AbstractWidgetFactory {
         return $widget->run();
     }
 
-    /**
-     * @param $widgetName
-     * @return mixed
-     */
-    protected function determineNamespace($widgetName)
-    {
-        foreach ([$widgetName, strtolower($widgetName)] as $name)
-        {
-            if (array_key_exists($name, $this->config['customNamespaces']))
-            {
-                return $this->config['customNamespaces'][$name];
-            }
-        }
-
-        return $this->config['defaultNamespace'];
-    }
 }

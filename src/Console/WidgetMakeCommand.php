@@ -1,4 +1,4 @@
-<?php namespace Arrilot\Widgets;
+<?php namespace Arrilot\Widgets\Console;
 
 use Illuminate\Console\GeneratorCommand;
 

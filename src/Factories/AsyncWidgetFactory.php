@@ -1,4 +1,6 @@
-<?php namespace Arrilot\Widgets;
+<?php namespace Arrilot\Widgets\Factories;
+
+use Arrilot\Widgets\AbstractWidget;
 
 class AsyncWidgetFactory extends AbstractWidgetFactory
 {

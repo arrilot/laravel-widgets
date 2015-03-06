@@ -1,5 +1,9 @@
 <?php namespace Arrilot\Widgets;
 
+use Arrilot\Widgets\Console\WidgetMakeCommand;
+use Arrilot\Widgets\Factories\AsyncWidgetFactory;
+use Arrilot\Widgets\Factories\WidgetFactory;
+
 class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 
     /**
@@ -20,16 +24,19 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
             __DIR__.'/config/config.php', 'laravel-widgets'
         );
 
+        $config = [
+            'defaultNamespace' => config('laravel-widgets.default_namespace'),
+            'customNamespaces' => config('laravel-widgets.custom_namespaces_for_specific_widgets', [])
+        ];
 
-
-        $this->app->bind('arrilot.widget', function()
+        $this->app->bind('arrilot.widget', function() use ($config)
         {
-            return new WidgetFactory();
+            return new WidgetFactory($config);
         });
 
-        $this->app->bind('arrilot.async-widget', function()
+        $this->app->bind('arrilot.async-widget', function() use ($config)
         {
-            return new AsyncWidgetFactory();
+            return new AsyncWidgetFactory($config);
         });
 
         $this->app->singleton('command.widget.make', function($app)
@@ -58,7 +65,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 
         $this->app['router']->group($routeConfig, function($router)
         {
-            $router->get('async-widget','WidgetController@showAsyncWidget');
+            $router->get('async-widget', 'WidgetController@showAsyncWidget');
         });
     }
 
