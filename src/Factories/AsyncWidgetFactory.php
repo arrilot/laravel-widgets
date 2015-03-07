@@ -5,6 +5,13 @@ use Arrilot\Widgets\AbstractWidget;
 class AsyncWidgetFactory extends AbstractWidgetFactory {
 
     /**
+     * Ajax link where async widget can grab content
+     *
+     * @var string
+     */
+    protected $ajaxLink = "/arrilot/async-widget";
+
+    /**
      * Magic method that catches all widget calls.
      *
      * @param $widgetName
@@ -15,35 +22,24 @@ class AsyncWidgetFactory extends AbstractWidgetFactory {
     {
         AbstractWidget::$incrementingId++;
 
-        $ajaxLink = $this->getAjaxLink($widgetName, $params);
-        $widget = $this->instantiateWidget($widgetName, $params);
+        $widget   = $this->instantiateWidget($widgetName, $params);
 
-        $divId  = 'async-widget-container-'.AbstractWidget::$incrementingId;
-        $div    = "<div id='{$divId}'>{$widget->placeholder()}</div>";
-        $loader = "<script>$('#{$divId}').load('{$ajaxLink}')</script>";
+        $containerId = 'async-widget-container-' . AbstractWidget::$incrementingId;
+        $container   = "<span id='{$containerId}'>{$widget->placeholder()}</span>";
+        $loader      = "<script>$.post('".$this->ajaxLink."', ".$this->produceJavascriptData().", function(data) { $('#{$containerId}').replaceWith(data); })</script>";
 
-        return $div.$loader;
+        return $container . $loader;
     }
 
+
     /**
-     * Constructs the ajax link for the sync widget content.
+     * Produce javascript data object for ajax call.
      *
-     * @param $widgetName
-     * @param $params
      * @return string
      */
-    protected function getAjaxLink($widgetName, $params)
+    protected function produceJavascriptData()
     {
-        $config = isset($params[0]) ? $params[0] : [];
-
-        $query = http_build_query([
-            'widget' => [
-                'name'   => $widgetName,
-                'config' => $config
-            ]
-        ]);
-
-        return "/arrilot/async-widget?" . $query;
+        return "{ widget_name:'".$this->widgetName."', widget_config:'".serialize($this->widgetConfig)."', _token:'".csrf_token()."'}";
     }
 
 }

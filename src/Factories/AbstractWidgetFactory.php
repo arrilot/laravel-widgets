@@ -10,35 +10,39 @@ abstract class AbstractWidgetFactory {
      *
      * @var array
      */
-    protected $config;
+    protected $factoryConfig;
+
+    protected $widgetConfig;
+
+    protected $widgetName;
+
 
     /**
      * Constructor.
      *
-     * @param $config
+     * @param $factoryConfig
      */
-    public function __construct($config)
+    public function __construct($factoryConfig)
     {
-        $this->config = $config;
+        $this->factoryConfig = $factoryConfig;
     }
 
     /**
      * Determine widget namespace.
      *
-     * @param $widgetName
      * @return mixed
      */
-    protected function determineNamespace($widgetName)
+    protected function determineNamespace()
     {
-        foreach ([$widgetName, strtolower($widgetName)] as $name)
+        foreach ([$this->widgetName, strtolower($this->widgetName)] as $name)
         {
-            if (array_key_exists($name, $this->config['customNamespaces']))
+            if (array_key_exists($name, $this->factoryConfig['customNamespaces']))
             {
-                return $this->config['customNamespaces'][$name];
+                return $this->factoryConfig['customNamespaces'][$name];
             }
         }
 
-        return $this->config['defaultNamespace'];
+        return $this->factoryConfig['defaultNamespace'];
     }
 
     /**
@@ -51,14 +55,13 @@ abstract class AbstractWidgetFactory {
      */
     protected function instantiateWidget($widgetName, $params)
     {
-        $config = isset($params[0]) ? $params[0] : [];
+        $this->widgetConfig = isset($params[0]) ? $params[0] : [];
 
-        $widgetName = studly_case($widgetName);
+        $this->widgetName = studly_case($widgetName);
 
-        $namespace   = $this->determineNamespace($widgetName);
-        $widgetClass = $namespace . '\\' . $widgetName;
+        $widgetClass = $this->determineNamespace() . '\\' . $this->widgetName;
 
-        $widget = new $widgetClass($config);
+        $widget = new $widgetClass($this->widgetConfig);
         if ($widget instanceof AbstractWidget === false)
         {
             throw new InvalidWidgetClassException;

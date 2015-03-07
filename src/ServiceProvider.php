@@ -65,7 +65,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 
         $this->app['router']->group($routeConfig, function($router)
         {
-            $router->get('async-widget', 'WidgetController@showAsyncWidget');
+            $router->post('async-widget', 'WidgetController@showAsyncWidget');
         });
     }
 

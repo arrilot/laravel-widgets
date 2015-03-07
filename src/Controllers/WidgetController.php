@@ -13,9 +13,10 @@ class WidgetController extends Controller {
     public function showAsyncWidget()
     {
         $factory = app()->make('arrilot.widget');
-        $widget = Input::get('widget');
+        $name    = Input::get('widget_name', '');
+        $config  = unserialize(Input::get('widget_config', ''));
 
-        return $factory->{$widget['name']}($widget['config']);
+        return $factory->{$name}($config);
     }
 
 }

@@ -35,7 +35,7 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
         $config = ['count' => 5];
         $ajaxLink = $this->mockGetAjaxLink('defaultTestSlider', $config);
 
-        $this->defaultTestSlider($config)->shouldReturn("<div id='async-widget-container-1'></div><script>$('#async-widget-container-1').load('{$ajaxLink}')</script>");
+        $this->defaultTestSlider($config)->shouldReturn("<span id='async-widget-container-1'></span><script>$('#async-widget-container-1').load('{$ajaxLink}')</script>");
     }
 
 
@@ -44,7 +44,7 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
         $config = ['count' => 5];
         $ajaxLink = $this->mockGetAjaxLink('slider', $config);
 
-        $this->slider($config)->shouldReturn("<div id='async-widget-container-1'>Placeholder here!</div><script>$('#async-widget-container-1').load('{$ajaxLink}')</script>");
+        $this->slider($config)->shouldReturn("<span id='async-widget-container-1'>Placeholder here!</span><script>$('#async-widget-container-1').load('{$ajaxLink}')</script>");
     }
 
 
@@ -54,8 +54,8 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
         $ajaxLink = $this->mockGetAjaxLink('slider', $config);
         $ajaxLink2 = $this->mockGetAjaxLink('defaultTestSlider', $config);
 
-        $this->slider($config)->shouldReturn("<div id='async-widget-container-1'>Placeholder here!</div><script>$('#async-widget-container-1').load('{$ajaxLink}')</script>");
-        $this->defaultTestSlider($config)->shouldReturn("<div id='async-widget-container-2'></div><script>$('#async-widget-container-2').load('{$ajaxLink2}')</script>");
+        $this->slider($config)->shouldReturn("<span id='async-widget-container-1'>Placeholder here!</span><script>$('#async-widget-container-1').load('{$ajaxLink}')</script>");
+        $this->defaultTestSlider($config)->shouldReturn("<span id='async-widget-container-2'></span><script>$('#async-widget-container-2').load('{$ajaxLink2}')</script>");
 
     }
 
