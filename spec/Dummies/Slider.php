@@ -10,4 +10,9 @@ class Slider extends AbstractWidget {
     {
         return "Slider was executed with \$slides = " . $this->slides;
     }
+
+    public function placeholder()
+    {
+        return "Placeholder here!";
+    }
 }

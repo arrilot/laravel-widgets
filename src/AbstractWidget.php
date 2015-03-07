@@ -2,8 +2,18 @@
 
 abstract class AbstractWidget {
 
-    private static $incrementingId = 0;
+    /**
+     * Id for async widget.
+     *
+     * @var int
+     */
+    public static $incrementingId = 0;
 
+    /**
+     * Constructor.
+     *
+     * @param $config
+     */
 	public function __construct($config)
 	{
 		foreach ($config as $property => $value)
@@ -15,16 +25,24 @@ abstract class AbstractWidget {
 		}
 	}
 
-    public static function incrementId()
-    {
-        self::$incrementingId++;
-    }
+    /**
+     * Placeholder for async widget.
+     *
+     * @return string
+     */
+    public function placeholder() { return ''; }
 
-    public static function getId()
-    {
-        return self::$incrementingId;
-    }
+    /**
+     * Resets the incrementing id to 0.
+     *
+     * @return string
+     */
+    public static function resetId() { self::$incrementingId = 0; }
 
+    /**
+     * You can treat this method just like a controller action.
+     * Return a view or anything else you want to display.
+     */
     abstract public function run();
 
 }

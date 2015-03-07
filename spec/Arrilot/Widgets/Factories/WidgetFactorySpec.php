@@ -1,9 +1,5 @@
 <?php namespace spec\Arrilot\Widgets\Factories;
 
-require "Dummies/DefaultTestSlider.php";
-require "Dummies/Slider.php";
-require "Dummies/BadTestSlider.php";
-
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

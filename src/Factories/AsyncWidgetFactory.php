@@ -2,32 +2,32 @@
 
 use Arrilot\Widgets\AbstractWidget;
 
-class AsyncWidgetFactory extends AbstractWidgetFactory
-{
+class AsyncWidgetFactory extends AbstractWidgetFactory {
 
     /**
-     * Magic method that catches all widget calls
+     * Magic method that catches all widget calls.
      *
      * @param $widgetName
      * @param array $params
      * @return mixed
-     * @throws \Exception
      */
     public function __call($widgetName, $params = [])
     {
-        AbstractWidget::incrementId();
+        AbstractWidget::$incrementingId++;
 
         $ajaxLink = $this->getAjaxLink($widgetName, $params);
+        $widget = $this->instantiateWidget($widgetName, $params);
 
-        $divId  = 'async-widget-'.AbstractWidget::getId();
-        $div    = "<div id='{$divId}'></div>";
+        $divId  = 'async-widget-container-'.AbstractWidget::$incrementingId;
+        $div    = "<div id='{$divId}'>{$widget->placeholder()}</div>";
         $loader = "<script>$('#{$divId}').load('{$ajaxLink}')</script>";
 
         return $div.$loader;
     }
 
-
     /**
+     * Constructs the ajax link for the sync widget content.
+     *
      * @param $widgetName
      * @param $params
      * @return string

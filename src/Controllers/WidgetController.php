@@ -5,6 +5,11 @@ use Illuminate\Support\Facades\Input;
 
 class WidgetController extends Controller {
 
+    /**
+     * Show widget content action.
+     *
+     * @return mixed
+     */
     public function showAsyncWidget()
     {
         $factory = app()->make('arrilot.widget');

@@ -22,5 +22,10 @@
             "Arrilot\\Widgets\\": "src/"
         }
     },
+    "autoload-dev": {
+        "classmap": [
+            "spec/Dummies"
+        ]
+    },
     "minimum-stability": "dev"
 }

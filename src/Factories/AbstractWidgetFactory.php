@@ -1,11 +1,20 @@
 <?php namespace Arrilot\Widgets\Factories;
 
+use Arrilot\Widgets\AbstractWidget;
+use Arrilot\Widgets\InvalidWidgetClassException;
+
 abstract class AbstractWidgetFactory {
 
+    /**
+     * Factory config.
+     *
+     * @var array
+     */
     protected $config;
 
     /**
-     * Constructor
+     * Constructor.
+     *
      * @param $config
      */
     public function __construct($config)
@@ -14,6 +23,8 @@ abstract class AbstractWidgetFactory {
     }
 
     /**
+     * Determine widget namespace.
+     *
      * @param $widgetName
      * @return mixed
      */
@@ -28,5 +39,31 @@ abstract class AbstractWidgetFactory {
         }
 
         return $this->config['defaultNamespace'];
+    }
+
+    /**
+     * Instantiate the widget object.
+     *
+     * @param $widgetName
+     * @param $params
+     * @return mixed
+     * @throws InvalidWidgetClassException
+     */
+    protected function instantiateWidget($widgetName, $params)
+    {
+        $config = isset($params[0]) ? $params[0] : [];
+
+        $widgetName = studly_case($widgetName);
+
+        $namespace   = $this->determineNamespace($widgetName);
+        $widgetClass = $namespace . '\\' . $widgetName;
+
+        $widget = new $widgetClass($config);
+        if ($widget instanceof AbstractWidget === false)
+        {
+            throw new InvalidWidgetClassException;
+        }
+
+        return $widget;
     }
 }
