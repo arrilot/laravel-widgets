@@ -1,8 +1,8 @@
 [![Build Status](https://travis-ci.org/Arrilot/laravel-widgets.svg?branch=2.0)](https://travis-ci.org/Arrilot/laravel-widgets)
 
-#Simple widgets for Laravel
+#Widgets for Laravel
 
-*This package provides basic widget functionality to boost your views. Really fast and convinient workflow at the expense of limitted flexibility*
+*This packages provides widget functionality to boost your Laravel views. Includes asynchronous mode and generator.*
 
 ## Installation
 
@@ -32,6 +32,7 @@ Finally, add a Facade here too.
 'aliases' => [
     ...
     'Widget'     => 'Arrilot\Widgets\Facade',
+    'AsyncWidget'     => 'Arrilot\Widgets\AsyncFacade',
 ],
 ?>
 ```
@@ -77,7 +78,7 @@ By default package tries to find your widget in the ```App\Widgets``` namespace.
 
 You can override this by changing `default_namespace` property in the package config.
 
-Althought using the default namespace is very convinient and keeps you from doing unnecessary actions, you can also set custom namespaces for specific widgets:
+Althought using the default namespace is very convenient and keeps you from doing unnecessary actions, you can also set custom namespaces for specific widgets:
 ```php
     'custom_namespaces_for_specific_widgets' => [
         'widgetName' => 'Widget\Namespace\Here'
@@ -117,3 +118,12 @@ class RecentNews extends AbstractWidget {
 {!! Widget::recentNews(['count' => 10]) !!}
 ```
 Notice that you don't need to map `['count' => 10]` and class property in constructor. It's done automatically behind the scene
+
+### Asynchronous widgets
+
+In some situations it can be very beneficial to load widget content with AJAX.
+Fortunately this can be achieved very easily!
+All you need to do is to swap `Widget::` facade for `AsyncWidget::` facade when you call a widget and make sure you have jquery loaded for ajax calls.
+
+If asynchronous mode causes you any problems you can always change it back.
+
