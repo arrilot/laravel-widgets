@@ -24,7 +24,7 @@ Then, register a service provider in your `app.php` config file
 ?>
 ```
 
-Finally, add a Facade here too.
+Finally, add facades here too.
 
 ```php
 <?php
