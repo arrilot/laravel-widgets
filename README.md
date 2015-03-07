@@ -31,8 +31,8 @@ Finally, add a Facade here too.
 
 'aliases' => [
     ...
-    'Widget'     => 'Arrilot\Widgets\Facade',
-    'AsyncWidget'     => 'Arrilot\Widgets\AsyncFacade',
+    'Widget'       => 'Arrilot\Widgets\Facade',
+    'AsyncWidget'  => 'Arrilot\Widgets\AsyncFacade',
 ],
 ?>
 ```
