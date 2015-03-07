@@ -119,10 +119,12 @@ class RecentNews extends AbstractWidget {
 ```
 Notice that you don't need to map `['count' => 10]` and class property in constructor. It's done automatically behind the scene
 
-### Asynchronous widgets
+## Asynchronous widgets
 
 In some situations it can be very beneficial to load widget content with AJAX.
+
 Fortunately this can be achieved very easily!
+
 All you need to do is to swap `Widget::` facade for `AsyncWidget::` facade when you call a widget and make sure you have jquery loaded for ajax calls.
 
 If asynchronous mode causes you any problems you can always change it back.
