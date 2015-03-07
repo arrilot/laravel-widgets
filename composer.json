@@ -1,6 +1,6 @@
 {
     "name": "arrilot/laravel-widgets",
-    "description": "This packages provides a basic widget functionality to boost your Laravel views. Really fast and convinient workflow",
+    "description": "This packages provides widget functionality to boost your Laravel views. Includes asynchronous mode and generator.",
     "license": "MIT",
     "keywords": ["laravel", "widgets"],
     "authors": [
