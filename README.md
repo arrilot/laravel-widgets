@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Arrilot/laravel-widgets.svg?branch=master)](https://travis-ci.org/Arrilot/laravel-widgets)
+[![Build Status](https://travis-ci.org/Arrilot/laravel-widgets.svg?branch=1.0)](https://travis-ci.org/Arrilot/laravel-widgets)
 
 #Simple widgets for Laravel
 
