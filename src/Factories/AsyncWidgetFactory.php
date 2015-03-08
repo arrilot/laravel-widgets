@@ -39,7 +39,7 @@ class AsyncWidgetFactory extends AbstractWidgetFactory {
      */
     protected function produceJavascriptData()
     {
-        return "{ widget_name:'".$this->widgetName."', widget_config:'".serialize($this->widgetConfig)."', _token:'".csrf_token()."'}";
+        return "{ widget_name:'".$this->widgetName."', widget_config:'".serialize($this->widgetConfig)."', _token:'".$this->wrapper->csrf_token()."'}";
     }
 
 }

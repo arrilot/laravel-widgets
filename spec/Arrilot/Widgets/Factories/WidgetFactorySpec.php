@@ -1,5 +1,6 @@
 <?php namespace spec\Arrilot\Widgets\Factories;
 
+use Arrilot\Widgets\Misc\Wrapper;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -14,9 +15,9 @@ class WidgetFactorySpec extends ObjectBehavior {
         ];
 
 
-    function let()
+    function let(Wrapper $wrapper)
     {
-        $this->beConstructedWith($this->config);
+        $this->beConstructedWith($this->config, $wrapper);
     }
 
 

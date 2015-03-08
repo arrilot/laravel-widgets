@@ -3,6 +3,7 @@
 use Arrilot\Widgets\Console\WidgetMakeCommand;
 use Arrilot\Widgets\Factories\AsyncWidgetFactory;
 use Arrilot\Widgets\Factories\WidgetFactory;
+use Arrilot\Widgets\Misc\Wrapper;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 
@@ -31,12 +32,12 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 
         $this->app->bind('arrilot.widget', function() use ($config)
         {
-            return new WidgetFactory($config);
+            return new WidgetFactory($config, new Wrapper);
         });
 
         $this->app->bind('arrilot.async-widget', function() use ($config)
         {
-            return new AsyncWidgetFactory($config);
+            return new AsyncWidgetFactory($config, new Wrapper);
         });
 
         $this->app->singleton('command.widget.make', function($app)

@@ -16,15 +16,17 @@ abstract class AbstractWidgetFactory {
 
     protected $widgetName;
 
+    protected $wrapper;
 
     /**
      * Constructor.
      *
      * @param $factoryConfig
      */
-    public function __construct($factoryConfig)
+    public function __construct($factoryConfig, $wrapper)
     {
         $this->factoryConfig = $factoryConfig;
+        $this->wrapper = $wrapper;
     }
 
     /**
