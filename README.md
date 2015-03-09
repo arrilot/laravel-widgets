@@ -100,6 +100,8 @@ php artisan config:publish arrilot/laravel-widgets
 
 ### Widget configuration
 
+#### Using config array
+
 Let's carry on with the "recent news" example.
 
 Imagine that we usually need to show 5 news, but in some views we need to show 10.
@@ -117,7 +119,19 @@ class RecentNews extends AbstractWidget {
 ...
 {!! Widget::recentNews(['count' => 10]) !!}
 ```
-Notice that you don't need to map `['count' => 10]` and class property in constructor. It's done automatically behind the scene
+`['count' => 10]` is a config array.
+Notice that you don't need to map a config array and class properties in constructor. It's done automatically behind the scene
+
+#### Using additional parameters
+
+You can also pass additional parameters to the `run()` function directly.
+
+```php
+{!! Widget::recentNews(['count' => 10], 'date', 'asc') !!}
+...
+public function run($sort_by, $sort_order) { }
+...
+```
 
 ## Asynchronous widgets
 
