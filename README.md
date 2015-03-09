@@ -124,9 +124,10 @@ Notice that you don't need to map a config array and class properties in constru
 
 #### Using additional parameters
 
-You can also pass additional parameters to the `run()` function directly if you prefer this way.
+You can also choose to pass additional parameters to the `run()` function directly if you like it.
 
 ```php
+{!! Widget::recentNews([], 'date', 'asc') !!}
 {!! Widget::recentNews(['count' => 10], 'date', 'asc') !!}
 ...
 public function run($sort_by, $sort_order) { }
