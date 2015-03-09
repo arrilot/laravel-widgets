@@ -1,7 +1,5 @@
 <?php namespace Arrilot\Widgets\Factories;
 
-use Arrilot\Widgets\InvalidWidgetClassException;
-
 class WidgetFactory extends AbstractWidgetFactory {
 
     /**
@@ -11,12 +9,11 @@ class WidgetFactory extends AbstractWidgetFactory {
      * @param array $params
      * @return mixed
      */
-    public function __call($widgetName, $params = [])
+    public function __call($widgetName, array $params = [])
     {
         $widget = $this->instantiateWidget($widgetName, $params);
 
-        return $widget->run();
+        return call_user_func_array([$widget, 'run'], $this->widgetParams);
     }
-
 
 }

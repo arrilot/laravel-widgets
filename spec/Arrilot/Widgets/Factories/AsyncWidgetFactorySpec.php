@@ -17,6 +17,21 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
         ]
     ];
 
+    /**
+     * A mock for producing JS object for ajax.
+     * @param $widgetName
+     * @param $widgetParams
+     * @return string
+     */
+    private function mockProduceJavascriptData($widgetName, $widgetParams = [])
+    {
+        return json_encode([
+            'name'   => $widgetName,
+            'params' => serialize($widgetParams),
+            '_token' => 'token_stub'
+        ]);
+    }
+
 
     function let(Wrapper $wrapper)
     {
@@ -34,23 +49,25 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
     function it_can_run_async_widget(Wrapper $wrapper)
     {
         $config = ['count' => 5];
+        $params = [$config];
 
         $wrapper->csrf_token()->willReturn('token_stub');
 
 
-        $this->defaultTestSlider($config)
-            ->shouldReturn("<span id='async-widget-container-1'></span><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('DefaultTestSlider', $config).", function(data) { $('#async-widget-container-1').replaceWith(data); })</script>");
+        $this->testDefaultSlider($config)
+            ->shouldReturn("<span id='async-widget-container-1'></span><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('TestDefaultSlider', $params).", function(data) { $('#async-widget-container-1').replaceWith(data); })</script>");
     }
 
 
     function it_can_run_async_widget_with_placeholder(Wrapper $wrapper)
     {
         $config = ['count' => 5];
+        $params = [$config];
 
         $wrapper->csrf_token()->willReturn('token_stub');
 
         $this->slider($config)
-            ->shouldReturn("<span id='async-widget-container-1'>Placeholder here!</span><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('Slider', $config).", function(data) { $('#async-widget-container-1').replaceWith(data); })</script>");
+            ->shouldReturn("<span id='async-widget-container-1'>Placeholder here!</span><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('Slider', $params).", function(data) { $('#async-widget-container-1').replaceWith(data); })</script>");
 
     }
 
@@ -58,22 +75,30 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
     function it_can_run_multiple_async_widgets(Wrapper $wrapper)
     {
         $config = ['count' => 5];
+        $params = [$config];
 
         $wrapper->csrf_token()->willReturn('token_stub');
 
-        $this->slider($config)
-            ->shouldReturn("<span id='async-widget-container-1'>Placeholder here!</span><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('Slider', $config).", function(data) { $('#async-widget-container-1').replaceWith(data); })</script>");
+        $this->slider()
+            ->shouldReturn("<span id='async-widget-container-1'>Placeholder here!</span><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('Slider').", function(data) { $('#async-widget-container-1').replaceWith(data); })</script>");
 
-        $this->defaultTestSlider($config)
-            ->shouldReturn("<span id='async-widget-container-2'></span><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('DefaultTestSlider', $config).", function(data) { $('#async-widget-container-2').replaceWith(data); })</script>");
+        $this->testDefaultSlider($config)
+            ->shouldReturn("<span id='async-widget-container-2'></span><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('TestDefaultSlider', $params).", function(data) { $('#async-widget-container-2').replaceWith(data); })</script>");
     }
 
 
-    /**
-     * A mock for producing JS object for ajax.
-     */
-    private function mockProduceJavascriptData($widgetName, $widgetConfig)
+    function it_can_run_async_widget_with_additional_params(Wrapper $wrapper)
     {
-        return "{ widget_name:'".$widgetName."', widget_config:'".serialize($widgetConfig)."', _token:'token_stub'}";
+        $params = [
+            [],
+            'param'
+        ];
+
+        $wrapper->csrf_token()->willReturn('token_stub');
+
+        $this->testWidgetWithParamsInRun([], 'param')
+            ->shouldReturn("<span id='async-widget-container-1'>Placeholder here!</span><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('TestWidgetWithParamsInRun', $params).", function(data) { $('#async-widget-container-1').replaceWith(data); })</script>");
     }
+
+
 }

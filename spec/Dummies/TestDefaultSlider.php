@@ -2,7 +2,7 @@
 
 use Arrilot\Widgets\AbstractWidget;
 
-class DefaultTestSlider extends AbstractWidget {
+class TestDefaultSlider extends AbstractWidget {
 
     protected $slides = 6;
 

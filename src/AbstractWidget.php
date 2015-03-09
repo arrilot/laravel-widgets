@@ -16,13 +16,16 @@ abstract class AbstractWidget {
      */
 	public function __construct($config)
 	{
-		foreach ($config as $property => $value)
-		{
-			if(property_exists($this, $property))
-			{
-				$this->$property = $value;
-			}
-		}
+        if (!empty($config))
+        {
+            foreach ($config as $property => $value)
+            {
+                if(property_exists($this, $property))
+                {
+                    $this->$property = $value;
+                }
+            }
+        }
 	}
 
     /**
@@ -38,11 +41,5 @@ abstract class AbstractWidget {
      * @return string
      */
     public static function resetId() { self::$incrementingId = 0; }
-
-    /**
-     * You can treat this method just like a controller action.
-     * Return a view or anything else you want to display.
-     */
-    abstract public function run();
 
 }

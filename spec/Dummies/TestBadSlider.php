@@ -1,6 +1,6 @@
 <?php namespace App\Widgets;
 
-class BadTestSlider {
+class TestBadSlider {
 
     protected $slides = 6;
 

@@ -18,14 +18,14 @@ class AsyncWidgetFactory extends AbstractWidgetFactory {
      * @param array $params
      * @return mixed
      */
-    public function __call($widgetName, $params = [])
+    public function __call($widgetName, array $params = [])
     {
         AbstractWidget::$incrementingId++;
 
-        $widget   = $this->instantiateWidget($widgetName, $params);
+        $widget = $this->instantiateWidget($widgetName, $params);
 
         $containerId = 'async-widget-container-' . AbstractWidget::$incrementingId;
-        $container   = "<span id='{$containerId}'>{$widget->placeholder()}</span>";
+        $container   = "<span id='{$containerId}'>".call_user_func([$widget, 'placeholder'])."</span>";
         $loader      = "<script>$.post('".$this->ajaxLink."', ".$this->produceJavascriptData().", function(data) { $('#{$containerId}').replaceWith(data); })</script>";
 
         return $container . $loader;
@@ -39,7 +39,11 @@ class AsyncWidgetFactory extends AbstractWidgetFactory {
      */
     protected function produceJavascriptData()
     {
-        return "{ widget_name:'".$this->widgetName."', widget_config:'".serialize($this->widgetConfig)."', _token:'".$this->wrapper->csrf_token()."'}";
+        return json_encode([
+            'name'   => $this->widgetName,
+            'params' => serialize($this->widgetFullParams),
+            '_token' => $this->wrapper->csrf_token()
+        ]);
     }
 
 }

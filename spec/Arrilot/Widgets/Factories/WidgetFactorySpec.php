@@ -29,7 +29,7 @@ class WidgetFactorySpec extends ObjectBehavior {
 
     function it_can_run_widget_from_default_namespace()
     {
-        $this->defaultTestSlider()->shouldReturn("Default test slider was executed with \$slides = 6");
+        $this->testDefaultSlider()->shouldReturn("Default test slider was executed with \$slides = 6");
     }
 
 
@@ -47,7 +47,12 @@ class WidgetFactorySpec extends ObjectBehavior {
 
     function it_throws_exception_for_bad_widget_class()
     {
-        $this->shouldThrow('\Arrilot\Widgets\InvalidWidgetClassException')->during('badTestSlider');
+        $this->shouldThrow('\Arrilot\Widgets\InvalidWidgetClassException')->during('testBadSlider');
+    }
+
+    function it_can_run_with_additional_params()
+    {
+        $this->testWidgetWithParamsInRun([], 'asc')->shouldReturn("TestWidgetWithParamsInRun was executed with \$flag = asc");
     }
 
 }

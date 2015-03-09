@@ -18,10 +18,16 @@ abstract class AbstractWidgetFactory {
 
     protected $wrapper;
 
+    protected $widgetParams;
+
+    protected $widgetFullParams;
+
+
     /**
      * Constructor.
      *
      * @param $factoryConfig
+     * @param $wrapper
      */
     public function __construct($factoryConfig, $wrapper)
     {
@@ -48,18 +54,19 @@ abstract class AbstractWidgetFactory {
     }
 
     /**
-     * Instantiate the widget object.
+     * Set class properties and instantiate widget object.
      *
      * @param $widgetName
      * @param $params
      * @return mixed
      * @throws InvalidWidgetClassException
      */
-    protected function instantiateWidget($widgetName, $params)
+    protected function instantiateWidget($widgetName, array $params = [])
     {
-        $this->widgetConfig = isset($params[0]) ? $params[0] : [];
-
-        $this->widgetName = studly_case($widgetName);
+        $this->widgetName       = studly_case($widgetName);
+        $this->widgetFullParams = $params;
+        $this->widgetConfig     = array_shift($params);
+        $this->widgetParams     = $params;
 
         $widgetClass = $this->determineNamespace() . '\\' . $this->widgetName;
 
