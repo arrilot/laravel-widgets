@@ -1,5 +1,7 @@
 <?php namespace Arrilot\Widgets\Factories;
 
+use Illuminate\Support\Facades\App;
+
 class WidgetFactory extends AbstractWidgetFactory {
 
     /**
@@ -12,8 +14,8 @@ class WidgetFactory extends AbstractWidgetFactory {
     public function __call($widgetName, array $params = [])
     {
         $widget = $this->instantiateWidget($widgetName, $params);
-
-        return call_user_func_array([$widget, 'run'], $this->widgetParams);
+        return $this->wrapper->appCall([$widget, 'run'], $this->widgetParams);
+        //return call_user_func([$widget, 'run'], $this->widgetParams);
     }
 
 }
