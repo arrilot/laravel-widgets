@@ -134,6 +134,8 @@ public function run($sort_by, $sort_order) { }
 ...
 ```
 
+`run()` method is resolved via Laravel service container so you can use method injection here too.
+
 ## Asynchronous widgets
 
 In some situations it can be very beneficial to load widget content with AJAX.
