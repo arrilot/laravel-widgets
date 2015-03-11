@@ -1,8 +1,13 @@
 <?php namespace spec\Arrilot\Widgets\Factories;
 
+use App\Widgets\TestDefaultSlider;
+use App\Widgets\TestMyClass;
+use App\Widgets\TestWidgetWithDIInRun;
+use App\Widgets\TestWidgetWithParamsInRun;
 use Arrilot\Widgets\Misc\Wrapper;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use spec\Arrilot\Widgets\Dummies\Slider;
 
 class WidgetFactorySpec extends ObjectBehavior {
 
@@ -27,20 +32,29 @@ class WidgetFactorySpec extends ObjectBehavior {
     }
 
 
-    function it_can_run_widget_from_default_namespace()
+    function it_can_run_widget_from_default_namespace(Wrapper $wrapper)
     {
+        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+            call_user_func_array([new TestDefaultSlider([]), 'run'], [])
+        );
         $this->testDefaultSlider()->shouldReturn("Default test slider was executed with \$slides = 6");
     }
 
 
-    function it_can_run_widget_from_custom_namespace()
+    function it_can_run_widget_from_custom_namespace(Wrapper $wrapper)
     {
+        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+            call_user_func_array([new Slider([]), 'run'], [])
+        );
         $this->slider()->shouldReturn("Slider was executed with \$slides = 6");
     }
 
 
-    function it_provides_config_override()
+    function it_provides_config_override(Wrapper $wrapper)
     {
+        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+            call_user_func_array([new Slider(['slides' => 5]), 'run'], ['slides' => 5])
+        );
         $this->slider(['slides' => 5])->shouldReturn("Slider was executed with \$slides = 5");
     }
 
@@ -50,9 +64,19 @@ class WidgetFactorySpec extends ObjectBehavior {
         $this->shouldThrow('\Arrilot\Widgets\InvalidWidgetClassException')->during('testBadSlider');
     }
 
-    function it_can_run_with_additional_params()
+    function it_can_run_widgets_with_additional_params(Wrapper $wrapper)
     {
+        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+            call_user_func_array([new TestWidgetWithParamsInRun([]), 'run'], ['asc'])
+        );
         $this->testWidgetWithParamsInRun([], 'asc')->shouldReturn("TestWidgetWithParamsInRun was executed with \$flag = asc");
     }
 
+    function it_can_run_widgets_with_method_injection(Wrapper $wrapper)
+    {
+        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+            call_user_func_array([new TestWidgetWithDIInRun([]), 'run'], [new TestMyClass])
+        );
+        $this->testWidgetWithParamsInRun()->shouldReturn("bar");
+    }
 }

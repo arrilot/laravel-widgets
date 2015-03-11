@@ -26,6 +26,5 @@
         "classmap": [
             "spec/Dummies"
         ]
-    },
-    "minimum-stability": "dev"
+    }
 }
