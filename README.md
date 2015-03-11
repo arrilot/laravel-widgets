@@ -134,7 +134,7 @@ public function run($sort_by, $sort_order) { }
 ...
 ```
 
-`run()` method is resolved via Laravel service container so you can use method injection here too.
+`run()` method is resolved via Laravel service container so method injection is available here too.
 
 ## Asynchronous widgets
 
