@@ -4,8 +4,11 @@ use Arrilot\Widgets\Console\WidgetMakeCommand;
 use Arrilot\Widgets\Factories\AsyncWidgetFactory;
 use Arrilot\Widgets\Factories\WidgetFactory;
 use Arrilot\Widgets\Misc\Wrapper;
+use Illuminate\Console\AppNamespaceDetectorTrait;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider {
+
+    use AppNamespaceDetectorTrait;
 
     /**
      * Indicates if loading of the provider is deferred.
@@ -26,7 +29,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
         );
 
         $config = [
-            'defaultNamespace' => config('laravel-widgets.default_namespace'),
+            'defaultNamespace' => config('laravel-widgets.default_namespace') ?: $this->getAppNamespace()."Widgets",
             'customNamespaces' => config('laravel-widgets.custom_namespaces_for_specific_widgets', [])
         ];
 
