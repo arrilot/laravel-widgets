@@ -46,7 +46,8 @@ First of all we can create a Widget using artisan command provided by the packag
 php artisan make:widget RecentNews
 ```
 
-Now the folowing widget skeleton is created:
+Now the folowing widget skeleton is created in your app/Widgets directory:
+
 ```php
 <?php namespace App\Widgets;
 
