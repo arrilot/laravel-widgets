@@ -22,7 +22,6 @@ abstract class AbstractWidgetFactory {
 
     protected $widgetFullParams;
 
-
     /**
      * Constructor.
      *
@@ -77,5 +76,17 @@ abstract class AbstractWidgetFactory {
         }
 
         return $widget;
+    }
+
+    /**
+     * Converts stuff like 'profile.feedWidget' to 'Profile\FeedWidget'
+     *
+     * @param $widgetName
+     *
+     * @return string
+     */
+    protected function parseFullWidgetNameFromString($widgetName)
+    {
+        return str_replace('.', '\\', $widgetName);
     }
 }
