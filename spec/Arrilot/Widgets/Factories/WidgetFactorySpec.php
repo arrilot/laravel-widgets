@@ -1,5 +1,6 @@
 <?php namespace spec\Arrilot\Widgets\Factories;
 
+use App\Widgets\Profile\TestNamespace\TestFeed;
 use App\Widgets\TestDefaultSlider;
 use App\Widgets\TestMyClass;
 use App\Widgets\TestWidgetWithDIInRun;
@@ -78,5 +79,37 @@ class WidgetFactorySpec extends ObjectBehavior {
             call_user_func_array([new TestWidgetWithDIInRun([]), 'run'], [new TestMyClass])
         );
         $this->testWidgetWithParamsInRun()->shouldReturn("bar");
+    }
+
+    function it_can_run_widgets_with_run_method(Wrapper $wrapper)
+    {
+        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+            call_user_func_array([new TestDefaultSlider([]), 'run'], [])
+        );
+        $this->run('testDefaultSlider')->shouldReturn("Default test slider was executed with \$slides = 6");
+    }
+
+    function it_can_run_widgets_with_run_method_and_config_override(Wrapper $wrapper)
+    {
+        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+            call_user_func_array([new Slider(['slides' => 5]), 'run'], ['slides' => 5])
+        );
+        $this->run('slider', ['slides' => 5])->shouldReturn("Slider was executed with \$slides = 5");
+    }
+
+    function it_can_run_nested_widgets(Wrapper $wrapper)
+    {
+        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+            call_user_func_array([new TestFeed([]), 'run'], [])
+        );
+        $this->run('Profile\TestNamespace\TestFeed', ['slides' => 5])->shouldReturn("Feed was executed with \$slides = 6");
+    }
+
+    function it_can_run_nested_widgets_with_dot_notation(Wrapper $wrapper)
+    {
+        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+            call_user_func_array([new TestFeed([]), 'run'], [])
+        );
+        $this->run('profile.testNamespace.testFeed', ['slides' => 5])->shouldReturn("Feed was executed with \$slides = 6");
     }
 }

@@ -20,17 +20,22 @@ class AsyncWidgetFactory extends AbstractWidgetFactory {
      */
     public function __call($widgetName, array $params = [])
     {
-        AbstractWidget::$incrementingId++;
-
-        $widget = $this->instantiateWidget($widgetName, $params);
-
-        $containerId = 'async-widget-container-' . AbstractWidget::$incrementingId;
-        $container   = "<span id='{$containerId}'>".call_user_func([$widget, 'placeholder'])."</span>";
-        $loader      = "<script>$.post('".$this->ajaxLink."', ".$this->produceJavascriptData().", function(data) { $('#{$containerId}').replaceWith(data); })</script>";
-
-        return $container . $loader;
+        return $this->runPlaceholder($widgetName, $params);
     }
 
+    /**
+     * Run widget without magic method.
+     *
+     * @return mixed
+     */
+    public function run()
+    {
+        $params = func_get_args();
+        $widgetName = array_shift($params);
+        $widgetName = $this->parseFullWidgetNameFromString($widgetName);
+
+        return $this->runPlaceholder($widgetName, $params);
+    }
 
     /**
      * Produce javascript data object for ajax call.
@@ -44,6 +49,27 @@ class AsyncWidgetFactory extends AbstractWidgetFactory {
             'params' => serialize($this->widgetFullParams),
             '_token' => $this->wrapper->csrf_token()
         ]);
+    }
+
+    /**
+     * Instantiate widget object and place a placeholder with ajax request.
+     *
+     * @param $widgetName
+     * @param array $params
+     * @return string
+     * @throws \Arrilot\Widgets\InvalidWidgetClassException
+     */
+    protected function runPlaceholder($widgetName, array $params)
+    {
+        AbstractWidget::$incrementingId++;
+
+        $widget = $this->instantiateWidget($widgetName, $params);
+
+        $containerId = 'async-widget-container-' . AbstractWidget::$incrementingId;
+        $container   = "<span id='{$containerId}'>" . call_user_func([$widget, 'placeholder']) . "</span>";
+        $loader      = "<script>$.post('" . $this->ajaxLink . "', " . $this->produceJavascriptData() . ", function(data) { $('#{$containerId}').replaceWith(data); })</script>";
+
+        return $container . $loader;
     }
 
 }
