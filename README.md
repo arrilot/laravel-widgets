@@ -68,36 +68,47 @@ class RecentNews extends AbstractWidget {
 
 As soon as domain logic is implemented inside the `run()` method, the widget can be included to a view like that:
 ```php
+{!! Widget::run('recentNews') !!}
+```
+or even
+```php
 {!! Widget::recentNews() !!}
 ```
-Make sure the widget class can be autoloaded by composer.
+That's all!
 
 ## Configuration
 
 ### Namespaces configuration
 By default package tries to find your widget in the ```App\Widgets``` namespace.
 
-You can override this by changing `default_namespace` property in the package config.
+You can override this by publishing package config and setting `default_namespace` property.
 
-Althought using the default namespace is very convenient and keeps you from doing unnecessary actions, you can also set custom namespaces for specific widgets:
+Although using the default namespace is very convenient and keeps you from doing unnecessary actions, in some situations you may wish more flexibility. For example, if you've got dozens of widgets it makes sense to group them in namespaced folders.
+
+You actually have several ways to call those widgets:
+
+1) You can register widget in package config like that:
 ```php
     'custom_namespaces_for_specific_widgets' => [
-        'widgetName' => 'Widget\Namespace\Here'
+        'recentNews' => 'App\Widgets\News'
         ....
     ]
 ```
-
-Note: do not forget to publish package config before making these changes.
-
-Laravel 5:
-```bash
-php artisan vendor:publish
+And then call it normally
+```php
+{!! Widget::recentNews($config) !!}
 ```
 
-Laravel 4:
-```bash
-php artisan config:publish arrilot/laravel-widgets
+2) You can use `run()` method on `Widget` facade.
+```php
+{!! Widget::run('News\RecentNews', $config) !!}
 ```
+
+3) You can also use dot notation if you like it
+```php
+{!! Widget::run('news.recentNews', $config) !!}
+```
+
 
 ### Widget configuration
 
@@ -125,11 +136,12 @@ Notice that you don't need to map a config array and class properties in constru
 
 #### Using additional parameters
 
-You can also choose to pass additional parameters to the `run()` function directly if you like it.
+You can also choose to pass additional parameters to the `run()` method directly if you like it.
 
 ```php
 {!! Widget::recentNews([], 'date', 'asc') !!}
 {!! Widget::recentNews(['count' => 10], 'date', 'asc') !!}
+{!! Widget::run('recentNews', ['count' => 10], 'date', 'asc') !!}
 ...
 public function run($sort_by, $sort_order) { }
 ...
