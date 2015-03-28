@@ -76,7 +76,19 @@ As soon as domain logic is implemented inside the `run()` method, the widget can
 ```php
 {{ Widget::recentNews() }}
 ```
-Make sure the widget class can be autoloaded by composer.
+Make sure the widget class can be autoloaded by composer. Check your composer.json file and add
+
+```php
+"autoload": {
+		"classmap": [
+			"app/commands",
+			"app/controllers",
+			"app/models",
+			...
+			"App/Widgets"
+		]
+	},
+```
 
 ## Configuration
 
