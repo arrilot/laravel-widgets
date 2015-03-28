@@ -5,17 +5,11 @@ use Arrilot\Widgets\Factories\AsyncWidgetFactory;
 use Arrilot\Widgets\Factories\WidgetFactory;
 use Arrilot\Widgets\Misc\Wrapper;
 use Illuminate\Console\AppNamespaceDetectorTrait;
+use Illuminate\Support\Facades\Blade;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 
     use AppNamespaceDetectorTrait;
-
-    /**
-     * Indicates if loading of the provider is deferred.
-     *
-     * @var bool
-     */
-    protected $defer = false;
 
     /**
      * Register the service provider.
@@ -71,6 +65,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
         {
             $router->post('async-widget', 'WidgetController@showAsyncWidget');
         });
+
+        $this->registerBladeExtensions();
     }
 
     /**
@@ -81,6 +77,26 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
     public function provides()
     {
         return ['arrilot.widget', 'arrilot.async-widget'];
+    }
+
+    /**
+     * Register blade extensions.
+     */
+    protected function registerBladeExtensions()
+    {
+        Blade::extend(function ($view, $compiler)
+        {
+            $pattern = $compiler->createOpenMatcher('widget');
+
+            return preg_replace($pattern, '$1<?php echo Widget::run$2); ?>', $view);
+        });
+
+        Blade::extend(function ($view, $compiler)
+        {
+            $pattern = $compiler->createOpenMatcher('async-widget');
+
+            return preg_replace($pattern, '$1<?php echo AsyncWidget::run$2); ?>', $view);
+        });
     }
 
 }
