@@ -6,8 +6,6 @@
 
 ## Installation
 
-First, use some composer awesomeness:
-
 ```composer require arrilot/laravel-widgets```
 
 Note: for Laravel 4 use  ```composer require arrilot/laravel-widgets ~1.0```
@@ -24,7 +22,7 @@ Then, register a service provider in your `app.php` config file
 ?>
 ```
 
-Finally, add facades here too.
+Finally, add the facades here too.
 
 ```php
 <?php
@@ -41,7 +39,7 @@ Finally, add facades here too.
 
 Lets consider we want to make a list of recent news and reuse it in several views.
 
-First of all we can create a Widget using artisan command provided by the package.
+First of all we can create a Widget class using the artisan command provided by the package.
 ```bash
 php artisan make:widget RecentNews
 ```
@@ -66,13 +64,17 @@ class RecentNews extends AbstractWidget {
 }
 ```
 
-As soon as domain logic is implemented inside the `run()` method, the widget can be included to a view like that:
+As soon as domain logic is implemented inside the `run()` method, the widget can be included to a view in several ways:
 ```php
 {!! Widget::run('recentNews') !!}
 ```
-or even
+or
 ```php
 {!! Widget::recentNews() !!}
+```
+or even
+```php
+@widget('recentNews')
 ```
 That's all!
 
@@ -97,18 +99,21 @@ You actually have several ways to call those widgets:
 And then call it normally
 ```php
 {!! Widget::recentNews($config) !!}
+{!! Widget::run('recentNews', $config) !!}
+@widget('recentNews', $config)
 ```
 
-2) You can use `run()` method on `Widget` facade.
+2) You can pass full name to the `run` method
 ```php
 {!! Widget::run('News\RecentNews', $config) !!}
+@widget('News\RecentNews', $config)
 ```
 
 3) You can also use dot notation if you like it
 ```php
 {!! Widget::run('news.recentNews', $config) !!}
+@widget('news.recentNews', $config)
 ```
-
 
 ### Widget configuration
 
@@ -142,6 +147,7 @@ You can also choose to pass additional parameters to the `run()` method directly
 {!! Widget::recentNews([], 'date', 'asc') !!}
 {!! Widget::recentNews(['count' => 10], 'date', 'asc') !!}
 {!! Widget::run('recentNews', ['count' => 10], 'date', 'asc') !!}
+@widget('recentNews', ['count' => 10], 'date', 'asc')
 ...
 public function run($sort_by, $sort_order) { }
 ...
@@ -155,7 +161,7 @@ In some situations it can be very beneficial to load widget content with AJAX.
 
 Fortunately this can be achieved very easily!
 
-All you need to do is to swap `Widget::` facade for `AsyncWidget::` facade when you call a widget and make sure you have jquery loaded for ajax calls.
+All you need to do is to make sure you have jquery loaded for ajax calls and change `Widget::` => `AsyncWidget::`, `@widget` => `@async-widget`
 
 If asynchronous mode causes you any problems you can always change it back.
 
