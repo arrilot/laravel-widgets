@@ -35,6 +35,20 @@ abstract class AbstractWidgetFactory {
     }
 
     /**
+     * Magic method that catches all widget calls.
+     *
+     * @param string $widgetName
+     * @param array $params
+     * @return mixed
+     */
+    public function __call($widgetName, array $params = [])
+    {
+        array_unshift($params, $widgetName);
+
+        return call_user_func_array([$this, 'run'], $params);
+    }
+
+    /**
      * Determine widget namespace.
      *
      * @return mixed
@@ -55,14 +69,12 @@ abstract class AbstractWidgetFactory {
     /**
      * Set class properties and instantiate widget object.
      *
-     * @param $widgetName
      * @param $params
      * @return mixed
      * @throws InvalidWidgetClassException
      */
-    protected function instantiateWidget($widgetName, array $params = [])
+    protected function instantiateWidget(array $params = [])
     {
-        $this->widgetName       = studly_case($widgetName);
         $this->widgetFullParams = $params;
         $this->widgetConfig     = array_shift($params);
         $this->widgetParams     = $params;
@@ -87,6 +99,6 @@ abstract class AbstractWidgetFactory {
      */
     protected function parseFullWidgetNameFromString($widgetName)
     {
-        return str_replace('.', '\\', $widgetName);
+        $this->widgetName = studly_case(str_replace('.', '\\', $widgetName));
     }
 }
