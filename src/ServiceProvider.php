@@ -86,16 +86,16 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
     {
         Blade::extend(function ($view, $compiler)
         {
-            $pattern = $compiler->createOpenMatcher('widget');
+            $pattern = $compiler->createMatcher('widget');
 
-            return preg_replace($pattern, '$1<?php echo Widget::run$2); ?>', $view);
+            return preg_replace($pattern, '$1<?php echo Widget::run$2; ?>', $view);
         });
 
         Blade::extend(function ($view, $compiler)
         {
-            $pattern = $compiler->createOpenMatcher('async-widget');
+            $pattern = $compiler->createMatcher('async-widget');
 
-            return preg_replace($pattern, '$1<?php echo AsyncWidget::run$2); ?>', $view);
+            return preg_replace($pattern, '$1<?php echo AsyncWidget::run$2; ?>', $view);
         });
     }
 
