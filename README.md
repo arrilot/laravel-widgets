@@ -165,3 +165,18 @@ All you need to do is to make sure you have jquery loaded for ajax calls and cha
 
 If asynchronous mode causes you any problems you can always change it back.
 
+## Widgets groups (extra)
+
+In most cases Blade is a perfect tool to set the position and order of widgets.
+However in some cases you may find useful using widget groups.
+
+```php
+// add several widgets to the 'sidebar' group
+Widget::group('sidebar')->position(5)->addWidget(<the same arguments list as in run() method>);
+Widget::group('sidebar')->position(4)->addAsyncWidget(<the same arguments list as in run() method>);
+
+// display them in a correct order in a view
+{!! Widget::group('sidebar')->display() !!}
+```
+
+`Widget::group('sidebar')->addWidget('files');` equals `Widget::group('sidebar')->position(100)->addWidget('files');`
