@@ -2,7 +2,6 @@
 
 use Arrilot\Widgets\AbstractWidget;
 use Arrilot\Widgets\InvalidWidgetClassException;
-use Arrilot\Widgets\WidgetGroup;
 
 abstract class AbstractWidgetFactory {
 
@@ -23,10 +22,7 @@ abstract class AbstractWidgetFactory {
 
     protected $widgetFullParams;
 
-	protected $groups;
-
-
-	/**
+    /**
      * Constructor.
      *
      * @param $factoryConfig
@@ -52,21 +48,7 @@ abstract class AbstractWidgetFactory {
         return call_user_func_array([$this, 'run'], $params);
     }
 
-
-	public function group($name)
-	{
-		if ($this->groups[$name])
-		{
-			return $this->groups[$name];
-		}
-
-		$this->groups[$name] = new WidgetGroup($name);
-
-		return $this->groups[$name];
-	}
-
-
-	/**
+    /**
      * Determine widget namespace.
      *
      * @return mixed
