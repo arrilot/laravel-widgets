@@ -173,7 +173,7 @@ public function placeholder()
 }
 ```
 
-## Widgets groups (extra)
+## Widget groups (extra)
 
 In most cases Blade is a perfect tool to set the position and order of widgets.
 However in some cases you may find useful using widget groups.
@@ -187,4 +187,6 @@ Widget::group('sidebar')->position(4)->addAsyncWidget(<the same arguments list a
 {!! Widget::group('sidebar')->display() !!}
 ```
 
-`Widget::group('sidebar')->addWidget('files');` equals `Widget::group('sidebar')->position(100)->addWidget('files');`
+`Widget::group('sidebar')->addWidget('files');` 
+equals 
+`Widget::group('sidebar')->position(100)->addWidget('files');`
