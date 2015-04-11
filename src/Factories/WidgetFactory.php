@@ -2,7 +2,7 @@
 
 class WidgetFactory extends AbstractWidgetFactory {
 
-    /**
+	/**
      * Run widget without magic method.
      *
      * @return mixed
