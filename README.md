@@ -163,7 +163,15 @@ Fortunately this can be achieved very easily!
 
 All you need to do is to make sure you have jquery loaded for ajax calls and change `Widget::` => `AsyncWidget::`, `@widget` => `@async-widget`
 
-If asynchronous mode causes you any problems you can always change it back.
+You can also customize a placeholder to display until ajax call is finished.
+Add `placeholder()` method to a widget to achieve that.
+
+```php
+public function placeholder()
+{
+	return "Loading...";
+}
+```
 
 ## Widgets groups (extra)
 
