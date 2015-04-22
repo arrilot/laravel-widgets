@@ -84,19 +84,32 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
      */
     protected function registerBladeExtensions()
     {
-        Blade::extend(function ($view, $compiler)
+        Blade::extend(function ($view)
         {
-            $pattern = $compiler->createMatcher('widget');
+            $pattern = $this->createMatcher('widget');
 
             return preg_replace($pattern, '$1<?php echo Widget::run$2; ?>', $view);
         });
 
-        Blade::extend(function ($view, $compiler)
+        Blade::extend(function ($view)
         {
-            $pattern = $compiler->createMatcher('async-widget');
+            $pattern = $this->createMatcher('async-widget');
 
             return preg_replace($pattern, '$1<?php echo AsyncWidget::run$2; ?>', $view);
         });
+    }
+
+    /**
+     * Substitution for $compiler->createMatcher().
+     *
+     * Get the regular expression for a generic Blade function.
+     *
+     * @param  string  $function
+     * @return string
+     */
+    public function createMatcher($function)
+    {
+        return '/(?<!\w)(\s*)@'.$function.'(\s*\(.*\))/';
     }
 
 }
