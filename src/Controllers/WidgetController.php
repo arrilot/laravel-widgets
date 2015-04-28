@@ -1,10 +1,9 @@
 <?php namespace Arrilot\Widgets\Controllers;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Input;
 
-class WidgetController extends Controller {
+class WidgetController extends BaseController {
 
     /**
      * Show widget content action.
