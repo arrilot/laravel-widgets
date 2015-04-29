@@ -55,7 +55,7 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
 
 
         $this->testDefaultSlider($config)
-            ->shouldReturn("<span id='async-widget-container-1'></span><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('TestDefaultSlider', $params).", function(data) { $('#async-widget-container-1').replaceWith(data); })</script>");
+            ->shouldReturn("<span id='async-widget-container-1'><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('TestDefaultSlider', $params).", function(data) { $('#async-widget-container-1').replaceWith(data); })</script></span>");
     }
 
 
@@ -67,7 +67,7 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
         $wrapper->csrf_token()->willReturn('token_stub');
 
         $this->slider($config)
-            ->shouldReturn("<span id='async-widget-container-1'>Placeholder here!</span><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('Slider', $params).", function(data) { $('#async-widget-container-1').replaceWith(data); })</script>");
+            ->shouldReturn("<span id='async-widget-container-1'>Placeholder here!<script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('Slider', $params).", function(data) { $('#async-widget-container-1').replaceWith(data); })</script></span>");
 
     }
 
@@ -80,10 +80,10 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
         $wrapper->csrf_token()->willReturn('token_stub');
 
         $this->slider()
-            ->shouldReturn("<span id='async-widget-container-1'>Placeholder here!</span><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('Slider').", function(data) { $('#async-widget-container-1').replaceWith(data); })</script>");
+            ->shouldReturn("<span id='async-widget-container-1'>Placeholder here!<script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('Slider').", function(data) { $('#async-widget-container-1').replaceWith(data); })</script></span>");
 
         $this->testDefaultSlider($config)
-            ->shouldReturn("<span id='async-widget-container-2'></span><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('TestDefaultSlider', $params).", function(data) { $('#async-widget-container-2').replaceWith(data); })</script>");
+            ->shouldReturn("<span id='async-widget-container-2'><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('TestDefaultSlider', $params).", function(data) { $('#async-widget-container-2').replaceWith(data); })</script></span>");
     }
 
 
@@ -97,7 +97,7 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
         $wrapper->csrf_token()->willReturn('token_stub');
 
         $this->testWidgetWithParamsInRun([], 'param')
-            ->shouldReturn("<span id='async-widget-container-1'>Placeholder here!</span><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('TestWidgetWithParamsInRun', $params).", function(data) { $('#async-widget-container-1').replaceWith(data); })</script>");
+            ->shouldReturn("<span id='async-widget-container-1'>Placeholder here!<script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('TestWidgetWithParamsInRun', $params).", function(data) { $('#async-widget-container-1').replaceWith(data); })</script></span>");
     }
 
     function it_can_run_async_widget_with_run_method(Wrapper $wrapper)
@@ -109,7 +109,7 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
 
 
         $this->run('testDefaultSlider', $config)
-            ->shouldReturn("<span id='async-widget-container-1'></span><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('TestDefaultSlider', $params).", function(data) { $('#async-widget-container-1').replaceWith(data); })</script>");
+            ->shouldReturn("<span id='async-widget-container-1'><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('TestDefaultSlider', $params).", function(data) { $('#async-widget-container-1').replaceWith(data); })</script></span>");
     }
 
     function it_can_run_nested_async_widget(Wrapper $wrapper)
@@ -121,7 +121,7 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
 
 
         $this->run('Profile\TestNamespace\TestFeed', $config)
-            ->shouldReturn("<span id='async-widget-container-1'></span><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('Profile\TestNamespace\TestFeed', $params).", function(data) { $('#async-widget-container-1').replaceWith(data); })</script>");
+            ->shouldReturn("<span id='async-widget-container-1'><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('Profile\TestNamespace\TestFeed', $params).", function(data) { $('#async-widget-container-1').replaceWith(data); })</script></span>");
     }
 
     function it_can_run_nested_async_widget_with_dot_notation(Wrapper $wrapper)
@@ -133,6 +133,6 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
 
 
         $this->run('profile.testNamespace.testFeed', $config)
-            ->shouldReturn("<span id='async-widget-container-1'></span><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('Profile\testNamespace\testFeed', $params).", function(data) { $('#async-widget-container-1').replaceWith(data); })</script>");
+            ->shouldReturn("<span id='async-widget-container-1'><script>$.post('/arrilot/async-widget', ".$this->mockProduceJavascriptData('Profile\testNamespace\testFeed', $params).", function(data) { $('#async-widget-container-1').replaceWith(data); })</script></span>");
     }
 }
