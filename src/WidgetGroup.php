@@ -6,7 +6,6 @@ use Arrilot\Widgets\Misc\Wrapper;
 
 class WidgetGroup
 {
-
     /**
      * The widget group name.
      *
