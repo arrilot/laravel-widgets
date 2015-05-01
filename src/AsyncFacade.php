@@ -1,6 +1,11 @@
-<?php namespace Arrilot\Widgets;
+<?php
 
-class AsyncFacade extends \Illuminate\Support\Facades\Facade {
+namespace Arrilot\Widgets;
 
-	protected static function getFacadeAccessor() { return 'arrilot.async-widget'; }
+class AsyncFacade extends \Illuminate\Support\Facades\Facade
+{
+    protected static function getFacadeAccessor()
+    {
+        return 'arrilot.async-widget';
+    }
 }

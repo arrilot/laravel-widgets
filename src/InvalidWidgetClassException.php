@@ -1,7 +1,9 @@
-<?php namespace Arrilot\Widgets;
+<?php
 
-class InvalidWidgetClassException extends \Exception {
+namespace Arrilot\Widgets;
 
+class InvalidWidgetClassException extends \Exception
+{
     /**
      * Exception message.
      *

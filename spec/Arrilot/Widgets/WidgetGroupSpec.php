@@ -3,21 +3,20 @@
 namespace spec\Arrilot\Widgets;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class WidgetGroupSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Arrilot\Widgets\WidgetGroup');
     }
 
-    function let()
+    public function let()
     {
         $this->beConstructedWith('sidebar');
     }
 
-    function it_allows_to_add_widgets()
+    public function it_allows_to_add_widgets()
     {
         $this->addWidget('slider1');
         $this->position(50)->addAsyncWidget('slider2');
@@ -26,4 +25,3 @@ class WidgetGroupSpec extends ObjectBehavior
         $this->getPosition()->shouldBe(100);
     }
 }
-

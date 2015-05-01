@@ -1,4 +1,6 @@
-<?php namespace Arrilot\Widgets;
+<?php
+
+namespace Arrilot\Widgets;
 
 use Arrilot\Widgets\Console\WidgetMakeCommand;
 use Arrilot\Widgets\Factories\AsyncWidgetFactory;
@@ -7,8 +9,8 @@ use Arrilot\Widgets\Misc\Wrapper;
 use Illuminate\Console\AppNamespaceDetectorTrait;
 use Illuminate\Support\Facades\Blade;
 
-class ServiceProvider extends \Illuminate\Support\ServiceProvider {
-
+class ServiceProvider extends \Illuminate\Support\ServiceProvider
+{
     use AppNamespaceDetectorTrait;
 
     /**
@@ -23,22 +25,19 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
         );
 
         $config = [
-            'defaultNamespace' => config('laravel-widgets.default_namespace') ?: $this->getAppNamespace()."Widgets",
-            'customNamespaces' => config('laravel-widgets.custom_namespaces_for_specific_widgets', [])
+            'defaultNamespace' => config('laravel-widgets.default_namespace') ?: $this->getAppNamespace().'Widgets',
+            'customNamespaces' => config('laravel-widgets.custom_namespaces_for_specific_widgets', []),
         ];
 
-        $this->app->bind('arrilot.widget', function() use ($config)
-        {
-            return new WidgetFactory($config, new Wrapper);
+        $this->app->bind('arrilot.widget', function () use ($config) {
+            return new WidgetFactory($config, new Wrapper());
         });
 
-        $this->app->bind('arrilot.async-widget', function() use ($config)
-        {
-            return new AsyncWidgetFactory($config, new Wrapper);
+        $this->app->bind('arrilot.async-widget', function () use ($config) {
+            return new AsyncWidgetFactory($config, new Wrapper());
         });
 
-        $this->app->singleton('command.widget.make', function($app)
-        {
+        $this->app->singleton('command.widget.make', function ($app) {
             return new WidgetMakeCommand($app['files']);
         });
 
@@ -58,11 +57,10 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
 
         $routeConfig = [
             'namespace' => 'Arrilot\Widgets\Controllers',
-            'prefix' => 'arrilot',
+            'prefix'    => 'arrilot',
         ];
 
-        $this->app['router']->group($routeConfig, function($router)
-        {
+        $this->app['router']->group($routeConfig, function ($router) {
             $router->post('async-widget', 'WidgetController@showAsyncWidget');
         });
 
@@ -84,15 +82,13 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
      */
     protected function registerBladeExtensions()
     {
-        Blade::extend(function ($view)
-        {
+        Blade::extend(function ($view) {
             $pattern = $this->createMatcher('widget');
 
             return preg_replace($pattern, '$1<?php echo Widget::run$2; ?>', $view);
         });
 
-        Blade::extend(function ($view)
-        {
+        Blade::extend(function ($view) {
             $pattern = $this->createMatcher('async-widget');
 
             return preg_replace($pattern, '$1<?php echo AsyncWidget::run$2; ?>', $view);
@@ -104,12 +100,12 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
      *
      * Get the regular expression for a generic Blade function.
      *
-     * @param  string  $function
+     * @param string $function
+     *
      * @return string
      */
     public function createMatcher($function)
     {
         return '/(?<!\w)(\s*)@'.$function.'(\s*\(.*\))/';
     }
-
 }

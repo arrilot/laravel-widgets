@@ -1,10 +1,12 @@
-<?php namespace Arrilot\Widgets\Factories;
+<?php
+
+namespace Arrilot\Widgets\Factories;
 
 use Arrilot\Widgets\AbstractWidget;
 use Arrilot\Widgets\InvalidWidgetClassException;
 
-abstract class AbstractWidgetFactory {
-
+abstract class AbstractWidgetFactory
+{
     /**
      * Factory config.
      *
@@ -12,19 +14,42 @@ abstract class AbstractWidgetFactory {
      */
     protected $factoryConfig;
 
+    /**
+     * Widget configuration array.
+     *
+     * @var array
+     */
     protected $widgetConfig;
 
+    /**
+     * The name of the widget being called.
+     *
+     * @var string
+     */
     protected $widgetName;
 
-    protected $wrapper;
-
+    /**
+     * Array of widget parameters excluding the first one (config).
+     *
+     * @var array
+     */
     protected $widgetParams;
 
+    /**
+     * Array of widget parameters including the first one (config).
+     *
+     * @var array
+     */
     protected $widgetFullParams;
 
     /**
-     * Constructor.
+     * Laravel application wrapper for better testability.
      *
+     * @var \Arrilot\Widgets\Misc\Wrapper;
+     */
+    protected $wrapper;
+
+    /**
      * @param $factoryConfig
      * @param $wrapper
      */
@@ -38,7 +63,8 @@ abstract class AbstractWidgetFactory {
      * Magic method that catches all widget calls.
      *
      * @param string $widgetName
-     * @param array $params
+     * @param array  $params
+     *
      * @return mixed
      */
     public function __call($widgetName, array $params = [])
@@ -55,10 +81,8 @@ abstract class AbstractWidgetFactory {
      */
     protected function determineNamespace()
     {
-        foreach ([$this->widgetName, strtolower($this->widgetName)] as $name)
-        {
-            if (array_key_exists($name, $this->factoryConfig['customNamespaces']))
-            {
+        foreach ([$this->widgetName, strtolower($this->widgetName)] as $name) {
+            if (array_key_exists($name, $this->factoryConfig['customNamespaces'])) {
                 return $this->factoryConfig['customNamespaces'][$name];
             }
         }
@@ -67,11 +91,13 @@ abstract class AbstractWidgetFactory {
     }
 
     /**
-     * Set class properties and instantiate widget object.
+     * Set class properties and instantiate a widget object.
      *
      * @param $params
-     * @return mixed
+     *
      * @throws InvalidWidgetClassException
+     *
+     * @return mixed
      */
     protected function instantiateWidget(array $params = [])
     {
@@ -79,19 +105,18 @@ abstract class AbstractWidgetFactory {
         $this->widgetConfig     = array_shift($params);
         $this->widgetParams     = $params;
 
-        $widgetClass = $this->determineNamespace() . '\\' . $this->widgetName;
+        $widgetClass = $this->determineNamespace().'\\'.$this->widgetName;
 
         $widget = new $widgetClass($this->widgetConfig);
-        if ($widget instanceof AbstractWidget === false)
-        {
-            throw new InvalidWidgetClassException;
+        if ($widget instanceof AbstractWidget === false) {
+            throw new InvalidWidgetClassException();
         }
 
         return $widget;
     }
 
     /**
-     * Converts stuff like 'profile.feedWidget' to 'Profile\FeedWidget'
+     * Convert stuff like 'profile.feedWidget' to 'Profile\FeedWidget'.
      *
      * @param $widgetName
      *

@@ -1,29 +1,50 @@
-<?php namespace Arrilot\Widgets;
+<?php
+
+namespace Arrilot\Widgets;
 
 use Arrilot\Widgets\Misc\Wrapper;
 
-class WidgetGroup {
+class WidgetGroup
+{
 
+    /**
+     * The widget group name.
+     *
+     * @var string
+     */
     protected $name;
 
+    /**
+     * The array of widgets to display in this group.
+     *
+     * @var array
+     */
     protected $widgets = [];
 
+    /**
+     * The position of a widget in this group.
+     *
+     * @var int
+     */
     protected $position = 100;
 
-
+    /**
+     * @param $name
+     */
     public function __construct($name)
     {
         $this->name = $name;
     }
 
     /**
-     * Displays all widgets from this group.
+     * Display all widgets from this group in correct order.
+     *
+     * @return string
      */
     public function display()
     {
         $output = '';
-        foreach ($this->getSortedWidgets() as $widget)
-        {
+        foreach ($this->getSortedWidgets() as $widget) {
             $output .=  $this->displayWidget($widget);
         }
 
@@ -34,6 +55,7 @@ class WidgetGroup {
      * Set widget position.
      *
      * @param int $position
+     *
      * @return $this
      */
     public function position($position)
@@ -44,35 +66,35 @@ class WidgetGroup {
     }
 
     /**
-     * Add widget to group.
+     * Add a widget to the group.
      */
     public function addWidget()
     {
         $this->widgets[] = [
             'arguments' => func_get_args(),
-            'type' => 'sync',
-            'position' => $this->position,
+            'type'      => 'sync',
+            'position'  => $this->position,
         ];
 
         $this->resetPosition();
     }
 
     /**
-     * Add async widget to group.
+     * Add an async widget to the group.
      */
     public function addAsyncWidget()
     {
         $this->widgets[] = [
             'arguments' => func_get_args(),
-            'type' => 'async',
-            'position' => $this->position,
+            'type'      => 'async',
+            'position'  => $this->position,
         ];
 
         $this->resetPosition();
     }
 
     /**
-     * Getter for widgets.
+     * Getter for widgets array.
      *
      * @return array
      */
@@ -92,20 +114,22 @@ class WidgetGroup {
     }
 
     /**
-     * Displays widget according to its type.
+     * Display a widget according to its type.
      *
      * @param $widget
+     *
      * @return mixed
      */
     protected function displayWidget($widget)
     {
-        $factory = (new Wrapper)->appMake($widget['type'] === 'sync' ? 'arrilot.widget' : 'arrilot.async-widget');
+        $factory = (new Wrapper())->appMake($widget['type'] === 'sync' ? 'arrilot.widget' : 'arrilot.async-widget');
 
         return call_user_func_array([$factory, 'run'], $widget['arguments']);
     }
 
     /**
-     * Reset position var back to default so it does not affect next widget.
+     * Reset the position property back to the default.
+     * So it does not affect the next widget.
      */
     protected function resetPosition()
     {
@@ -117,10 +141,8 @@ class WidgetGroup {
      */
     protected function getSortedWidgets()
     {
-        return array_values(array_sort($this->widgets, function($value)
-        {
+        return array_values(array_sort($this->widgets, function ($value) {
             return $value['position'];
         }));
     }
-
 }

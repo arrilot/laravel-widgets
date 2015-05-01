@@ -1,7 +1,9 @@
-<?php namespace Arrilot\Widgets\Misc;
+<?php
 
-class Wrapper {
+namespace Arrilot\Widgets\Misc;
 
+class Wrapper
+{
     /**
      * Wrapper around csrf_token().
      *
@@ -17,6 +19,7 @@ class Wrapper {
      *
      * @param $method
      * @param array $params
+     *
      * @return mixed
      */
     public function appCall($method, $params = [])
@@ -28,6 +31,7 @@ class Wrapper {
      * Wrapper around app()->make().
      *
      * @param $binding
+     *
      * @return mixed
      */
     public function appMake($binding)

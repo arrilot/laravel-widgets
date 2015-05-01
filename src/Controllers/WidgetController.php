@@ -1,14 +1,17 @@
-<?php namespace Arrilot\Widgets\Controllers;
+<?php
 
-use Illuminate\Routing\Controller as BaseController;
+namespace Arrilot\Widgets\Controllers;
+
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller as BaseController;
 
-class WidgetController extends BaseController {
-
+class WidgetController extends BaseController
+{
     /**
-     * Show widget content action.
+     * The action to show widget output via ajax.
      *
      * @param Request $request
+     *
      * @return mixed
      */
     public function showAsyncWidget(Request $request)
@@ -19,5 +22,4 @@ class WidgetController extends BaseController {
 
         return call_user_func_array([$factory, $widgetName], $widgetParams);
     }
-
 }

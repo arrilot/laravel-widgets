@@ -1,12 +1,14 @@
-<?php namespace {{namespace}};
+<?php
+
+namespace {{namespace}};
 
 use Arrilot\Widgets\AbstractWidget;
 
-class {{class}} extends AbstractWidget {
-
+class {{class}} extends AbstractWidget
+{
     /**
-     * You can treat this method just like a controller action.
-     * Return a view or anything else you want to display
+     * Treat this method just like a controller action.
+     * Return a view or anything else you want to display.
      */
 	public function run()
 	{

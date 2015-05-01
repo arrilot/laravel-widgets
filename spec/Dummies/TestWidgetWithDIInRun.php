@@ -1,9 +1,11 @@
-<?php namespace App\Widgets;
+<?php
+
+namespace App\Widgets;
 
 use Arrilot\Widgets\AbstractWidget;
 
-class TestWidgetWithDIInRun extends AbstractWidget {
-
+class TestWidgetWithDIInRun extends AbstractWidget
+{
     public function run(TestMyClass $class)
     {
         return $class->foo;
@@ -11,10 +13,11 @@ class TestWidgetWithDIInRun extends AbstractWidget {
 
     public function placeholder()
     {
-        return "Placeholder here!";
+        return 'Placeholder here!';
     }
 }
 
-class TestMyClass {
+class TestMyClass
+{
     public $foo = 'bar';
 }

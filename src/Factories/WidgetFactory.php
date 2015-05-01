@@ -1,9 +1,11 @@
-<?php namespace Arrilot\Widgets\Factories;
+<?php
+
+namespace Arrilot\Widgets\Factories;
 
 use Arrilot\Widgets\WidgetGroup;
 
-class WidgetFactory extends AbstractWidgetFactory {
-
+class WidgetFactory extends AbstractWidgetFactory
+{
     protected $groups;
 
     /**
@@ -26,12 +28,12 @@ class WidgetFactory extends AbstractWidgetFactory {
      * Get the widget group object.
      *
      * @param $name
+     *
      * @return mixed
      */
     public function group($name)
     {
-        if ($this->groups[$name])
-        {
+        if ($this->groups[$name]) {
             return $this->groups[$name];
         }
 
@@ -39,5 +41,4 @@ class WidgetFactory extends AbstractWidgetFactory {
 
         return $this->groups[$name];
     }
-
 }

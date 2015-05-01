@@ -1,7 +1,9 @@
-<?php namespace App\Widgets;
+<?php
 
-class TestBadSlider {
+namespace App\Widgets;
 
+class TestBadSlider
+{
     protected $slides = 6;
 
     public function run()
