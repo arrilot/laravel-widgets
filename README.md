@@ -11,9 +11,9 @@
 
 ## Installation
 
-```composer require arrilot/laravel-widgets```
+1. ```composer require arrilot/laravel-widgets```
 
-Then, register a service provider in your `app.php` config file
+2. register a service provider in your `app.php` config file
 
 ```php
 <?php
@@ -25,7 +25,7 @@ Then, register a service provider in your `app.php` config file
 ?>
 ```
 
-Finally, add some facades here too.
+3. add some facades here too.
 
 ```php
 <?php
@@ -83,41 +83,6 @@ That's all!
 
 ## Configuration
 
-### Namespaces configuration
-By default package tries to find your widget in the ```App\Widgets``` namespace.
-
-You can override this by publishing package config and setting `default_namespace` property.
-
-Although using the default namespace is very convenient and keeps you from doing unnecessary actions, in some situations you may wish more flexibility. For example, if you've got dozens of widgets it makes sense to group them in namespaced folders.
-
-You actually have several ways to call those widgets:
-
-1) You can register widget in package config like that:
-```php
-    'custom_namespaces_for_specific_widgets' => [
-        'recentNews' => 'App\Widgets\News'
-        ....
-    ]
-```
-And then call it normally
-```php
-{!! Widget::recentNews($config) !!}
-{!! Widget::run('recentNews', $config) !!}
-@widget('recentNews', $config)
-```
-
-2) You can pass full name to the `run` method
-```php
-{!! Widget::run('News\RecentNews', $config) !!}
-@widget('News\RecentNews', $config)
-```
-
-3) You can also use dot notation if you like it
-```php
-{!! Widget::run('news.recentNews', $config) !!}
-@widget('news.recentNews', $config)
-```
-
 ### Widget configuration
 
 #### Using config array
@@ -140,7 +105,7 @@ class RecentNews extends AbstractWidget {
 {!! Widget::recentNews(['count' => 10]) !!}
 ```
 `['count' => 10]` is a config array.
-Notice that you don't need to map a config array and class properties in constructor. It's done automatically behind the scene
+Notice that you don't need to map the config array and class properties in constructor. It's done automatically behind the scene.
 
 #### Using additional parameters
 
@@ -158,16 +123,56 @@ public function run($sort_by, $sort_order) { }
 
 `run()` method is resolved via Laravel service container so method injection is available here too.
 
+### Namespaces configuration
+
+By default package tries to find your widget in the ```App\Widgets``` namespace.
+
+You can override this by publishing package config and setting `default_namespace` property.
+
+Although using the default namespace is very convenient and keeps you from doing unnecessary actions, in some situations you may wish to have more flexibility. 
+For example, if you've got dozens of widgets it makes sense to group them in namespaced folders.
+
+You actually have several ways to call those widgets:
+
+1. You can pass the full name to the `run` method.
+```php
+{!! Widget::run('News\RecentNews', $config) !!}
+@widget('News\RecentNews', $config)
+```
+
+2. Another option -  you can also use dot notation if you like it:
+```php
+{!! Widget::run('news.recentNews', $config) !!}
+@widget('news.recentNews', $config)
+```
+
+3. Finally, you can register a widget in package config like that:
+```php
+    'custom_namespaces_for_specific_widgets' => [
+        'recentNews' => 'App\Widgets\News'
+        ....
+    ]
+```
+and then call it without namespaces
+```php
+{!! Widget::recentNews($config) !!}
+{!! Widget::run('recentNews', $config) !!}
+@widget('recentNews', $config)
+```
+
 ## Asynchronous widgets
 
 In some situations it can be very beneficial to load widget content with AJAX.
 
 Fortunately this can be achieved very easily!
 
-All you need to do is to make sure you have jquery loaded for ajax calls and change `Widget::` => `AsyncWidget::`, `@widget` => `@async-widget`
+1. Make sure you have jquery loaded before a widget is called.
+2. Change facade or blade directive - `Widget::` => `AsyncWidget::`, `@widget` => `@async-widget`
 
-You can also customize a placeholder to display until ajax call is finished.
-Add `placeholder()` method to a widget to achieve that.
+Done.
+
+By default nothing is shown until ajax call is finished.
+It can be customized by adding `placeholder()` method to the widget class.
 
 ```php
 public function placeholder()
@@ -178,8 +183,8 @@ public function placeholder()
 
 ## Widget groups (extra)
 
-In most cases Blade is a perfect tool to set the position and order of widgets.
-However in some cases you may find useful using widget groups.
+In most cases Blade is a perfect tool fot setting the position and order of widgets.
+However in some cases you may find useful the following approach with widget groups.
 
 ```php
 // add several widgets to the 'sidebar' group
@@ -191,5 +196,7 @@ Widget::group('sidebar')->position(4)->addAsyncWidget(<the same arguments list a
 ```
 
 `Widget::group('sidebar')->addWidget('files');` 
-equals 
+
+equals
+
 `Widget::group('sidebar')->position(100)->addWidget('files');`
