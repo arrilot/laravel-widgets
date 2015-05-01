@@ -1,6 +1,6 @@
 <?php
 
-namespace Arrilot\Widgets;
+namespace Arrilot\Widgets\Misc;
 
 class InvalidWidgetClassException extends \Exception
 {

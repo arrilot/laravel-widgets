@@ -3,7 +3,7 @@
 namespace Arrilot\Widgets\Factories;
 
 use Arrilot\Widgets\AbstractWidget;
-use Arrilot\Widgets\InvalidWidgetClassException;
+use Arrilot\Widgets\Misc\InvalidWidgetClassException;
 
 abstract class AbstractWidgetFactory
 {

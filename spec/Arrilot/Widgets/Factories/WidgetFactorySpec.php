@@ -58,7 +58,7 @@ class WidgetFactorySpec extends ObjectBehavior
 
     public function it_throws_exception_for_bad_widget_class()
     {
-        $this->shouldThrow('\Arrilot\Widgets\InvalidWidgetClassException')->during('testBadSlider');
+        $this->shouldThrow('\Arrilot\Widgets\Misc\InvalidWidgetClassException')->during('testBadSlider');
     }
 
     public function it_can_run_widgets_with_additional_params(Wrapper $wrapper)

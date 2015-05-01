@@ -1,4 +1,8 @@
-[![Build Status](https://travis-ci.org/Arrilot/laravel-widgets.svg?branch=2.0)](https://travis-ci.org/Arrilot/laravel-widgets)
+[![Latest Stable Version](https://img.shields.io/github/release/Arrilot/laravel-widgets.svg?style=flat)](https://packagist.org/packages/orchestra/foundation)
+[![Total Downloads](https://img.shields.io/packagist/dt/Arrilot/laravel-widgets.svg?style=flat)](https://packagist.org/packages/orchestra/foundation)
+[![Build Status](https://img.shields.io/travis/Arrilot/laravel-widgets/master.svg?style=flat)](https://travis-ci.org/orchestral/foundation)
+[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/Arrilot/laravel-widgets/master.svg?style=flat)](https://scrutinizer-ci.com/g/orchestral/foundation/)
+[![MIT License](https://img.shields.io/packagist/l/Arrilot/laravel-widgets.svg?style=flat)](https://packagist.org/packages/orchestra/foundation)
 
 #Widgets for Laravel
 
