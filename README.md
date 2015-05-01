@@ -4,11 +4,11 @@
 
 *This packages provides widget functionality to boost your Laravel views. Includes asynchronous mode and generator.*
 
+### For Laravel 4, please use the [1.0 branch](https://github.com/Arrilot/laravel-widgets/tree/1.0)!
+
 ## Installation
 
 ```composer require arrilot/laravel-widgets```
-
-Note: for Laravel 4 use  ```composer require arrilot/laravel-widgets ~1.0```
 
 Then, register a service provider in your `app.php` config file
 
@@ -22,7 +22,7 @@ Then, register a service provider in your `app.php` config file
 ?>
 ```
 
-Finally, add the facades here too.
+Finally, add some facades here too.
 
 ```php
 <?php
