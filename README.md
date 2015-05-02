@@ -172,7 +172,8 @@ Fortunately this can be achieved very easily!
 Done.
 
 By default nothing is shown until ajax call is finished.
-It can be customized by adding `placeholder()` method to the widget class.
+
+This can be easily customized by adding a `placeholder()` method to the widget class.
 
 ```php
 public function placeholder()
@@ -184,16 +185,19 @@ public function placeholder()
 ## Widget groups (extra)
 
 In most cases Blade is a perfect tool fot setting the position and order of widgets.
-However in some cases you may find useful the following approach with widget groups.
+However in some cases you may find useful the approach with widget groups.
+Please check the following example:
 
 ```php
 // add several widgets to the 'sidebar' group
 Widget::group('sidebar')->position(5)->addWidget(<the same arguments list as in run() method>);
 Widget::group('sidebar')->position(4)->addAsyncWidget(<the same arguments list as in run() method>);
 
-// display them in a correct order in a view
+// display them in a view in the correct order
 {!! Widget::group('sidebar')->display() !!}
 ```
+
+`Position` can be omitted from the chain.
 
 `Widget::group('sidebar')->addWidget('files');` 
 
