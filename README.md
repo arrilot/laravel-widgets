@@ -134,19 +134,19 @@ For example, if you've got dozens of widgets it makes sense to group them in nam
 
 You actually have several ways to call those widgets:
 
-1. You can pass the full name to the `run` method.
+1) You can pass the full name to the `run` method.
 ```php
 {!! Widget::run('News\RecentNews', $config) !!}
 @widget('News\RecentNews', $config)
 ```
 
-2. You can use dot notation instead:
+2) You can use dot notation instead.
 ```php
 {!! Widget::run('news.recentNews', $config) !!}
 @widget('news.recentNews', $config)
 ```
 
-3. Finally, you can register a widget in package config like that:
+3) Finally, you can register a widget in package config like that.
 ```php
     'custom_namespaces_for_specific_widgets' => [
         'recentNews' => 'App\Widgets\News'
