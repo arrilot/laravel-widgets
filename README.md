@@ -140,7 +140,7 @@ You actually have several ways to call those widgets:
 @widget('News\RecentNews', $config)
 ```
 
-2. Another option -  you can also use dot notation if you like it:
+2. You can use dot notation instead:
 ```php
 {!! Widget::run('news.recentNews', $config) !!}
 @widget('news.recentNews', $config)
