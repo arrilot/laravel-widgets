@@ -197,7 +197,7 @@ Widget::group('sidebar')->position(4)->addAsyncWidget(<the same arguments list a
 {!! Widget::group('sidebar')->display() !!}
 ```
 
-`Position` can be omitted from the chain.
+`position()` can be omitted from the chain.
 
 `Widget::group('sidebar')->addWidget('files');` 
 
