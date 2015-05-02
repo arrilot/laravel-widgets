@@ -29,15 +29,15 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             'customNamespaces' => config('laravel-widgets.custom_namespaces_for_specific_widgets', []),
         ];
 
-        $this->app->bind('arrilot.widget', function () use ($config) {
+        $this->app->bind('arrilot.widget', function() use ($config) {
             return new WidgetFactory($config, new Wrapper());
         });
 
-        $this->app->bind('arrilot.async-widget', function () use ($config) {
+        $this->app->bind('arrilot.async-widget', function() use ($config) {
             return new AsyncWidgetFactory($config, new Wrapper());
         });
 
-        $this->app->singleton('command.widget.make', function ($app) {
+        $this->app->singleton('command.widget.make', function($app) {
             return new WidgetMakeCommand($app['files']);
         });
 
@@ -60,7 +60,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             'prefix'    => 'arrilot',
         ];
 
-        $this->app['router']->group($routeConfig, function ($router) {
+        $this->app['router']->group($routeConfig, function($router) {
             $router->post('async-widget', 'WidgetController@showAsyncWidget');
         });
 
@@ -82,13 +82,13 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      */
     protected function registerBladeExtensions()
     {
-        Blade::extend(function ($view) {
+        Blade::extend(function($view) {
             $pattern = $this->createMatcher('widget');
 
             return preg_replace($pattern, '$1<?php echo Widget::run$2; ?>', $view);
         });
 
-        Blade::extend(function ($view) {
+        Blade::extend(function($view) {
             $pattern = $this->createMatcher('async-widget');
 
             return preg_replace($pattern, '$1<?php echo AsyncWidget::run$2; ?>', $view);
