@@ -69,13 +69,7 @@ class WidgetGroup
      */
     public function addWidget()
     {
-        $this->widgets[] = [
-            'arguments' => func_get_args(),
-            'type'      => 'sync',
-            'position'  => $this->position,
-        ];
-
-        $this->resetPosition();
+        $this->addWidgetWithType('sync', func_get_args());
     }
 
     /**
@@ -83,13 +77,7 @@ class WidgetGroup
      */
     public function addAsyncWidget()
     {
-        $this->widgets[] = [
-            'arguments' => func_get_args(),
-            'type'      => 'async',
-            'position'  => $this->position,
-        ];
-
-        $this->resetPosition();
+        $this->addWidgetWithType('async', func_get_args());
     }
 
     /**
@@ -143,5 +131,22 @@ class WidgetGroup
         return array_values(array_sort($this->widgets, function ($value) {
             return $value['position'];
         }));
+    }
+
+    /**
+     * Add a widget with a given type to the array.
+     *
+     * @param string $type
+     * @param array $arguments
+     */
+    protected function addWidgetWithType($type, array $arguments = [])
+    {
+        $this->widgets[] = [
+            'arguments' => $arguments,
+            'type'      => $type,
+            'position'  => $this->position,
+        ];
+
+        $this->resetPosition();
     }
 }

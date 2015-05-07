@@ -164,7 +164,7 @@ In some situations it can be very beneficial to load widget content with AJAX.
 
 Fortunately this can be achieved very easily!
 
-All you need to do is to make sure you have jquery loaded for ajax calls and change `Widget::` => `AsyncWidget::`, `@widget` => `@async-widget`
+All you need to do is to make sure you have jquery loaded for ajax calls and change `Widget::` => `AsyncWidget::`, `@widget` => `@asyncWidget`
 
 You can also customize a placeholder to display until ajax call is finished.
 Add `placeholder()` method to a widget to achieve that.
@@ -182,12 +182,14 @@ In most cases Blade is a perfect tool to set the position and order of widgets.
 However in some cases you may find useful using widget groups.
 
 ```php
-// add several widgets to the 'sidebar' group
+// add several widgets to the 'sidebar' group anywhere you want (even in controller)
 Widget::group('sidebar')->position(5)->addWidget(<the same arguments list as in run() method>);
 Widget::group('sidebar')->position(4)->addAsyncWidget(<the same arguments list as in run() method>);
 
 // display them in a correct order in a view
 {!! Widget::group('sidebar')->display() !!}
+//or 
+@widgetGroup('sidebar')
 ```
 
 `Widget::group('sidebar')->addWidget('files');` 
