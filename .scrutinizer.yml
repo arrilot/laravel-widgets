@@ -5,3 +5,6 @@ filter:
         - 'src/config/*'
         - 'vendor/*'
         - 'spec/*'
+tools:
+    php_cs_fixer:
+        config: { level: psr2 }
