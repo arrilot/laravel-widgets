@@ -102,8 +102,8 @@ abstract class AbstractWidgetFactory
     protected function instantiateWidget(array $params = [])
     {
         $this->widgetFullParams = $params;
-        $this->widgetConfig     = array_shift($params);
-        $this->widgetParams     = $params;
+        $this->widgetConfig = array_shift($params);
+        $this->widgetParams = $params;
 
         $widgetClass = $this->determineNamespace().'\\'.$this->widgetName;
 

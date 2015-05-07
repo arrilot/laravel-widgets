@@ -28,9 +28,9 @@ class AsyncWidgetFactory extends AbstractWidgetFactory
 
         $widget = $this->instantiateWidget($params);
 
-        $containerId     = 'async-widget-container-'.AbstractWidget::$incrementingId;
-        $containerOpens  = "<span id='{$containerId}'>".call_user_func([$widget, 'placeholder']);
-        $loader          = "<script>$.post('".$this->ajaxLink."', ".$this->produceJavascriptData().", function(data) { $('#{$containerId}').replaceWith(data); })</script>";
+        $containerId = 'async-widget-container-'.AbstractWidget::$incrementingId;
+        $containerOpens = "<span id='{$containerId}'>".call_user_func([$widget, 'placeholder']);
+        $loader = "<script>$.post('".$this->ajaxLink."', ".$this->produceJavascriptData().", function(data) { $('#{$containerId}').replaceWith(data); })</script>";
         $containerCloses = '</span>';
 
         return $containerOpens.$loader.$containerCloses;

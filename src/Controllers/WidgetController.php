@@ -16,8 +16,8 @@ class WidgetController extends BaseController
      */
     public function showAsyncWidget(Request $request)
     {
-        $factory      = app()->make('arrilot.widget');
-        $widgetName   = $request->get('name', '');
+        $factory = app()->make('arrilot.widget');
+        $widgetName = $request->get('name', '');
         $widgetParams = unserialize($request->get('params', ''));
 
         return call_user_func_array([$factory, $widgetName], $widgetParams);
