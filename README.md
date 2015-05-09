@@ -5,7 +5,7 @@
 
 #Widgets for Laravel
 
-*This packages provides widget functionality to boost your Laravel views. Includes asynchronous mode and generator.*
+*This package provides widget functionality to boost your Laravel views. Includes asynchronous mode and generator.*
 
 ### For Laravel 4, please use the [1.0 branch](https://github.com/Arrilot/laravel-widgets/tree/1.0)!
 
@@ -13,7 +13,7 @@
 
 1) Run ```composer require arrilot/laravel-widgets```
 
-2) Register a service provider in your `app.php` config file
+2) Register a service provider in the `app.php` configuration file
 
 ```php
 <?php
@@ -40,14 +40,14 @@
 
 ## Usage
 
-Lets consider we want to make a list of recent news and reuse it in several views.
+Let's consider we want to make a list of recent news and reuse it in several views.
 
 First of all we can create a Widget class using the artisan command provided by the package.
 ```bash
 php artisan make:widget RecentNews
 ```
 
-Now the folowing widget skeleton is created in your app/Widgets directory:
+Now the following widget skeleton is created in your app/Widgets directory:
 
 ```php
 <?php namespace App\Widgets;
@@ -89,7 +89,7 @@ That's all!
 
 Let's carry on with the "recent news" example.
 
-Imagine that we usually need to show 5 news, but in some views we need to show 10.
+Imagine that we usually need to show *five* news, but in some views we need to show *ten*.
 This can be easily achieved like that:
 
 ```php
@@ -105,7 +105,7 @@ class RecentNews extends AbstractWidget {
 {!! Widget::recentNews(['count' => 10]) !!}
 ```
 `['count' => 10]` is a config array.
-Notice that you don't need to map the config array and class properties in constructor. It's done automatically behind the scene.
+Notice that you don't need to map the config array and class properties in constructor. It's done automatically behind the scenes.
 
 #### Using additional parameters
 
@@ -164,7 +164,7 @@ and then call it without namespaces
 
 In some situations it can be very beneficial to load widget content with AJAX.
 
-Fortunately this can be achieved very easily!
+Fortunately, this can be achieved very easily!
 
 1. Make sure you have jquery loaded before a widget is called.
 2. Change facade or blade directive - `Widget::` => `AsyncWidget::`, `@widget` => `@asyncWidget`
@@ -185,7 +185,7 @@ public function placeholder()
 ## Widget groups (extra)
 
 In most cases Blade is a perfect tool fot setting the position and order of widgets.
-However in some cases you may find useful the approach with widget groups.
+However, in some cases you may find useful the approach with widget groups.
 Please check the following example:
 
 ```php
