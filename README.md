@@ -71,7 +71,7 @@ class RecentNews extends AbstractWidget
     {
         //
 
-        return view("recent_news");
+        return view("widgets.recent_news");
     }
 }
 ```

@@ -158,7 +158,7 @@ class WidgetMakeCommand extends GeneratorCommand
      */
     protected function replaceView($stub)
     {
-        $view = str_replace('/', '.', $this->makeViewName());
+        $view = "widgets.".str_replace('/', '.', $this->makeViewName());
 
         return str_replace('{{view}}', $view, $stub);
     }
