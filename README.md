@@ -47,8 +47,12 @@ First of all we can create a Widget class using the artisan command provided by 
 php artisan make:widget RecentNews --view
 ```
 This command generates two files:
-1) `resources/views/widgets/recent_news.blade.php` is an empty view. Omit "--view" option if you do not need it.
-2) `app/Widgets/RecentNews` is a widget class
+
+1) `resources/views/widgets/recent_news.blade.php` is an empty view. 
+
+Omit "--view" option if you do not need it.
+
+2) `app/Widgets/RecentNews` is a widget class.
 
 ```php
 <?php
