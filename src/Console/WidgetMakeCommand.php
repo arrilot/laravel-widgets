@@ -37,8 +37,7 @@ class WidgetMakeCommand extends GeneratorCommand
     {
         parent::fire();
 
-        if ($this->option('view'))
-        {
+        if ($this->option('view')) {
             $this->createView();
         }
     }
@@ -46,7 +45,8 @@ class WidgetMakeCommand extends GeneratorCommand
     /**
      * Build the class with the given name.
      *
-     * @param  string  $name
+     * @param string $name
+     *
      * @return string
      */
     protected function buildClass($name)
@@ -55,8 +55,7 @@ class WidgetMakeCommand extends GeneratorCommand
 
         $stub = $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
 
-        if ($this->option('view'))
-        {
+        if ($this->option('view')) {
             $stub = $this->replaceView($stub);
         }
 
@@ -70,8 +69,7 @@ class WidgetMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        if ($this->option('view'))
-        {
+        if ($this->option('view')) {
             return __DIR__.'/stubs/widget_with_view.stub';
         }
 
@@ -109,8 +107,7 @@ class WidgetMakeCommand extends GeneratorCommand
      */
     protected function createView()
     {
-        if ($this->files->exists($path = $this->getViewPath()))
-        {
+        if ($this->files->exists($path = $this->getViewPath())) {
             $this->error('View already exists!');
 
             return;
@@ -155,7 +152,8 @@ class WidgetMakeCommand extends GeneratorCommand
     /**
      * Replace the view name for the given stub.
      *
-     * @param  string  $stub
+     * @param string $stub
+     *
      * @return string
      */
     protected function replaceView($stub)
