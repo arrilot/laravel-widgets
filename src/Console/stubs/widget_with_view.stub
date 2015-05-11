@@ -13,5 +13,7 @@ class {{class}} extends AbstractWidget
     public function run()
     {
         //
+
+        return view("{{view}}");
     }
 }

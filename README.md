@@ -44,30 +44,37 @@ Let's consider we want to make a list of recent news and reuse it in several vie
 
 First of all we can create a Widget class using the artisan command provided by the package.
 ```bash
-php artisan make:widget RecentNews
+php artisan make:widget RecentNews --view
 ```
-
-Now the following widget skeleton is created in your app/Widgets directory:
+This command generates two files:
+1) `resources/views/widgets/recent_news.blade.php` is an empty view. Omit "--view" option if you do not need it.
+2) `app/Widgets/RecentNews` is a widget class
 
 ```php
-<?php namespace App\Widgets;
+<?php
+
+namespace App\Widgets;
 
 use Arrilot\Widgets\AbstractWidget;
 
-class RecentNews extends AbstractWidget {
-
+class RecentNews extends AbstractWidget
+{
     /**
-    * You can treat this method just like a controller action.
-    * Return a view or anything you want to display
-    */
-	public function run()
-	{
+     * Treat this method as a controller action.
+     * Return a view or other content to display.
+     */
+    public function run()
+    {
+        //
 
-	}
+        return view("recent_news");
+    }
 }
 ```
 
-As soon as domain logic is implemented inside the `run()` method, the widget can be included to a view in several ways:
+The last step is to call the widget.
+You've actually got several ways to do so.
+
 ```php
 {!! Widget::run('recentNews') !!}
 ```
@@ -79,7 +86,6 @@ or even
 ```php
 @widget('recentNews')
 ```
-That's all!
 
 ## Configuration
 
