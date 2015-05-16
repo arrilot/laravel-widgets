@@ -5,11 +5,11 @@ namespace Arrilot\Widgets;
 abstract class AbstractWidget
 {
     /**
-     * Id for async widget.
+     * The number of seconds before reload.
      *
-     * @var int
+     * @var int|float
      */
-    public static $incrementingId = 0;
+    public $reloadTimeout;
 
     /**
      * Constructor.
@@ -35,15 +35,5 @@ abstract class AbstractWidget
     public function placeholder()
     {
         return '';
-    }
-
-    /**
-     * Resets the incrementing id to 0.
-     *
-     * @return string
-     */
-    public static function resetId()
-    {
-        self::$incrementingId = 0;
     }
 }

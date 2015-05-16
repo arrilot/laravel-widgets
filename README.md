@@ -176,7 +176,7 @@ In some situations it can be very beneficial to load widget content with AJAX.
 
 Fortunately, this can be achieved very easily!
 
-1. Make sure you have jquery loaded before a widget is called.
+1. Make sure you have jquery loaded for ajax calls before the widget is called.
 2. Change facade or blade directive - `Widget::` => `AsyncWidget::`, `@widget` => `@asyncWidget`
 
 Done.
@@ -191,6 +191,32 @@ public function placeholder()
 	return "Loading...";
 }
 ```
+
+## Reloadable widgets
+
+You can go even further and automatically reload widget every N seconds.
+
+To achieve that:
+
+1. Make sure you have jquery loaded for ajax calls before the widget is called.
+2. Set the `$reloadTimeout` property of the widget class.
+
+```php
+class RecentNews extends AbstractWidget
+{
+    /**
+     * The number of seconds before reload.
+     *
+     * @var int|float
+     */
+    public $reloadTimeout = 10;
+}
+```
+Done.
+
+You should use this feature with care, because it can easily spam your app with ajax calls if timeouts are too low.
+Consider using web sockets too but they are waaaay harder to set up on the other hand.
+
 
 ## Widget groups (extra)
 

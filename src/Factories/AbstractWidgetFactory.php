@@ -4,6 +4,7 @@ namespace Arrilot\Widgets\Factories;
 
 use Arrilot\Widgets\AbstractWidget;
 use Arrilot\Widgets\Misc\InvalidWidgetClassException;
+use Arrilot\Widgets\WidgetId;
 
 abstract class AbstractWidgetFactory
 {
@@ -12,7 +13,14 @@ abstract class AbstractWidgetFactory
      *
      * @var array
      */
-    protected $factoryConfig;
+    protected $config;
+
+    /**
+     * Widget object to work with.
+     *
+     * @var AbstractWidget
+     */
+    protected $widget;
 
     /**
      * Widget configuration array.
@@ -26,37 +34,45 @@ abstract class AbstractWidgetFactory
      *
      * @var string
      */
-    protected $widgetName;
+    public $widgetName;
 
     /**
      * Array of widget parameters excluding the first one (config).
      *
      * @var array
      */
-    protected $widgetParams;
+    public $widgetParams;
 
     /**
      * Array of widget parameters including the first one (config).
      *
      * @var array
      */
-    protected $widgetFullParams;
+    public $widgetFullParams;
 
     /**
      * Laravel application wrapper for better testability.
      *
      * @var \Arrilot\Widgets\Misc\Wrapper;
      */
-    protected $wrapper;
+    public $wrapper;
 
     /**
-     * @param $factoryConfig
+     * Another factory that produces some javascript.
+     *
+     * @var JavascriptFactory
+     */
+    protected $javascriptFactory;
+
+    /**
+     * @param $config
      * @param $wrapper
      */
-    public function __construct($factoryConfig, $wrapper)
+    public function __construct($config, $wrapper)
     {
-        $this->factoryConfig = $factoryConfig;
+        $this->config = $config;
         $this->wrapper = $wrapper;
+        $this->javascriptFactory = new JavascriptFactory($this);
     }
 
     /**
@@ -79,15 +95,16 @@ abstract class AbstractWidgetFactory
      *
      * @return mixed
      */
-    protected function determineNamespace()
+    protected function determineWidgetNamespace()
     {
+        // search in custom namespaces first
         foreach ([$this->widgetName, strtolower($this->widgetName)] as $name) {
-            if (array_key_exists($name, $this->factoryConfig['customNamespaces'])) {
-                return $this->factoryConfig['customNamespaces'][$name];
+            if (array_key_exists($name, $this->config['customNamespaces'])) {
+                return $this->config['customNamespaces'][$name];
             }
         }
 
-        return $this->factoryConfig['defaultNamespace'];
+        return $this->config['defaultNamespace'];
     }
 
     /**
@@ -96,23 +113,24 @@ abstract class AbstractWidgetFactory
      * @param $params
      *
      * @throws InvalidWidgetClassException
-     *
-     * @return mixed
      */
     protected function instantiateWidget(array $params = [])
     {
+        WidgetId::increment();
+
+        $this->widgetName = $this->parseFullWidgetNameFromString(array_shift($params));
         $this->widgetFullParams = $params;
         $this->widgetConfig = array_shift($params);
         $this->widgetParams = $params;
 
-        $widgetClass = $this->determineNamespace().'\\'.$this->widgetName;
+        $widgetClass = $this->determineWidgetNamespace().'\\'.$this->widgetName;
 
         $widget = new $widgetClass($this->widgetConfig);
         if ($widget instanceof AbstractWidget === false) {
             throw new InvalidWidgetClassException();
         }
 
-        return $widget;
+        $this->widget = $widget;
     }
 
     /**
@@ -124,6 +142,18 @@ abstract class AbstractWidgetFactory
      */
     protected function parseFullWidgetNameFromString($widgetName)
     {
-        $this->widgetName = studly_case(str_replace('.', '\\', $widgetName));
+        return studly_case(str_replace('.', '\\', $widgetName));
+    }
+
+    /**
+     * Wrap the given content in a span if it's not an ajax call.
+     *
+     * @param $content
+     * @return string
+     */
+    protected function wrapContentInContainer($content)
+    {
+        return isset($_POST['skip_widget_container']) ?
+            $content : '<span id="'.$this->javascriptFactory->getContainerId().'" class="arrilot-widget-container">'.$content.'</span>';
     }
 }

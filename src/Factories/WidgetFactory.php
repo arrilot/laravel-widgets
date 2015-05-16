@@ -15,13 +15,25 @@ class WidgetFactory extends AbstractWidgetFactory
      */
     public function run()
     {
-        $params = func_get_args();
-        $widgetName = array_shift($params);
-        $this->parseFullWidgetNameFromString($widgetName);
+        $this->instantiateWidget(func_get_args());
 
-        $widget = $this->instantiateWidget($params);
+        $content = $this->wrapper->appCall([$this->widget, 'run'], $this->widgetParams);
 
-        return $this->wrapper->appCall([$widget, 'run'], $this->widgetParams);
+        if ($timeout = $this->getReloadTimeout()) {
+            $content .= $this->javascriptFactory->getReloader($timeout);
+        }
+
+        return $this->wrapContentInContainer($content);
+    }
+
+    /**
+     * Get widget reload timeout or false if it's not reloadable.
+     *
+     * @return bool|float|int
+     */
+    protected function getReloadTimeout()
+    {
+        return isset($this->widget) && $this->widget->reloadTimeout ? $this->widget->reloadTimeout : false;
     }
 
     /**
