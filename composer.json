@@ -1,8 +1,8 @@
 {
     "name": "arrilot/laravel-widgets",
-    "description": "This package provides widget functionality to boost your Laravel views. Includes asynchronous mode and generator.",
+    "description": "This package provides widget functionality to boost your Laravel views. It also includes asynchronous widgets, reloadable widgets, generator and etc.",
     "license": "MIT",
-    "keywords": ["laravel", "widgets"],
+    "keywords": ["laravel", "widgets", "ajax"],
     "authors": [
         {
             "name": "Nekrasov Ilya",

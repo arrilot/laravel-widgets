@@ -5,7 +5,7 @@
 
 #Widgets for Laravel
 
-*This package provides widget functionality to boost your Laravel views. Includes asynchronous mode and generator.*
+*This package provides widget functionality to boost your Laravel views. It also includes asynchronous widgets, reloadable widgets, generator and etc.*
 
 ### For Laravel 4, please use the [1.0 branch](https://github.com/Arrilot/laravel-widgets/tree/1.0)!
 
