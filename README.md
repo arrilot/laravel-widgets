@@ -214,6 +214,8 @@ class RecentNews extends AbstractWidget
 ```
 Done.
 
+Both sync and async widgets can become reloadable.
+
 You should use this feature with care, because it can easily spam your app with ajax calls if timeouts are too low.
 Consider using web sockets too but they are waaaay harder to set up on the other hand.
 
