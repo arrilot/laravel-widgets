@@ -30,7 +30,7 @@ class WidgetFactorySpec extends ObjectBehavior
             'id'     => 1,
             'name'   => $widgetName,
             'params' => serialize($widgetParams),
-            '_token' => 'token_stub'
+            '_token' => 'token_stub',
         ]);
     }
 

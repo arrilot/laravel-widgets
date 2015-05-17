@@ -61,7 +61,7 @@ class JavascriptFactory
             'id'     => WidgetId::get(),
             'name'   => $this->widgetFactory->widgetName,
             'params' => serialize($this->widgetFactory->widgetFullParams),
-            '_token' => $this->widgetFactory->wrapper->csrf_token()
+            '_token' => $this->widgetFactory->wrapper->csrf_token(),
         ]);
     }
 

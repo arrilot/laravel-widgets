@@ -162,7 +162,6 @@ abstract class AbstractWidgetFactory
     protected function wrapContentInContainer($content)
     {
         if (self::$skipWidgetContainer) {
-
             return $content;
         }
 
