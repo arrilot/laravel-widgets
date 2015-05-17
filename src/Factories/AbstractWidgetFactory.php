@@ -65,6 +65,13 @@ abstract class AbstractWidgetFactory
     protected $javascriptFactory;
 
     /**
+     * The flag for not wrapping content in a special container.
+     *
+     * @var bool
+     */
+    public static $skipWidgetContainer = false;
+
+    /**
      * @param $config
      * @param $wrapper
      */
@@ -149,11 +156,16 @@ abstract class AbstractWidgetFactory
      * Wrap the given content in a span if it's not an ajax call.
      *
      * @param $content
+     *
      * @return string
      */
     protected function wrapContentInContainer($content)
     {
-        return isset($_POST['skip_widget_container']) ?
-            $content : '<span id="'.$this->javascriptFactory->getContainerId().'" class="arrilot-widget-container">'.$content.'</span>';
+        if (self::$skipWidgetContainer) {
+
+            return $content;
+        }
+
+        return '<span id="'.$this->javascriptFactory->getContainerId().'" class="arrilot-widget-container">'.$content.'</span>';
     }
 }

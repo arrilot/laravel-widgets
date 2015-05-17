@@ -14,19 +14,19 @@ class JavascriptFactory
     protected $widgetFactory;
 
     /**
-     * @param $widgetFactory
-     */
-    public function __construct($widgetFactory)
-    {
-        $this->widgetFactory = $widgetFactory;
-    }
-
-    /**
      * Ajax link where widget can grab content.
      *
      * @var string
      */
     protected $ajaxLink = '/arrilot/load-widget';
+
+    /**
+     * @param $widgetFactory
+     */
+    public function __construct(AbstractWidgetFactory $widgetFactory)
+    {
+        $this->widgetFactory = $widgetFactory;
+    }
 
     /**
      * Construct javascript to load the widget.
@@ -58,22 +58,11 @@ class JavascriptFactory
     protected function produceDataObject()
     {
         return json_encode([
-            'id'     => $this->getWidgetId(),
+            'id'     => WidgetId::get(),
             'name'   => $this->widgetFactory->widgetName,
             'params' => serialize($this->widgetFactory->widgetFullParams),
-            '_token' => $this->widgetFactory->wrapper->csrf_token(),
-            'skip_widget_container' => 1, //to avoid container duplication
+            '_token' => $this->widgetFactory->wrapper->csrf_token()
         ]);
-    }
-
-    /**
-     * Get the current widget id.
-     *
-     * @return string
-     */
-    public function getWidgetId()
-    {
-        return WidgetId::get();
     }
 
     /**
@@ -83,6 +72,6 @@ class JavascriptFactory
      */
     public function getContainerId()
     {
-        return 'arrilot-widget-container-'.$this->getWidgetId();
+        return 'arrilot-widget-container-'.WidgetId::get();
     }
 }

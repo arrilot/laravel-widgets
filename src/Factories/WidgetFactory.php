@@ -6,6 +6,11 @@ use Arrilot\Widgets\WidgetGroup;
 
 class WidgetFactory extends AbstractWidgetFactory
 {
+    /**
+     * The array of widget groups.
+     *
+     * @var array
+     */
     protected $groups;
 
     /**

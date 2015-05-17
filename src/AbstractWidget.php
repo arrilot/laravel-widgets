@@ -5,7 +5,7 @@ namespace Arrilot\Widgets;
 abstract class AbstractWidget
 {
     /**
-     * The number of seconds before reload.
+     * The number of seconds before each reload.
      *
      * @var int|float
      */

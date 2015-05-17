@@ -21,7 +21,7 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
      *
      * @param $widgetName
      * @param array $widgetParams
-     * @param int $id
+     * @param int   $id
      *
      * @return string
      */
@@ -32,7 +32,6 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
             'name'   => $widgetName,
             'params' => serialize($widgetParams),
             '_token' => 'token_stub',
-            'skip_widget_container' => 1,
         ]);
     }
 
@@ -56,9 +55,9 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
 
         $this->testDefaultSlider($config)
             ->shouldReturn(
-                "<span id=\"arrilot-widget-container-1\" class=\"arrilot-widget-container\">".
-                "<script type=\"text/javascript\">$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->mockProduceJavascriptData('TestDefaultSlider', $params).")</script>".
-                "</span>"
+                '<span id="arrilot-widget-container-1" class="arrilot-widget-container">'.
+                "<script type=\"text/javascript\">$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->mockProduceJavascriptData('TestDefaultSlider', $params).')</script>'.
+                '</span>'
             );
     }
 
@@ -71,9 +70,9 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
 
         $this->slider($config)
             ->shouldReturn(
-                "<span id=\"arrilot-widget-container-1\" class=\"arrilot-widget-container\">Placeholder here!".
-                "<script type=\"text/javascript\">$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->mockProduceJavascriptData('Slider', $params).")</script>".
-                "</span>"
+                '<span id="arrilot-widget-container-1" class="arrilot-widget-container">Placeholder here!'.
+                "<script type=\"text/javascript\">$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->mockProduceJavascriptData('Slider', $params).')</script>'.
+                '</span>'
             );
     }
 
@@ -86,16 +85,16 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
 
         $this->slider()
             ->shouldReturn(
-                "<span id=\"arrilot-widget-container-1\" class=\"arrilot-widget-container\">Placeholder here!".
-                "<script type=\"text/javascript\">$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->mockProduceJavascriptData('Slider').")</script>".
-                "</span>"
+                '<span id="arrilot-widget-container-1" class="arrilot-widget-container">Placeholder here!'.
+                "<script type=\"text/javascript\">$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->mockProduceJavascriptData('Slider').')</script>'.
+                '</span>'
             );
 
         $this->testDefaultSlider($config)
             ->shouldReturn(
-                "<span id=\"arrilot-widget-container-2\" class=\"arrilot-widget-container\">".
-                "<script type=\"text/javascript\">$('#arrilot-widget-container-2').load('/arrilot/load-widget', ".$this->mockProduceJavascriptData('TestDefaultSlider', $params, 2).")</script>".
-                "</span>"
+                '<span id="arrilot-widget-container-2" class="arrilot-widget-container">'.
+                "<script type=\"text/javascript\">$('#arrilot-widget-container-2').load('/arrilot/load-widget', ".$this->mockProduceJavascriptData('TestDefaultSlider', $params, 2).')</script>'.
+                '</span>'
             );
     }
 
@@ -110,9 +109,9 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
 
         $this->testWidgetWithParamsInRun([], 'param')
             ->shouldReturn(
-                "<span id=\"arrilot-widget-container-1\" class=\"arrilot-widget-container\">Placeholder here!".
-                "<script type=\"text/javascript\">$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->mockProduceJavascriptData('TestWidgetWithParamsInRun', $params).")</script>".
-                "</span>"
+                '<span id="arrilot-widget-container-1" class="arrilot-widget-container">Placeholder here!'.
+                "<script type=\"text/javascript\">$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->mockProduceJavascriptData('TestWidgetWithParamsInRun', $params).')</script>'.
+                '</span>'
             );
     }
 
@@ -125,9 +124,9 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
 
         $this->run('testDefaultSlider', $config)
             ->shouldReturn(
-                "<span id=\"arrilot-widget-container-1\" class=\"arrilot-widget-container\">".
-                "<script type=\"text/javascript\">$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->mockProduceJavascriptData('TestDefaultSlider', $params).")</script>".
-                "</span>"
+                '<span id="arrilot-widget-container-1" class="arrilot-widget-container">'.
+                "<script type=\"text/javascript\">$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->mockProduceJavascriptData('TestDefaultSlider', $params).')</script>'.
+                '</span>'
             );
     }
 
@@ -140,9 +139,9 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
 
         $this->run('Profile\TestNamespace\TestFeed', $config)
             ->shouldReturn(
-                "<span id=\"arrilot-widget-container-1\" class=\"arrilot-widget-container\">".
-                "<script type=\"text/javascript\">$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->mockProduceJavascriptData('Profile\TestNamespace\TestFeed', $params).")</script>".
-                "</span>"
+                '<span id="arrilot-widget-container-1" class="arrilot-widget-container">'.
+                "<script type=\"text/javascript\">$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->mockProduceJavascriptData('Profile\TestNamespace\TestFeed', $params).')</script>'.
+                '</span>'
             );
     }
 
@@ -155,9 +154,9 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
 
         $this->run('profile.testNamespace.testFeed', $config)
             ->shouldReturn(
-                "<span id=\"arrilot-widget-container-1\" class=\"arrilot-widget-container\">".
-                "<script type=\"text/javascript\">$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->mockProduceJavascriptData('Profile\testNamespace\testFeed', $params).")</script>".
-                "</span>"
+                '<span id="arrilot-widget-container-1" class="arrilot-widget-container">'.
+                "<script type=\"text/javascript\">$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->mockProduceJavascriptData('Profile\testNamespace\testFeed', $params).')</script>'.
+                '</span>'
             );
     }
 }
