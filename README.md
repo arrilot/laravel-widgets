@@ -137,7 +137,7 @@ public function run($sort_by, $sort_order) { }
 
 By default package tries to find your widget in the ```App\Widgets``` namespace.
 
-You can override this by publishing package config and setting `default_namespace` property.
+You can overwrite this by publishing package config and setting `default_namespace` property.
 
 Although using the default namespace is very convenient and keeps you from doing unnecessary actions, in some situations you may wish to have more flexibility. 
 For example, if you've got dozens of widgets it makes sense to group them in namespaced folders.
