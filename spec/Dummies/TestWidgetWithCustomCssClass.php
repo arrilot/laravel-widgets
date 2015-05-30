@@ -10,7 +10,7 @@ class TestWidgetWithCustomCssClass extends AbstractWidget
 
     public function run()
     {
-        return "Dummy Content";
+        return 'Dummy Content';
     }
 
     public function placeholder()
