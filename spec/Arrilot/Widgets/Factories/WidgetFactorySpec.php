@@ -8,6 +8,7 @@ use App\Widgets\TestMyClass;
 use App\Widgets\TestRepeatableFeed;
 use App\Widgets\TestWidgetWithDIInRun;
 use App\Widgets\TestWidgetWithParamsInRun;
+use App\Widgets\TestWidgetWithCustomCssClass;
 use Arrilot\Widgets\Misc\Wrapper;
 use Arrilot\Widgets\WidgetId;
 use PhpSpec\ObjectBehavior;
@@ -61,7 +62,7 @@ class WidgetFactorySpec extends ObjectBehavior
         );
         $this->testDefaultSlider()
             ->shouldReturn(
-                '<span id="arrilot-widget-container-1" class="arrilot-widget-container">Default test slider was executed with $slides = 6</span>'
+                '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">Default test slider was executed with $slides = 6</div>'
             );
     }
 
@@ -72,7 +73,7 @@ class WidgetFactorySpec extends ObjectBehavior
         );
         $this->slider()
             ->shouldReturn(
-                '<span id="arrilot-widget-container-1" class="arrilot-widget-container">Slider was executed with $slides = 6</span>'
+                '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">Slider was executed with $slides = 6</div>'
             );
     }
 
@@ -83,7 +84,7 @@ class WidgetFactorySpec extends ObjectBehavior
         );
         $this->slider(['slides' => 5])
             ->shouldReturn(
-                '<span id="arrilot-widget-container-1" class="arrilot-widget-container">Slider was executed with $slides = 5</span>'
+                '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">Slider was executed with $slides = 5</div>'
             );
     }
 
@@ -99,7 +100,7 @@ class WidgetFactorySpec extends ObjectBehavior
         );
         $this->testWidgetWithParamsInRun([], 'asc')
             ->shouldReturn(
-                '<span id="arrilot-widget-container-1" class="arrilot-widget-container">TestWidgetWithParamsInRun was executed with $flag = asc</span>'
+                '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">TestWidgetWithParamsInRun was executed with $flag = asc</div>'
             );
     }
 
@@ -110,7 +111,7 @@ class WidgetFactorySpec extends ObjectBehavior
         );
         $this->testWidgetWithParamsInRun()
             ->shouldReturn(
-                '<span id="arrilot-widget-container-1" class="arrilot-widget-container">bar</span>'
+                '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">bar</div>'
             );
     }
 
@@ -121,7 +122,7 @@ class WidgetFactorySpec extends ObjectBehavior
         );
         $this->run('testDefaultSlider')
             ->shouldReturn(
-                '<span id="arrilot-widget-container-1" class="arrilot-widget-container">Default test slider was executed with $slides = 6</span>'
+                '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">Default test slider was executed with $slides = 6</div>'
             );
     }
 
@@ -132,7 +133,7 @@ class WidgetFactorySpec extends ObjectBehavior
         );
         $this->run('slider', ['slides' => 5])
             ->shouldReturn(
-                '<span id="arrilot-widget-container-1" class="arrilot-widget-container">Slider was executed with $slides = 5</span>'
+                '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">Slider was executed with $slides = 5</div>'
             );
     }
 
@@ -143,7 +144,7 @@ class WidgetFactorySpec extends ObjectBehavior
         );
         $this->run('Profile\TestNamespace\TestFeed', ['slides' => 5])
             ->shouldReturn(
-                '<span id="arrilot-widget-container-1" class="arrilot-widget-container">Feed was executed with $slides = 6</span>'
+                '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">Feed was executed with $slides = 6</div>'
             );
     }
 
@@ -154,7 +155,7 @@ class WidgetFactorySpec extends ObjectBehavior
         );
         $this->run('profile.testNamespace.testFeed', ['slides' => 5])
             ->shouldReturn(
-                '<span id="arrilot-widget-container-1" class="arrilot-widget-container">Feed was executed with $slides = 6</span>'
+                '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">Feed was executed with $slides = 6</div>'
             );
     }
 
@@ -165,7 +166,7 @@ class WidgetFactorySpec extends ObjectBehavior
         );
         $this->slider()
             ->shouldReturn(
-                '<span id="arrilot-widget-container-1" class="arrilot-widget-container">Slider was executed with $slides = 6</span>'
+                '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">Slider was executed with $slides = 6</div>'
             );
 
         $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
@@ -173,7 +174,7 @@ class WidgetFactorySpec extends ObjectBehavior
         );
         $this->slider(['slides' => 5])
             ->shouldReturn(
-                '<span id="arrilot-widget-container-2" class="arrilot-widget-container">Slider was executed with $slides = 5</span>'
+                '<div id="arrilot-widget-container-2" style="display:inline" class="arrilot-widget-container">Slider was executed with $slides = 5</div>'
             );
     }
 
@@ -189,9 +190,20 @@ class WidgetFactorySpec extends ObjectBehavior
 
         $this->testRepeatableFeed($config)
             ->shouldReturn(
-                '<span id="arrilot-widget-container-1" class="arrilot-widget-container">Feed was executed with $slides = 6'.
+                '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">Feed was executed with $slides = 6'.
                 '<script type="text/javascript">setTimeout( function() { $(\'#arrilot-widget-container-1\').load(\'/arrilot/load-widget\', '.$this->mockProduceJavascriptData('TestRepeatableFeed', $params).') }, 10000)</script>'.
-                '</span>'
+                '</div>'
+            );
+    }
+
+    public function it_can_be_configurate_to_use_custom_css_class_in_wrapper(Wrapper $wrapper)
+    {
+        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+            call_user_func_array([new TestWidgetWithCustomCssClass([]), 'run'], [])
+        );
+        $this->run('testWidgetWithCustomCssClass')
+            ->shouldReturn(
+                '<div id="arrilot-widget-container-1" style="display:inline" class="dummyClass">Dummy Content</div>'
             );
     }
 }

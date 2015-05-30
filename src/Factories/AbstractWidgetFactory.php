@@ -153,7 +153,7 @@ abstract class AbstractWidgetFactory
     }
 
     /**
-     * Wrap the given content in a span if it's not an ajax call.
+     * Wrap the given content in a container if it's not an ajax call.
      *
      * @param $content
      *
@@ -165,6 +165,6 @@ abstract class AbstractWidgetFactory
             return $content;
         }
 
-        return '<span id="'.$this->javascriptFactory->getContainerId().'" class="arrilot-widget-container">'.$content.'</span>';
+        return '<div id="'.$this->javascriptFactory->getContainerId().'" style="display:inline" class="'.$this->widget->cssClassForWrapper.'">'.$content.'</div>';
     }
 }

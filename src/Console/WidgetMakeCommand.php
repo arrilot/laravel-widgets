@@ -2,11 +2,14 @@
 
 namespace Arrilot\Widgets\Console;
 
+use Illuminate\Console\AppNamespaceDetectorTrait;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
 
 class WidgetMakeCommand extends GeneratorCommand
 {
+    use AppNamespaceDetectorTrait;
+
     /**
      * The console command name.
      *
@@ -77,6 +80,54 @@ class WidgetMakeCommand extends GeneratorCommand
     }
 
     /**
+     * Replace the namespace for the given stub.
+     *
+     * @param  string  $stub
+     * @param  string  $name
+     * @return $this
+     */
+    protected function replaceNamespace(&$stub, $name)
+    {
+        $stub = str_replace(
+            '{{namespace}}', $this->getNamespace($name), $stub
+        );
+
+        $stub = str_replace(
+            '{{rootNamespace}}', $this->getAppNamespace(), $stub
+        );
+
+        return $this;
+    }
+
+    /**
+     * Replace the class name for the given stub.
+     *
+     * @param  string  $stub
+     * @param  string  $name
+     * @return string
+     */
+    protected function replaceClass($stub, $name)
+    {
+        $class = str_replace($this->getNamespace($name).'\\', '', $name);
+
+        return str_replace('{{class}}', $class, $stub);
+    }
+
+    /**
+     * Replace the view name for the given stub.
+     *
+     * @param string $stub
+     *
+     * @return string
+     */
+    protected function replaceView($stub)
+    {
+        $view = 'widgets.'.str_replace('/', '.', $this->makeViewName());
+
+        return str_replace('{{view}}', $view, $stub);
+    }
+
+    /**
      * Get the default namespace for the class.
      *
      * @param string $rootNamespace
@@ -140,26 +191,12 @@ class WidgetMakeCommand extends GeneratorCommand
         $name = str_replace($this->getAppNamespace(), '', $this->argument('name'));
         $name = str_replace('\\', '/', $name);
 
-        // snake_part by part to avoid unexpected underscores.
+        // convert to snake_case part by part to avoid unexpected underscores.
         $nameArray = explode('/', $name);
         array_walk($nameArray, function (&$part) {
             $part = snake_case($part);
         });
 
         return implode('/', $nameArray);
-    }
-
-    /**
-     * Replace the view name for the given stub.
-     *
-     * @param string $stub
-     *
-     * @return string
-     */
-    protected function replaceView($stub)
-    {
-        $view = 'widgets.'.str_replace('/', '.', $this->makeViewName());
-
-        return str_replace('{{view}}', $view, $stub);
     }
 }

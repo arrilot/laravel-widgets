@@ -8,7 +8,7 @@ class {{class}} extends AbstractWidget
 {
     /**
      * Treat this method as a controller action.
-     * Return a view or other content to display.
+     * Return view() or other content to display.
      */
     public function run()
     {

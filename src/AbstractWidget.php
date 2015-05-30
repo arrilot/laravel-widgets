@@ -12,6 +12,14 @@ abstract class AbstractWidget
     public $reloadTimeout;
 
     /**
+     * The css class or classes that are applied to a special container (div)
+     * that wraps all widget content.
+     *
+     * @var string
+     */
+    public $cssClassForWrapper = 'arrilot-widget-container';
+
+    /**
      * Constructor.
      *
      * @param $config
