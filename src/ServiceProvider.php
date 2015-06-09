@@ -116,7 +116,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
      *
      * @return string
      */
-    public function createMatcher($function)
+    protected function createMatcher($function)
     {
         return '/(?<!\w)(\s*)@'.$function.'(\s*\(.*\))/';
     }
