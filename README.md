@@ -110,21 +110,18 @@ class RecentNews extends AbstractWidget {
 }
 
 ...
-{!! Widget::recentNews() !!}
+@widget('recentNews')
 ...
-{!! Widget::recentNews(['count' => 10]) !!}
+@widget('recentNews', ['count' => 10])
 ```
 `['count' => 10]` is a config array.
-Notice that you don't need to map the config array and class properties in constructor. It's done automatically behind the scenes.
+Notice that you don't need to manually map the config array and class properties in constructor. It's done automatically behind the scenes.
 
 #### Using additional parameters
 
 You can also choose to pass additional parameters to the `run()` method directly if you like it.
 
 ```php
-{!! Widget::recentNews([], 'date', 'asc') !!}
-{!! Widget::recentNews(['count' => 10], 'date', 'asc') !!}
-{!! Widget::run('recentNews', ['count' => 10], 'date', 'asc') !!}
 @widget('recentNews', ['count' => 10], 'date', 'asc')
 ...
 public function run($sort_by, $sort_order) { }
@@ -146,13 +143,11 @@ You actually have several ways to call those widgets:
 
 1) You can pass the full name to the `run` method.
 ```php
-{!! Widget::run('News\RecentNews', $config) !!}
 @widget('News\RecentNews', $config)
 ```
 
 2) You can use dot notation instead.
 ```php
-{!! Widget::run('news.recentNews', $config) !!}
 @widget('news.recentNews', $config)
 ```
 
@@ -165,8 +160,6 @@ You actually have several ways to call those widgets:
 ```
 and then call it without namespaces
 ```php
-{!! Widget::recentNews($config) !!}
-{!! Widget::run('recentNews', $config) !!}
 @widget('recentNews', $config)
 ```
 
