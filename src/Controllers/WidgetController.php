@@ -21,8 +21,8 @@ class WidgetController extends BaseController
         $this->prepareGlobals($request);
 
         $factory = app()->make('arrilot.widget');
-        $widgetName = $request->get('name', '');
-        $widgetParams = unserialize($request->get('params', ''));
+        $widgetName = $request->input('name', '');
+        $widgetParams = unserialize($request->input('params', ''));
 
         return call_user_func_array([$factory, $widgetName], $widgetParams);
     }
@@ -34,7 +34,7 @@ class WidgetController extends BaseController
      */
     protected function prepareGlobals(Request $request)
     {
-        WidgetId::set($request->get('id', 1) - 1);
+        WidgetId::set($request->input('id', 1) - 1);
         AbstractWidgetFactory::$skipWidgetContainer = true;
     }
 }

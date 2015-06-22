@@ -53,9 +53,9 @@ abstract class AbstractWidgetFactory
     /**
      * Laravel application wrapper for better testability.
      *
-     * @var \Arrilot\Widgets\Misc\Wrapper;
+     * @var \Arrilot\Widgets\Misc\LaravelApplicationWrapper;
      */
-    public $wrapper;
+    public $app;
 
     /**
      * Another factory that produces some javascript.
@@ -73,12 +73,12 @@ abstract class AbstractWidgetFactory
 
     /**
      * @param $config
-     * @param $wrapper
+     * @param $app
      */
-    public function __construct($config, $wrapper)
+    public function __construct($config, $app)
     {
         $this->config = $config;
-        $this->wrapper = $wrapper;
+        $this->app = $app;
         $this->javascriptFactory = new JavascriptFactory($this);
     }
 

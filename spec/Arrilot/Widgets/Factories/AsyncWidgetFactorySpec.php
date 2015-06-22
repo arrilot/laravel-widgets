@@ -2,7 +2,7 @@
 
 namespace spec\Arrilot\Widgets\Factories;
 
-use Arrilot\Widgets\Misc\Wrapper;
+use Arrilot\Widgets\Misc\LaravelApplicationWrapper;
 use Arrilot\Widgets\WidgetId;
 use PhpSpec\ObjectBehavior;
 
@@ -35,7 +35,7 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
         ]);
     }
 
-    public function let(Wrapper $wrapper)
+    public function let(LaravelApplicationWrapper $wrapper)
     {
         $this->beConstructedWith($this->config, $wrapper);
         WidgetId::reset();
@@ -46,7 +46,7 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
         $this->shouldHaveType('Arrilot\Widgets\Factories\AsyncWidgetFactory');
     }
 
-    public function it_can_run_async_widget(Wrapper $wrapper)
+    public function it_can_run_async_widget(LaravelApplicationWrapper $wrapper)
     {
         $config = ['count' => 5];
         $params = [$config];
@@ -61,7 +61,7 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
             );
     }
 
-    public function it_can_run_async_widget_with_placeholder(Wrapper $wrapper)
+    public function it_can_run_async_widget_with_placeholder(LaravelApplicationWrapper $wrapper)
     {
         $config = ['count' => 5];
         $params = [$config];
@@ -76,7 +76,7 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
             );
     }
 
-    public function it_can_run_multiple_async_widgets(Wrapper $wrapper)
+    public function it_can_run_multiple_async_widgets(LaravelApplicationWrapper $wrapper)
     {
         $config = ['count' => 5];
         $params = [$config];
@@ -98,7 +98,7 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
             );
     }
 
-    public function it_can_run_async_widget_with_additional_params(Wrapper $wrapper)
+    public function it_can_run_async_widget_with_additional_params(LaravelApplicationWrapper $wrapper)
     {
         $params = [
             [],
@@ -115,7 +115,7 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
             );
     }
 
-    public function it_can_run_async_widget_with_run_method(Wrapper $wrapper)
+    public function it_can_run_async_widget_with_run_method(LaravelApplicationWrapper $wrapper)
     {
         $config = ['count' => 5];
         $params = [$config];
@@ -130,7 +130,7 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
             );
     }
 
-    public function it_can_run_nested_async_widget(Wrapper $wrapper)
+    public function it_can_run_nested_async_widget(LaravelApplicationWrapper $wrapper)
     {
         $config = ['count' => 5];
         $params = [$config];
@@ -145,7 +145,7 @@ class AsyncWidgetFactorySpec extends ObjectBehavior
             );
     }
 
-    public function it_can_run_nested_async_widget_with_dot_notation(Wrapper $wrapper)
+    public function it_can_run_nested_async_widget_with_dot_notation(LaravelApplicationWrapper $wrapper)
     {
         $config = ['count' => 5];
         $params = [$config];

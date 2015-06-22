@@ -3,13 +3,14 @@
 namespace spec\Arrilot\Widgets\Factories;
 
 use App\Widgets\Profile\TestNamespace\TestFeed;
+use App\Widgets\TestCachedWidget;
 use App\Widgets\TestDefaultSlider;
 use App\Widgets\TestMyClass;
 use App\Widgets\TestRepeatableFeed;
 use App\Widgets\TestWidgetWithCustomCssClass;
 use App\Widgets\TestWidgetWithDIInRun;
 use App\Widgets\TestWidgetWithParamsInRun;
-use Arrilot\Widgets\Misc\Wrapper;
+use Arrilot\Widgets\Misc\LaravelApplicationWrapper;
 use Arrilot\Widgets\WidgetId;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -44,7 +45,7 @@ class WidgetFactorySpec extends ObjectBehavior
             ],
         ];
 
-    public function let(Wrapper $wrapper)
+    public function let(LaravelApplicationWrapper $wrapper)
     {
         $this->beConstructedWith($this->config, $wrapper);
         WidgetId::reset();
@@ -55,9 +56,9 @@ class WidgetFactorySpec extends ObjectBehavior
         $this->shouldHaveType('Arrilot\Widgets\Factories\WidgetFactory');
     }
 
-    public function it_can_run_widget_from_default_namespace(Wrapper $wrapper)
+    public function it_can_run_widget_from_default_namespace(LaravelApplicationWrapper $wrapper)
     {
-        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+        $wrapper->call(Argument::any(), Argument::any())->willReturn(
             call_user_func_array([new TestDefaultSlider([]), 'run'], [])
         );
         $this->testDefaultSlider()
@@ -66,9 +67,9 @@ class WidgetFactorySpec extends ObjectBehavior
             );
     }
 
-    public function it_can_run_widget_from_custom_namespace(Wrapper $wrapper)
+    public function it_can_run_widget_from_custom_namespace(LaravelApplicationWrapper $wrapper)
     {
-        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+        $wrapper->call(Argument::any(), Argument::any())->willReturn(
             call_user_func_array([new Slider([]), 'run'], [])
         );
         $this->slider()
@@ -77,9 +78,9 @@ class WidgetFactorySpec extends ObjectBehavior
             );
     }
 
-    public function it_provides_config_override(Wrapper $wrapper)
+    public function it_provides_config_override(LaravelApplicationWrapper $wrapper)
     {
-        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+        $wrapper->call(Argument::any(), Argument::any())->willReturn(
             call_user_func_array([new Slider(['slides' => 5]), 'run'], ['slides' => 5])
         );
         $this->slider(['slides' => 5])
@@ -93,9 +94,9 @@ class WidgetFactorySpec extends ObjectBehavior
         $this->shouldThrow('\Arrilot\Widgets\Misc\InvalidWidgetClassException')->during('testBadSlider');
     }
 
-    public function it_can_run_widgets_with_additional_params(Wrapper $wrapper)
+    public function it_can_run_widgets_with_additional_params(LaravelApplicationWrapper $wrapper)
     {
-        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+        $wrapper->call(Argument::any(), Argument::any())->willReturn(
             call_user_func_array([new TestWidgetWithParamsInRun([]), 'run'], ['asc'])
         );
         $this->testWidgetWithParamsInRun([], 'asc')
@@ -104,9 +105,9 @@ class WidgetFactorySpec extends ObjectBehavior
             );
     }
 
-    public function it_can_run_widgets_with_method_injection(Wrapper $wrapper)
+    public function it_can_run_widgets_with_method_injection(LaravelApplicationWrapper $wrapper)
     {
-        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+        $wrapper->call(Argument::any(), Argument::any())->willReturn(
             call_user_func_array([new TestWidgetWithDIInRun([]), 'run'], [new TestMyClass()])
         );
         $this->testWidgetWithParamsInRun()
@@ -115,9 +116,9 @@ class WidgetFactorySpec extends ObjectBehavior
             );
     }
 
-    public function it_can_run_widgets_with_run_method(Wrapper $wrapper)
+    public function it_can_run_widgets_with_run_method(LaravelApplicationWrapper $wrapper)
     {
-        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+        $wrapper->call(Argument::any(), Argument::any())->willReturn(
             call_user_func_array([new TestDefaultSlider([]), 'run'], [])
         );
         $this->run('testDefaultSlider')
@@ -126,9 +127,9 @@ class WidgetFactorySpec extends ObjectBehavior
             );
     }
 
-    public function it_can_run_widgets_with_run_method_and_config_override(Wrapper $wrapper)
+    public function it_can_run_widgets_with_run_method_and_config_override(LaravelApplicationWrapper $wrapper)
     {
-        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+        $wrapper->call(Argument::any(), Argument::any())->willReturn(
             call_user_func_array([new Slider(['slides' => 5]), 'run'], ['slides' => 5])
         );
         $this->run('slider', ['slides' => 5])
@@ -137,9 +138,9 @@ class WidgetFactorySpec extends ObjectBehavior
             );
     }
 
-    public function it_can_run_nested_widgets(Wrapper $wrapper)
+    public function it_can_run_nested_widgets(LaravelApplicationWrapper $wrapper)
     {
-        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+        $wrapper->call(Argument::any(), Argument::any())->willReturn(
             call_user_func_array([new TestFeed([]), 'run'], [])
         );
         $this->run('Profile\TestNamespace\TestFeed', ['slides' => 5])
@@ -148,9 +149,9 @@ class WidgetFactorySpec extends ObjectBehavior
             );
     }
 
-    public function it_can_run_nested_widgets_with_dot_notation(Wrapper $wrapper)
+    public function it_can_run_nested_widgets_with_dot_notation(LaravelApplicationWrapper $wrapper)
     {
-        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+        $wrapper->call(Argument::any(), Argument::any())->willReturn(
             call_user_func_array([new TestFeed([]), 'run'], [])
         );
         $this->run('profile.testNamespace.testFeed', ['slides' => 5])
@@ -159,9 +160,9 @@ class WidgetFactorySpec extends ObjectBehavior
             );
     }
 
-    public function it_can_run_multiple_widgets(Wrapper $wrapper)
+    public function it_can_run_multiple_widgets(LaravelApplicationWrapper $wrapper)
     {
-        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+        $wrapper->call(Argument::any(), Argument::any())->willReturn(
             call_user_func_array([new Slider([]), 'run'], [])
         );
         $this->slider()
@@ -169,7 +170,7 @@ class WidgetFactorySpec extends ObjectBehavior
                 '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">Slider was executed with $slides = 6</div>'
             );
 
-        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+        $wrapper->call(Argument::any(), Argument::any())->willReturn(
             call_user_func_array([new Slider(['slides' => 5]), 'run'], ['slides' => 5])
         );
         $this->slider(['slides' => 5])
@@ -178,13 +179,13 @@ class WidgetFactorySpec extends ObjectBehavior
             );
     }
 
-    public function it_can_run_async_widget(Wrapper $wrapper)
+    public function it_can_run_async_widget(LaravelApplicationWrapper $wrapper)
     {
         $config = [];
         $params = [$config];
 
         $wrapper->csrf_token()->willReturn('token_stub');
-        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+        $wrapper->call(Argument::any(), Argument::any())->willReturn(
             call_user_func_array([new TestRepeatableFeed([]), 'run'], [])
         );
 
@@ -196,14 +197,24 @@ class WidgetFactorySpec extends ObjectBehavior
             );
     }
 
-    public function it_can_be_configurate_to_use_custom_css_class_in_wrapper(Wrapper $wrapper)
+    public function it_can_be_configurate_to_use_custom_css_class_in_wrapper(LaravelApplicationWrapper $wrapper)
     {
-        $wrapper->appCall(Argument::any(), Argument::any())->willReturn(
+        $wrapper->call(Argument::any(), Argument::any())->willReturn(
             call_user_func_array([new TestWidgetWithCustomCssClass([]), 'run'], [])
         );
         $this->run('testWidgetWithCustomCssClass')
             ->shouldReturn(
                 '<div id="arrilot-widget-container-1" style="display:inline" class="dummyClass">Dummy Content</div>'
             );
+    }
+
+    public function it_can_cache_widgets(LaravelApplicationWrapper $wrapper)
+    {
+        $wrapper->call(Argument::any(), Argument::any())->willReturn(
+            call_user_func_array([new TestCachedWidget(['slides' => 5]), 'run'], [])
+        );
+        $wrapper->cache(Argument::any(), Argument::any(), Argument::any())->shouldBeCalled();
+
+        $this->run('testCachedWidget', ['slides' => 5]);
     }
 }

@@ -5,7 +5,7 @@ namespace Arrilot\Widgets;
 use Arrilot\Widgets\Console\WidgetMakeCommand;
 use Arrilot\Widgets\Factories\AsyncWidgetFactory;
 use Arrilot\Widgets\Factories\WidgetFactory;
-use Arrilot\Widgets\Misc\Wrapper;
+use Arrilot\Widgets\Misc\LaravelApplicationWrapper;
 use Illuminate\Console\AppNamespaceDetectorTrait;
 use Illuminate\Support\Facades\Blade;
 
@@ -30,11 +30,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         ];
 
         $this->app->bind('arrilot.widget', function () use ($config) {
-            return new WidgetFactory($config, new Wrapper());
+            return new WidgetFactory($config, new LaravelApplicationWrapper());
         });
 
         $this->app->bind('arrilot.async-widget', function () use ($config) {
-            return new AsyncWidgetFactory($config, new Wrapper());
+            return new AsyncWidgetFactory($config, new LaravelApplicationWrapper());
         });
 
         $this->app->singleton('command.widget.make', function ($app) {

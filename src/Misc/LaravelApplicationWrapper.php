@@ -2,7 +2,9 @@
 
 namespace Arrilot\Widgets\Misc;
 
-class Wrapper
+use Closure;
+
+class LaravelApplicationWrapper
 {
     /**
      * Wrapper around csrf_token().
@@ -22,7 +24,7 @@ class Wrapper
      *
      * @return mixed
      */
-    public function appCall($method, $params = [])
+    public function call($method, $params = [])
     {
         return app()->call($method, $params);
     }
@@ -34,8 +36,22 @@ class Wrapper
      *
      * @return mixed
      */
-    public function appMake($binding)
+    public function make($binding)
     {
         return app()->make($binding);
+    }
+
+    /**
+     * Wrapper around Cache::remember().
+     *
+     * @param $key
+     * @param $minutes
+     * @param callable $callback
+     *
+     * @return mixed
+     */
+    public function cache($key, $minutes, Closure $callback)
+    {
+        return app()->make('cache')->remember($key, $minutes, $callback);
     }
 }

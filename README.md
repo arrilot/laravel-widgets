@@ -20,7 +20,7 @@
 
 'providers' => [
     ...
-    'Arrilot\Widgets\ServiceProvider',
+    Arrilot\Widgets\ServiceProvider::class,
 ],
 ?>
 ```
@@ -32,8 +32,8 @@
 
 'aliases' => [
     ...
-    'Widget'       => 'Arrilot\Widgets\Facade',
-    'AsyncWidget'  => 'Arrilot\Widgets\AsyncFacade',
+    'Widget'       => Arrilot\Widgets\Facade::class,
+    'AsyncWidget'  => Arrilot\Widgets\AsyncFacade::class,
 ],
 ?>
 ```
@@ -181,7 +181,7 @@ This can be easily customized by adding a `placeholder()` method to the widget c
 ```php
 public function placeholder()
 {
-	return "Loading...";
+    return "Loading...";
 }
 ```
 
@@ -212,6 +212,28 @@ Both sync and async widgets can become reloadable.
 You should use this feature with care, because it can easily spam your app with ajax calls if timeouts are too low.
 Consider using web sockets too but they are waaaay harder to set up on the other hand.
 
+
+## Caching
+
+There is also a simple built-in way to cache entire widget output.
+Just set $cacheTime property and you are done.
+
+```php
+class RecentNews extends AbstractWidget
+{
+    /**
+     * The number of minutes before cache expires.
+     * False means no caching at all.
+     *
+     * @var int|float|bool
+     */
+    public $cacheTime = 60;
+}
+```
+
+No caching is turned on by default.
+A cache key depends on widget name and each widget parameter.
+Overwrite ```cacheKey``` method if you need to adjust it.
 
 ## Widget groups (extra)
 
