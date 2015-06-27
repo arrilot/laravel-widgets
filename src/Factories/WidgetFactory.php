@@ -25,7 +25,7 @@ class WidgetFactory extends AbstractWidgetFactory
         $this->instantiateWidget($args);
 
         if ($cacheTime = $this->getCacheTime()) {
-            $content = $this->app->cache($this->widget->cacheKey($args), $cacheTime, function() {
+            $content = $this->app->cache($this->widget->cacheKey($args), $cacheTime, function () {
                 return $this->getContent();
             });
         } else {
