@@ -34,9 +34,10 @@ class WidgetFactory extends AbstractWidgetFactory
 
         if ($timeout = $this->getReloadTimeout()) {
             $content .= $this->javascriptFactory->getReloader($timeout);
+            return $this->wrapContentInContainer($content);
         }
 
-        return $this->wrapContentInContainer($content);
+        return $content;
     }
 
     /**
