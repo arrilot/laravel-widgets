@@ -2,7 +2,9 @@
 
 namespace Arrilot\Widgets\Misc;
 
-class InvalidWidgetClassException extends \Exception
+use Exception;
+
+class InvalidWidgetClassException extends Exception
 {
     /**
      * Exception message.

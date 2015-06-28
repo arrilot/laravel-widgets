@@ -19,7 +19,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Arrilot\\Widgets\\": "src/"
+            "Arrilot\\Widgets\\": "src/",
+            "Arrilot\\Widgets\\Test\\Dummies\\": "spec/Dummies"
         }
     },
     "autoload-dev": {

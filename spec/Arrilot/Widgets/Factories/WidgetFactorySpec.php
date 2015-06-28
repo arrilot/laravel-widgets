@@ -2,22 +2,26 @@
 
 namespace spec\Arrilot\Widgets\Factories;
 
-use App\Widgets\Profile\TestNamespace\TestFeed;
-use App\Widgets\TestCachedWidget;
-use App\Widgets\TestDefaultSlider;
-use App\Widgets\TestMyClass;
-use App\Widgets\TestRepeatableFeed;
-use App\Widgets\TestWidgetWithCustomContainer;
-use App\Widgets\TestWidgetWithDIInRun;
-use App\Widgets\TestWidgetWithParamsInRun;
+use Arrilot\Widgets\Test\Dummies\Profile\TestNamespace\TestFeed;
+use Arrilot\Widgets\Test\Dummies\TestCachedWidget;
+use Arrilot\Widgets\Test\Dummies\TestDefaultSlider;
+use Arrilot\Widgets\Test\Dummies\TestMyClass;
+use Arrilot\Widgets\Test\Dummies\TestRepeatableFeed;
+use Arrilot\Widgets\Test\Dummies\TestWidgetWithCustomContainer;
+use Arrilot\Widgets\Test\Dummies\TestWidgetWithDIInRun;
+use Arrilot\Widgets\Test\Dummies\TestWidgetWithParamsInRun;
 use Arrilot\Widgets\Misc\LaravelApplicationWrapper;
 use Arrilot\Widgets\WidgetId;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use spec\Arrilot\Widgets\Dummies\Slider;
+use Arrilot\Widgets\Test\Dummies\Slider;
 
 class WidgetFactorySpec extends ObjectBehavior
 {
+    protected $config = [
+        'defaultNamespace' => 'Arrilot\Widgets\Test\Dummies',
+    ];
+
     /**
      * A mock for producing JS object for ajax.
      *
@@ -35,15 +39,6 @@ class WidgetFactorySpec extends ObjectBehavior
             '_token' => 'token_stub',
         ]);
     }
-
-    protected $config = [
-        'defaultNamespace' => 'App\Widgets',
-        'customNamespaces' => [
-                'slider'             => 'spec\Arrilot\Widgets\Dummies',
-                'testRepeatableFeed' => 'spec\Arrilot\Widgets\Dummies',
-                'testWidgetName'     => '',
-            ],
-        ];
 
     public function let(LaravelApplicationWrapper $wrapper)
     {
@@ -67,25 +62,25 @@ class WidgetFactorySpec extends ObjectBehavior
             );
     }
 
-    public function it_can_run_widget_from_custom_namespace(LaravelApplicationWrapper $wrapper)
-    {
-        $wrapper->call(Argument::any(), Argument::any())->willReturn(
-            call_user_func_array([new Slider([]), 'run'], [])
-        );
-        $this->slider()
-            ->shouldReturn(
-                'Slider was executed with $slides = 6'
-            );
-    }
-
-    public function it_provides_config_override(LaravelApplicationWrapper $wrapper)
+    public function it_allows_its_config_to_be_partly_overwritten(LaravelApplicationWrapper $wrapper)
     {
         $wrapper->call(Argument::any(), Argument::any())->willReturn(
             call_user_func_array([new Slider(['slides' => 5]), 'run'], ['slides' => 5])
         );
         $this->slider(['slides' => 5])
             ->shouldReturn(
-                'Slider was executed with $slides = 5'
+                'Slider was executed with $slides = 5 foo: bar'
+            );
+    }
+
+    public function it_allows_its_config_to_be_overwritten(LaravelApplicationWrapper $wrapper)
+    {
+        $wrapper->call(Argument::any(), Argument::any())->willReturn(
+            call_user_func_array([new Slider(['slides' => 5, 'foo' => 'baz']), 'run'], ['slides' => 5, 'foo' => 'baz'])
+        );
+        $this->slider(['slides' => 5, 'foo' => 'baz'])
+            ->shouldReturn(
+                'Slider was executed with $slides = 5 foo: baz'
             );
     }
 
@@ -116,17 +111,6 @@ class WidgetFactorySpec extends ObjectBehavior
             );
     }
 
-    public function it_can_run_widgets_with_run_method(LaravelApplicationWrapper $wrapper)
-    {
-        $wrapper->call(Argument::any(), Argument::any())->willReturn(
-            call_user_func_array([new TestDefaultSlider([]), 'run'], [])
-        );
-        $this->run('testDefaultSlider')
-            ->shouldReturn(
-                'Default test slider was executed with $slides = 6'
-            );
-    }
-
     public function it_can_run_widgets_with_run_method_and_config_override(LaravelApplicationWrapper $wrapper)
     {
         $wrapper->call(Argument::any(), Argument::any())->willReturn(
@@ -134,7 +118,18 @@ class WidgetFactorySpec extends ObjectBehavior
         );
         $this->run('slider', ['slides' => 5])
             ->shouldReturn(
-                'Slider was executed with $slides = 5'
+                'Slider was executed with $slides = 5 foo: bar'
+            );
+    }
+
+    public function it_can_run_widgets_using_global_namespace(LaravelApplicationWrapper $wrapper)
+    {
+        $wrapper->call(Argument::any(), Argument::any())->willReturn(
+            call_user_func_array([new TestDefaultSlider([]), 'run'], [])
+        );
+        $this->run('\Arrilot\Widgets\Test\Dummies\TestDefaultSlider')
+            ->shouldReturn(
+                'Default test slider was executed with $slides = 6'
             );
     }
 
@@ -167,7 +162,7 @@ class WidgetFactorySpec extends ObjectBehavior
         );
         $this->slider()
             ->shouldReturn(
-                'Slider was executed with $slides = 6'
+                'Slider was executed with $slides = 6 foo: bar'
             );
 
         $wrapper->call(Argument::any(), Argument::any())->willReturn(
@@ -175,7 +170,7 @@ class WidgetFactorySpec extends ObjectBehavior
         );
         $this->slider(['slides' => 5])
             ->shouldReturn(
-                'Slider was executed with $slides = 5'
+                'Slider was executed with $slides = 5 foo: bar'
             );
     }
 

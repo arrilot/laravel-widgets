@@ -25,7 +25,7 @@
 ?>
 ```
 
-3) Add some facades here too.
+3) Add some facades here too. If you prefer custom blade directives instead of facades (see later) you can skip it.
 
 ```php
 <?php
@@ -91,11 +91,11 @@ or even
 @widget('recentNews')
 ```
 
-## Configuration
+There is no real difference between them. The choice is up to you.
 
-### Widget configuration
+## Passing variables to widget
 
-#### Using config array
+### Via config array
 
 Let's carry on with the "recent news" example.
 
@@ -105,7 +105,10 @@ This can be easily achieved like that:
 ```php
 class RecentNews extends AbstractWidget {
     ...
-    protected $count = 5;
+    protected $config = [
+        'count' => 5
+    ];
+    
     ...
 }
 
@@ -115,11 +118,28 @@ class RecentNews extends AbstractWidget {
 @widget('recentNews', ['count' => 10])
 ```
 `['count' => 10]` is a config array.
-Notice that you don't need to manually map the config array and class properties in constructor. It's done automatically behind the scenes.
 
-#### Using additional parameters
+Note: no config fields that are not specified when you call the widget are overwritten.
 
-You can also choose to pass additional parameters to the `run()` method directly if you like it.
+```php
+class RecentNews extends AbstractWidget {
+    ...
+    protected $config = [
+        'count' => 5,
+        'foo'   => 'bar'
+    ];
+    
+    ...
+}
+
+@widget('recentNews', ['count' => 10]) // $this->config('foo') is still 'bar'
+```
+
+Config array is available in all widget methods so you can use it to configure placeholder and container too.
+
+### Directly
+
+You can also choose to pass additional parameters to `run()` method directly if you like it.
 
 ```php
 @widget('recentNews', ['count' => 10], 'date', 'asc')
@@ -130,37 +150,33 @@ public function run($sort_by, $sort_order) { }
 
 `run()` method is resolved via Laravel service container so method injection is available here too.
 
-### Namespaces configuration
+## Namespaces
 
-By default package tries to find your widget in the ```App\Widgets``` namespace.
+By default the package tries to find your widget in the ```App\Widgets``` namespace.
 
 You can overwrite this by publishing package config and setting `default_namespace` property.
 
-Although using the default namespace is very convenient and keeps you from doing unnecessary actions, in some situations you may wish to have more flexibility. 
+Although using the default namespace is very convenient, in some situations you may wish to have more flexibility. 
 For example, if you've got dozens of widgets it makes sense to group them in namespaced folders.
 
-You actually have several ways to call those widgets:
+You have two ways to call those widgets:
 
-1) You can pass the full name to the `run` method.
+1) You can pass the full widget name to the `run` method.
 ```php
 @widget('News\RecentNews', $config)
+{!! Widget::run('News\RecentNews', $config) !!}
 ```
 
 2) You can use dot notation instead.
 ```php
 @widget('news.recentNews', $config)
+{!! Widget::run('news.recentNews', $config) !!}
 ```
 
-3) Finally, you can register a widget in package config like that.
+Note: you can pass FQCN too.
 ```php
-    'custom_namespaces_for_specific_widgets' => [
-        'recentNews' => 'App\Widgets\News'
-        ....
-    ]
-```
-and then call it without namespaces
-```php
-@widget('recentNews', $config)
+@widget('\App\Http\Some\Namespace\Widget', $config)
+{!! Widget::run('\App\Http\Some\Namespace\Widget', $config) !!}
 ```
 
 ## Asynchronous widgets
@@ -212,11 +228,31 @@ Both sync and async widgets can become reloadable.
 You should use this feature with care, because it can easily spam your app with ajax calls if timeouts are too low.
 Consider using web sockets too but they are waaaay harder to set up on the other hand.
 
+## Container
+
+Async and Reloadable widgets both require some DOM interaction so they wrap all widget output in a Container.
+This container is defined by AbstractWidget::container() method and can be customized
+
+```php
+    /**
+     * Async and reloadable widgets are wrapped in container.
+     * You can customize it by overwriting this method.
+     *
+     * @return array
+     */
+    public function container()
+    {
+        return [
+            'element'       => 'div',
+            'attributes'    => 'style="display:inline" class="arrilot-widget-container"',
+        ];
+    }
+```
 
 ## Caching
 
 There is also a simple built-in way to cache entire widget output.
-Just set $cacheTime property and you are done.
+Just set $cacheTime property in your widget class and you are done.
 
 ```php
 class RecentNews extends AbstractWidget

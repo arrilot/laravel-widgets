@@ -26,7 +26,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
         $config = [
             'defaultNamespace' => config('laravel-widgets.default_namespace') ?: $this->getAppNamespace().'Widgets',
-            'customNamespaces' => config('laravel-widgets.custom_namespaces_for_specific_widgets', []),
         ];
 
         $this->app->bind('arrilot.widget', function () use ($config) {
@@ -85,19 +84,19 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         Blade::extend(function ($view) {
             $pattern = $this->createMatcher('widget');
 
-            return preg_replace($pattern, '$1<?php echo Widget::run$2; ?>', $view);
+            return preg_replace($pattern, '$1<?php echo app("arrilot.widget")->run$2; ?>', $view);
         });
 
         Blade::extend(function ($view) {
             $pattern = $this->createMatcher('async-widget');
 
-            return preg_replace($pattern, '$1<?php echo AsyncWidget::run$2; ?>', $view);
+            return preg_replace($pattern, '$1<?php app("arrilot.async-widget")->run$2; ?>', $view);
         });
 
         Blade::extend(function ($view) {
             $pattern = $this->createMatcher('asyncWidget');
 
-            return preg_replace($pattern, '$1<?php echo AsyncWidget::run$2; ?>', $view);
+            return preg_replace($pattern, '$1<?php echo app("arrilot.async-widget")->run$2; ?>', $view);
         });
 
         Blade::extend(function ($view) {

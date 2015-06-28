@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Widgets\Profile\TestNamespace;
+namespace Arrilot\Widgets\Test\Dummies\Profile\TestNamespace;
 
 use Arrilot\Widgets\AbstractWidget;
 

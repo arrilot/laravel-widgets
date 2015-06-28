@@ -9,11 +9,7 @@ use PhpSpec\ObjectBehavior;
 class AsyncWidgetFactorySpec extends ObjectBehavior
 {
     protected $config = [
-        'defaultNamespace' => 'App\Widgets',
-        'customNamespaces' => [
-            'slider'          => 'spec\Arrilot\Widgets\Dummies',
-            'testWidgetName'  => '',
-        ],
+        'defaultNamespace' => 'Arrilot\Widgets\Test\Dummies',
     ];
 
     /**

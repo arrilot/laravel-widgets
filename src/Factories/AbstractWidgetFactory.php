@@ -98,23 +98,6 @@ abstract class AbstractWidgetFactory
     }
 
     /**
-     * Determine widget namespace.
-     *
-     * @return mixed
-     */
-    protected function determineWidgetNamespace()
-    {
-        // search in custom namespaces first
-        foreach ([$this->widgetName, strtolower($this->widgetName)] as $name) {
-            if (array_key_exists($name, $this->config['customNamespaces'])) {
-                return $this->config['customNamespaces'][$name];
-            }
-        }
-
-        return $this->config['defaultNamespace'];
-    }
-
-    /**
      * Set class properties and instantiate a widget object.
      *
      * @param $params
@@ -127,10 +110,12 @@ abstract class AbstractWidgetFactory
 
         $this->widgetName = $this->parseFullWidgetNameFromString(array_shift($params));
         $this->widgetFullParams = $params;
-        $this->widgetConfig = array_shift($params);
+        $this->widgetConfig = (array)array_shift($params);
         $this->widgetParams = $params;
 
-        $widgetClass = $this->determineWidgetNamespace().'\\'.$this->widgetName;
+        $widgetClass = class_exists($this->widgetName)
+            ? $this->widgetName
+            : $this->config['defaultNamespace'].'\\'.$this->widgetName;
 
         $widget = new $widgetClass($this->widgetConfig);
         if ($widget instanceof AbstractWidget === false) {

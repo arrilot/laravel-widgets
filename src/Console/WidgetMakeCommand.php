@@ -40,7 +40,7 @@ class WidgetMakeCommand extends GeneratorCommand
     {
         parent::fire();
 
-        if ($this->option('view')) {
+        if (!$this->option('plain')) {
             $this->createView();
         }
     }
@@ -58,7 +58,7 @@ class WidgetMakeCommand extends GeneratorCommand
 
         $stub = $this->replaceNamespace($stub, $name)->replaceClass($stub, $name);
 
-        if ($this->option('view')) {
+        if (!$this->option('plain')) {
             $stub = $this->replaceView($stub);
         }
 
@@ -72,8 +72,8 @@ class WidgetMakeCommand extends GeneratorCommand
      */
     protected function getStub()
     {
-        if ($this->option('view')) {
-            return __DIR__.'/stubs/widget_with_view.stub';
+        if ($this->option('plain')) {
+            return __DIR__.'/stubs/widget_plain.stub';
         }
 
         return __DIR__.'/stubs/widget.stub';
@@ -149,7 +149,7 @@ class WidgetMakeCommand extends GeneratorCommand
     protected function getOptions()
     {
         return [
-            ['view', null, InputOption::VALUE_NONE, 'Create a new view file for the widget.'],
+            ['plain', null, InputOption::VALUE_NONE, 'Use plain stub. No view is being created too.'],
         ];
     }
 

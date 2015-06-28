@@ -21,18 +21,21 @@ abstract class AbstractWidget
     public $cacheTime = false;
 
     /**
+     * The configuration array.
+     *
+     * @var array
+     */
+    protected $config = [];
+
+    /**
      * Constructor.
      *
-     * @param $config
+     * @param array $config
      */
-    public function __construct($config)
+    public function __construct(array $config = [])
     {
-        if (!empty($config)) {
-            foreach ($config as $property => $value) {
-                if (property_exists($this, $property)) {
-                    $this->$property = $value;
-                }
-            }
+        foreach ($config as $key => $value) {
+            $this->config[$key] = $value;
         }
     }
 
