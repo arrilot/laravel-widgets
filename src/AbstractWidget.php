@@ -6,10 +6,11 @@ abstract class AbstractWidget
 {
     /**
      * The number of seconds before each reload.
+     * False means no reload at all.
      *
-     * @var int|float
+     * @var int|float|bool
      */
-    public $reloadTimeout;
+    public $reloadTimeout = false;
 
     /**
      * The number of minutes before cache expires.
@@ -18,14 +19,6 @@ abstract class AbstractWidget
      * @var int|float|bool
      */
     public $cacheTime = false;
-
-    /**
-     * The css class or classes that are applied to a special container (div)
-     * that wraps all widget content.
-     *
-     * @var string
-     */
-    public $cssClassForWrapper = 'arrilot-widget-container';
 
     /**
      * Constructor.
@@ -45,12 +38,27 @@ abstract class AbstractWidget
 
     /**
      * Placeholder for async widget.
+     * You can customize it by overwriting this method.
      *
      * @return string
      */
     public function placeholder()
     {
         return '';
+    }
+
+    /**
+     * Async and reloadable widgets are wrapped in container.
+     * You can customize it by overwriting this method.
+     *
+     * @return array
+     */
+    public function container()
+    {
+        return [
+            'element'       => 'div',
+            'attributes'    => 'style="display:inline" class="arrilot-widget-container"',
+        ];
     }
 
     /**

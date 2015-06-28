@@ -165,6 +165,11 @@ abstract class AbstractWidgetFactory
             return $content;
         }
 
-        return '<div id="'.$this->javascriptFactory->getContainerId().'" style="display:inline" class="'.$this->widget->cssClassForWrapper.'">'.$content.'</div>';
+        $container = $this->widget->container();
+        if (empty($container['element'])) {
+            $container['element'] = 'div';
+        }
+
+        return '<'.$container['element'].' id="'.$this->javascriptFactory->getContainerId().'" '.$container['attributes'].'>'.$content.'</'.$container['element'].'>';
     }
 }

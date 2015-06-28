@@ -7,6 +7,7 @@ use App\Widgets\TestCachedWidget;
 use App\Widgets\TestDefaultSlider;
 use App\Widgets\TestMyClass;
 use App\Widgets\TestRepeatableFeed;
+use App\Widgets\TestWidgetWithCustomContainer;
 use App\Widgets\TestWidgetWithDIInRun;
 use App\Widgets\TestWidgetWithParamsInRun;
 use Arrilot\Widgets\Misc\LaravelApplicationWrapper;
@@ -178,7 +179,7 @@ class WidgetFactorySpec extends ObjectBehavior
             );
     }
 
-    public function it_can_run_async_widget(LaravelApplicationWrapper $wrapper)
+    public function it_can_run_reloadable_widget(LaravelApplicationWrapper $wrapper)
     {
         $config = [];
         $params = [$config];
@@ -193,6 +194,24 @@ class WidgetFactorySpec extends ObjectBehavior
                 '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">Feed was executed with $slides = 6'.
                 '<script type="text/javascript">setTimeout( function() { $(\'#arrilot-widget-container-1\').load(\'/arrilot/load-widget\', '.$this->mockProduceJavascriptData('TestRepeatableFeed', $params).') }, 10000)</script>'.
                 '</div>'
+            );
+    }
+
+    public function it_can_run_widget_with_custom_container(LaravelApplicationWrapper $wrapper)
+    {
+        $config = [];
+        $params = [$config];
+
+        $wrapper->csrf_token()->willReturn('token_stub');
+        $wrapper->call(Argument::any(), Argument::any())->willReturn(
+            call_user_func_array([new TestWidgetWithCustomContainer([]), 'run'], [])
+        );
+
+        $this->testWidgetWithCustomContainer($config)
+            ->shouldReturn(
+                '<p id="arrilot-widget-container-1" data-id="123">Dummy Content'.
+                '<script type="text/javascript">setTimeout( function() { $(\'#arrilot-widget-container-1\').load(\'/arrilot/load-widget\', '.$this->mockProduceJavascriptData('TestWidgetWithCustomContainer', $params).') }, 10000)</script>'.
+                '</p>'
             );
     }
 
