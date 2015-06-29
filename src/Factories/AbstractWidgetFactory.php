@@ -110,7 +110,7 @@ abstract class AbstractWidgetFactory
 
         $this->widgetName = $this->parseFullWidgetNameFromString(array_shift($params));
         $this->widgetFullParams = $params;
-        $this->widgetConfig = (array)array_shift($params);
+        $this->widgetConfig = (array) array_shift($params);
         $this->widgetParams = $params;
 
         $widgetClass = class_exists($this->widgetName)

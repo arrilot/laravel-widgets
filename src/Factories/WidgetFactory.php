@@ -3,7 +3,6 @@
 namespace Arrilot\Widgets\Factories;
 
 use Arrilot\Widgets\WidgetGroup;
-use Illuminate\Support\Facades\Cache;
 
 class WidgetFactory extends AbstractWidgetFactory
 {

@@ -2,7 +2,9 @@
 
 namespace spec\Arrilot\Widgets\Factories;
 
+use Arrilot\Widgets\Misc\LaravelApplicationWrapper;
 use Arrilot\Widgets\Test\Dummies\Profile\TestNamespace\TestFeed;
+use Arrilot\Widgets\Test\Dummies\Slider;
 use Arrilot\Widgets\Test\Dummies\TestCachedWidget;
 use Arrilot\Widgets\Test\Dummies\TestDefaultSlider;
 use Arrilot\Widgets\Test\Dummies\TestMyClass;
@@ -10,11 +12,9 @@ use Arrilot\Widgets\Test\Dummies\TestRepeatableFeed;
 use Arrilot\Widgets\Test\Dummies\TestWidgetWithCustomContainer;
 use Arrilot\Widgets\Test\Dummies\TestWidgetWithDIInRun;
 use Arrilot\Widgets\Test\Dummies\TestWidgetWithParamsInRun;
-use Arrilot\Widgets\Misc\LaravelApplicationWrapper;
 use Arrilot\Widgets\WidgetId;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Arrilot\Widgets\Test\Dummies\Slider;
 
 class WidgetFactorySpec extends ObjectBehavior
 {
