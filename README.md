@@ -44,13 +44,13 @@ Let's consider we want to make a list of recent news and reuse it in several vie
 
 First of all we can create a Widget class using the artisan command provided by the package.
 ```bash
-php artisan make:widget RecentNews --view
+php artisan make:widget RecentNews
 ```
 This command generates two files:
 
 1) `resources/views/widgets/recent_news.blade.php` is an empty view. 
 
-Omit "--view" option if you do not need it.
+Add "--plain" option if you do not need a view.
 
 2) `app/Widgets/RecentNews` is a widget class.
 
@@ -64,14 +64,23 @@ use Arrilot\Widgets\AbstractWidget;
 class RecentNews extends AbstractWidget
 {
     /**
+     * The configuration array.
+     *
+     * @var array
+     */
+    protected $config = [];
+
+    /**
      * Treat this method as a controller action.
-     * Return a view or other content to display.
+     * Return view() or other content to display.
      */
     public function run()
     {
         //
 
-        return view("widgets.recent_news");
+        return view("widgets.recent_news", [
+            'config' => $this->config,
+        ]);
     }
 }
 ```
@@ -113,13 +122,13 @@ class RecentNews extends AbstractWidget {
 }
 
 ...
-@widget('recentNews')
+@widget('recentNews') // shows 5
 ...
-@widget('recentNews', ['count' => 10])
+@widget('recentNews', ['count' => 10]) // shows 10
 ```
-`['count' => 10]` is a config array.
+`['count' => 10]` is a config array that can be accessed by $this->config.
 
-Note: no config fields that are not specified when you call the widget are overwritten.
+Note: Config fields that are not specified when you call the widget aren't overwritten:
 
 ```php
 class RecentNews extends AbstractWidget {
@@ -135,11 +144,11 @@ class RecentNews extends AbstractWidget {
 @widget('recentNews', ['count' => 10]) // $this->config('foo') is still 'bar'
 ```
 
-Config array is available in all widget methods so you can use it to configure placeholder and container too.
+Config array is available in all widget methods so you can use it to configure placeholder and container too (see below)
 
 ### Directly
 
-You can also choose to pass additional parameters to `run()` method directly if you like it.
+You can also choose to pass additional parameters to `run()` method directly.
 
 ```php
 @widget('recentNews', ['count' => 10], 'date', 'asc')
@@ -161,7 +170,7 @@ For example, if you've got dozens of widgets it makes sense to group them in nam
 
 You have two ways to call those widgets:
 
-1) You can pass the full widget name to the `run` method.
+1) You can pass the full widget name from the `default_namespace` (basically `App\Widgets`) to the `run` method.
 ```php
 @widget('News\RecentNews', $config)
 {!! Widget::run('News\RecentNews', $config) !!}
@@ -230,8 +239,8 @@ Consider using web sockets too but they are waaaay harder to set up on the other
 
 ## Container
 
-Async and Reloadable widgets both require some DOM interaction so they wrap all widget output in a Container.
-This container is defined by AbstractWidget::container() method and can be customized
+Async and Reloadable widgets both require some DOM interaction so they wrap all widget output in a container.
+This container is defined by AbstractWidget::container() method and can be customized therefore.
 
 ```php
     /**
