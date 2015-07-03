@@ -2,7 +2,7 @@
 
 namespace Arrilot\Widgets;
 
-use Arrilot\Widgets\Misc\Wrapper;
+use Arrilot\Widgets\Misc\LaravelApplicationWrapper;
 
 class WidgetGroup
 {
@@ -109,7 +109,7 @@ class WidgetGroup
      */
     protected function displayWidget($widget)
     {
-        $factory = (new Wrapper())->appMake($widget['type'] === 'sync' ? 'arrilot.widget' : 'arrilot.async-widget');
+        $factory = (new LaravelApplicationWrapper())->make($widget['type'] === 'sync' ? 'arrilot.widget' : 'arrilot.async-widget');
 
         return call_user_func_array([$factory, 'run'], $widget['arguments']);
     }
