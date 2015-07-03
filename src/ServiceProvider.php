@@ -24,16 +24,12 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             __DIR__.'/config/config.php', 'laravel-widgets'
         );
 
-        $config = [
-            'defaultNamespace' => config('laravel-widgets.default_namespace') ?: $this->getAppNamespace().'Widgets',
-        ];
-
-        $this->app->bind('arrilot.widget', function () use ($config) {
-            return new WidgetFactory($config, new LaravelApplicationWrapper());
+        $this->app->bind('arrilot.widget', function () {
+            return new WidgetFactory(new LaravelApplicationWrapper());
         });
 
-        $this->app->bind('arrilot.async-widget', function () use ($config) {
-            return new AsyncWidgetFactory($config, new LaravelApplicationWrapper());
+        $this->app->bind('arrilot.async-widget', function () {
+            return new AsyncWidgetFactory(new LaravelApplicationWrapper());
         });
 
         $this->app->singleton('command.widget.make', function ($app) {

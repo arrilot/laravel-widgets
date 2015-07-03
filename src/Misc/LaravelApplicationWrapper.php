@@ -2,43 +2,26 @@
 
 namespace Arrilot\Widgets\Misc;
 
+use Arrilot\Widgets\Contracts\ApplicationWrapperContract;
 use Closure;
+use Illuminate\Console\AppNamespaceDetectorTrait;
+use Illuminate\Container\Container;
 
-class LaravelApplicationWrapper
+class LaravelApplicationWrapper implements ApplicationWrapperContract
 {
-    /**
-     * Wrapper around csrf_token().
-     *
-     * @return string
-     */
-    public function csrf_token()
-    {
-        return csrf_token();
-    }
+    use AppNamespaceDetectorTrait;
 
     /**
-     * Wrapper around app()->call().
-     *
-     * @param $method
-     * @param array $params
-     *
-     * @return mixed
+     * Laravel application instance.
      */
-    public function call($method, $params = [])
-    {
-        return app()->call($method, $params);
-    }
+    protected $app;
 
     /**
-     * Wrapper around app()->make().
-     *
-     * @param $binding
-     *
-     * @return mixed
+     * Constructor.
      */
-    public function make($binding)
+    public function __construct()
     {
-        return app()->make($binding);
+        $this->app = Container::getInstance();
     }
 
     /**
@@ -52,6 +35,65 @@ class LaravelApplicationWrapper
      */
     public function cache($key, $minutes, Closure $callback)
     {
-        return app()->make('cache')->remember($key, $minutes, $callback);
+        return $this->app->make('cache')->remember($key, $minutes, $callback);
+    }
+
+    /**
+     * Wrapper around app()->call().
+     *
+     * @param $method
+     * @param array $params
+     *
+     * @return mixed
+     */
+    public function call($method, $params = [])
+    {
+        return $this->app->call($method, $params);
+    }
+
+    /**
+     * Get the specified configuration value.
+     *
+     * @param  string  $key
+     * @param  mixed   $default
+     *
+     * @return mixed
+     */
+    public function config($key, $default = null)
+    {
+        return $this->app->make('config')->get($key, $default);
+    }
+
+    /**
+     * Wrapper around csrf_token().
+     *
+     * @return string
+     */
+    public function csrf_token()
+    {
+        return csrf_token();
+    }
+
+    /**
+     * Wrapper around app()->getNamespace().
+     *
+     * @return string
+     */
+    public function getNamespace()
+    {
+        return $this->getAppNamespace();
+    }
+
+    /**
+     * Wrapper around app()->make().
+     *
+     * @param  string  $abstract
+     * @param  array   $parameters
+     *
+     * @return mixed
+     */
+    public function make($abstract, array $parameters = [])
+    {
+        return $this->app->make($abstract, $parameters);
     }
 }

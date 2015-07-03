@@ -3,18 +3,13 @@
 namespace Arrilot\Widgets\Factories;
 
 use Arrilot\Widgets\AbstractWidget;
+use Arrilot\Widgets\Contracts\ApplicationWrapperContract;
 use Arrilot\Widgets\Misc\InvalidWidgetClassException;
 use Arrilot\Widgets\WidgetId;
+use Illuminate\View\Expression;
 
 abstract class AbstractWidgetFactory
 {
-    /**
-     * Factory config.
-     *
-     * @var array
-     */
-    protected $config;
-
     /**
      * Widget object to work with.
      *
@@ -53,7 +48,7 @@ abstract class AbstractWidgetFactory
     /**
      * Laravel application wrapper for better testability.
      *
-     * @var \Arrilot\Widgets\Misc\LaravelApplicationWrapper;
+     * @var ApplicationWrapperContract;
      */
     public $app;
 
@@ -72,13 +67,14 @@ abstract class AbstractWidgetFactory
     public static $skipWidgetContainer = false;
 
     /**
-     * @param $config
-     * @param $app
+     * Constructor.
+     *
+     * @param ApplicationWrapperContract $app
      */
-    public function __construct($config, $app)
+    public function __construct(ApplicationWrapperContract $app)
     {
-        $this->config = $config;
         $this->app = $app;
+
         $this->javascriptFactory = new JavascriptFactory($this);
     }
 
@@ -113,9 +109,11 @@ abstract class AbstractWidgetFactory
         $this->widgetConfig = (array) array_shift($params);
         $this->widgetParams = $params;
 
+        $rootNamespace = $this->app->config('arrilot-widget.defaultNamespace', $this->app->getNamespace().'Widgets');
+
         $widgetClass = class_exists($this->widgetName)
             ? $this->widgetName
-            : $this->config['defaultNamespace'].'\\'.$this->widgetName;
+            : $rootNamespace.'\\'.$this->widgetName;
 
         $widget = new $widgetClass($this->widgetConfig);
         if ($widget instanceof AbstractWidget === false) {
@@ -156,5 +154,21 @@ abstract class AbstractWidgetFactory
         }
 
         return '<'.$container['element'].' id="'.$this->javascriptFactory->getContainerId().'" '.$container['attributes'].'>'.$content.'</'.$container['element'].'>';
+    }
+
+    /**
+     * Final preparation for display.
+     *
+     * @param string $content
+     * @return \Illuminate\View\Expression|string
+     */
+    protected function displayContent($content)
+    {
+        if (interface_exists('Illuminate\Contracts\Support\Htmlable') && class_exists('Illuminate\View\Expression'))
+        {
+            return new Expression($content);
+        }
+
+        return $content;
     }
 }

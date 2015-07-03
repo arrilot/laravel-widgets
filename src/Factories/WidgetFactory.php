@@ -34,10 +34,10 @@ class WidgetFactory extends AbstractWidgetFactory
         if ($timeout = $this->getReloadTimeout()) {
             $content .= $this->javascriptFactory->getReloader($timeout);
 
-            return $this->wrapContentInContainer($content);
+            $content = $this->wrapContentInContainer($content);
         }
 
-        return $content;
+        return $this->displayContent($content);
     }
 
     /**
@@ -81,11 +81,11 @@ class WidgetFactory extends AbstractWidgetFactory
      */
     public function group($name)
     {
-        if ($this->groups[$name]) {
+        if (isset($this->groups[$name])) {
             return $this->groups[$name];
         }
 
-        $this->groups[$name] = new WidgetGroup($name);
+        $this->groups[$name] = new WidgetGroup($name, $this->app);
 
         return $this->groups[$name];
     }

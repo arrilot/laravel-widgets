@@ -2,7 +2,8 @@
 
 namespace Arrilot\Widgets;
 
-use Arrilot\Widgets\Misc\Wrapper;
+use Arrilot\Widgets\Contracts\ApplicationWrapperContract;
+use Arrilot\Widgets\Misc\LaravelApplicationWrapper;
 
 class WidgetGroup
 {
@@ -12,6 +13,13 @@ class WidgetGroup
      * @var string
      */
     protected $name;
+
+    /**
+     * The application wrapper.
+     *
+     * @var string
+     */
+    protected $app;
 
     /**
      * The array of widgets to display in this group.
@@ -29,10 +37,13 @@ class WidgetGroup
 
     /**
      * @param $name
+     * @param ApplicationWrapperContract $app
      */
-    public function __construct($name)
+    public function __construct($name, ApplicationWrapperContract $app)
     {
         $this->name = $name;
+
+        $this->app = $app;
     }
 
     /**
@@ -42,9 +53,13 @@ class WidgetGroup
      */
     public function display()
     {
+        ksort($this->widgets);
+
         $output = '';
-        foreach ($this->getSortedWidgets() as $widget) {
-            $output .=  $this->displayWidget($widget);
+        foreach ($this->widgets as $position => $widgets) {
+            foreach ($widgets as $widget) {
+                $output .=  $this->displayWidget($widget);
+            }
         }
 
         return $output;
@@ -81,16 +96,6 @@ class WidgetGroup
     }
 
     /**
-     * Getter for widgets array.
-     *
-     * @return array
-     */
-    public function getWidgets()
-    {
-        return $this->widgets;
-    }
-
-    /**
      * Getter for position.
      *
      * @return array
@@ -109,7 +114,7 @@ class WidgetGroup
      */
     protected function displayWidget($widget)
     {
-        $factory = (new Wrapper())->appMake($widget['type'] === 'sync' ? 'arrilot.widget' : 'arrilot.async-widget');
+        $factory = $this->app->make($widget['type'] === 'sync' ? 'arrilot.widget' : 'arrilot.async-widget');
 
         return call_user_func_array([$factory, 'run'], $widget['arguments']);
     }
@@ -124,16 +129,6 @@ class WidgetGroup
     }
 
     /**
-     * Sort widgets from this group.
-     */
-    protected function getSortedWidgets()
-    {
-        return array_values(array_sort($this->widgets, function ($value) {
-            return $value['position'];
-        }));
-    }
-
-    /**
      * Add a widget with a given type to the array.
      *
      * @param string $type
@@ -141,10 +136,13 @@ class WidgetGroup
      */
     protected function addWidgetWithType($type, array $arguments = [])
     {
-        $this->widgets[] = [
+        if (!isset($this->widgets[$this->position])) {
+            $this->widgets[$this->position] = [];
+        }
+
+        $this->widgets[$this->position][] = [
             'arguments' => $arguments,
             'type'      => $type,
-            'position'  => $this->position,
         ];
 
         $this->resetPosition();
