@@ -59,7 +59,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             $router->post('load-widget', 'WidgetController@showWidget');
         });
 
-        $this->registerBladeExtensions();
+        $this->registerBladeDirectives();
     }
 
     /**
@@ -73,9 +73,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     }
 
     /**
-     * Register blade extensions.
+     * Register blade directives.
      */
-    protected function registerBladeExtensions()
+    protected function registerBladeDirectives()
     {
         Blade::extend(function ($view) {
             $pattern = $this->createMatcher('widget');
@@ -86,7 +86,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         Blade::extend(function ($view) {
             $pattern = $this->createMatcher('async-widget');
 
-            return preg_replace($pattern, '$1<?php app("arrilot.async-widget")->run$2; ?>', $view);
+            return preg_replace($pattern, '$1<?php echo app("arrilot.async-widget")->run$2; ?>', $view);
         });
 
         Blade::extend(function ($view) {
