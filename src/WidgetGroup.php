@@ -3,10 +3,12 @@
 namespace Arrilot\Widgets;
 
 use Arrilot\Widgets\Contracts\ApplicationWrapperContract;
-use Arrilot\Widgets\Misc\LaravelApplicationWrapper;
+use Arrilot\Widgets\Misc\ViewExpressionTrait;
 
 class WidgetGroup
 {
+    use ViewExpressionTrait;
+
     /**
      * The widget group name.
      *
@@ -17,7 +19,7 @@ class WidgetGroup
     /**
      * The application wrapper.
      *
-     * @var string
+     * @var ApplicationWrapperContract
      */
     protected $app;
 
@@ -62,7 +64,7 @@ class WidgetGroup
             }
         }
 
-        return $output;
+        return $this->convertToViewExpression($output);
     }
 
     /**

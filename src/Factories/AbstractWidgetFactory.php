@@ -5,11 +5,13 @@ namespace Arrilot\Widgets\Factories;
 use Arrilot\Widgets\AbstractWidget;
 use Arrilot\Widgets\Contracts\ApplicationWrapperContract;
 use Arrilot\Widgets\Misc\InvalidWidgetClassException;
+use Arrilot\Widgets\Misc\ViewExpressionTrait;
 use Arrilot\Widgets\WidgetId;
-use Illuminate\View\Expression;
 
 abstract class AbstractWidgetFactory
 {
+    use ViewExpressionTrait;
+
     /**
      * Widget object to work with.
      *
@@ -109,7 +111,7 @@ abstract class AbstractWidgetFactory
         $this->widgetConfig = (array) array_shift($params);
         $this->widgetParams = $params;
 
-        $rootNamespace = $this->app->config('arrilot-widget.defaultNamespace', $this->app->getNamespace().'Widgets');
+        $rootNamespace = $this->app->config('laravel-widgets.default_namespace', $this->app->getNamespace().'Widgets');
 
         $widgetClass = class_exists($this->widgetName)
             ? $this->widgetName
@@ -154,21 +156,5 @@ abstract class AbstractWidgetFactory
         }
 
         return '<'.$container['element'].' id="'.$this->javascriptFactory->getContainerId().'" '.$container['attributes'].'>'.$content.'</'.$container['element'].'>';
-    }
-
-    /**
-     * Final preparation for display.
-     *
-     * @param string $content
-     * @return \Illuminate\View\Expression|string
-     */
-    protected function displayContent($content)
-    {
-        if (interface_exists('Illuminate\Contracts\Support\Htmlable') && class_exists('Illuminate\View\Expression'))
-        {
-            return new Expression($content);
-        }
-
-        return $content;
     }
 }

@@ -37,7 +37,7 @@ class WidgetFactory extends AbstractWidgetFactory
             $content = $this->wrapContentInContainer($content);
         }
 
-        return $this->displayContent($content);
+        return $this->convertToViewExpression($content);
     }
 
     /**

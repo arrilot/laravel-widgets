@@ -47,7 +47,7 @@ class TestApplicationWrapper implements ApplicationWrapperContract
      */
     public function config($key, $default = null)
     {
-        if ($key == 'arrilot-widget.defaultNamespace') {
+        if ($key == 'laravel-widgets.default_namespace') {
             return 'Arrilot\Widgets\Test\Dummies';
         }
 

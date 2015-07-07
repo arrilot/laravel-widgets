@@ -17,6 +17,6 @@ class AsyncWidgetFactory extends AbstractWidgetFactory
         $loader = $this->javascriptFactory->getLoader();
         $content =  $this->wrapContentInContainer($placeholder.$loader);
 
-        return $this->displayContent($content);
+        return $this->convertToViewExpression($content);
     }
 }

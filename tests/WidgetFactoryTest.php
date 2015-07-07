@@ -4,6 +4,7 @@ namespace Arrilot\Widgets\Test;
 
 use Arrilot\Widgets\Factories\WidgetFactory;
 use Arrilot\Widgets\Test\Dummies\TestCachedWidget;
+use Arrilot\Widgets\WidgetGroup;
 use Arrilot\Widgets\WidgetId;
 use PHPUnit_Framework_TestCase;
 
@@ -130,5 +131,14 @@ class WidgetFactoryTest extends PHPUnit_Framework_TestCase
         $widget = new TestCachedWidget;
 
         $this->assertEquals('Cached output. Key: '.$key.', minutes: '.$widget->cacheTime, $output);
+    }
+
+    public function testItGrantsAccessToWidgetGroup()
+    {
+        $groupObject = $this->factory->group('sidebar');
+
+        $expectedObject = new WidgetGroup('sidebar', new TestApplicationWrapper());
+
+        $this->assertEquals($expectedObject, $groupObject);
     }
 }

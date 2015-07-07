@@ -89,11 +89,11 @@ The last step is to call the widget.
 You've actually got several ways to do so.
 
 ```php
-{!! Widget::run('recentNews') !!}
+{{ Widget::run('recentNews') }}
 ```
 or
 ```php
-{!! Widget::recentNews() !!}
+{{ Widget::recentNews() }}
 ```
 or even
 ```php
@@ -165,6 +165,8 @@ By default the package tries to find your widget in the ```App\Widgets``` namesp
 
 You can overwrite this by publishing package config and setting `default_namespace` property.
 
+To publish config use: ```php artisan vendor:publish --provider="Arrilot\Widgets\ServiceProvider"```
+
 Although using the default namespace is very convenient, in some situations you may wish to have more flexibility. 
 For example, if you've got dozens of widgets it makes sense to group them in namespaced folders.
 
@@ -173,20 +175,22 @@ You have two ways to call those widgets:
 1) You can pass the full widget name from the `default_namespace` (basically `App\Widgets`) to the `run` method.
 ```php
 @widget('News\RecentNews', $config)
-{!! Widget::run('News\RecentNews', $config) !!}
+{{ Widget::run('News\RecentNews', $config) }}
 ```
 
 2) You can use dot notation instead.
 ```php
 @widget('news.recentNews', $config)
-{!! Widget::run('news.recentNews', $config) !!}
+{{ Widget::run('news.recentNews', $config) }}
 ```
 
-Note: you can pass FQCN too.
+You can pass FQCN too.
 ```php
 @widget('\App\Http\Some\Namespace\Widget', $config)
-{!! Widget::run('\App\Http\Some\Namespace\Widget', $config) !!}
+{{ Widget::run('\App\Http\Some\Namespace\Widget', $config) }}
 ```
+
+*Note: For Laravel 5.0.0 - 5.1.3 you must use `{!! !!}` tags instead of `{{ }}`*
 
 ## Asynchronous widgets
 
@@ -292,7 +296,7 @@ Widget::group('sidebar')->position(5)->addWidget(<the same arguments list as in 
 Widget::group('sidebar')->position(4)->addAsyncWidget(<the same arguments list as in run() method>);
 
 // display them in a view in the correct order
-{!! Widget::group('sidebar')->display() !!}
+{{ Widget::group('sidebar')->display() }}
 //or 
 @widgetGroup('sidebar')
 ```
