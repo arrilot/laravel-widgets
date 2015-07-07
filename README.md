@@ -102,6 +102,8 @@ or even
 
 There is no real difference between them. The choice is up to you.
 
+*Note: For Laravel 5.0.0 - 5.1.3 you have to use `{!! !!}` tags instead of `{{ }}`*
+
 ## Passing variables to widget
 
 ### Via config array
@@ -128,7 +130,7 @@ class RecentNews extends AbstractWidget {
 ```
 `['count' => 10]` is a config array that can be accessed by $this->config.
 
-Note: Config fields that are not specified when you call the widget aren't overwritten:
+*Note: Config fields that are not specified when you call the widget aren't overwritten:*
 
 ```php
 class RecentNews extends AbstractWidget {
@@ -189,8 +191,6 @@ You can pass FQCN too.
 @widget('\App\Http\Some\Namespace\Widget', $config)
 {{ Widget::run('\App\Http\Some\Namespace\Widget', $config) }}
 ```
-
-*Note: For Laravel 5.0.0 - 5.1.3 you must use `{!! !!}` tags instead of `{{ }}`*
 
 ## Asynchronous widgets
 
