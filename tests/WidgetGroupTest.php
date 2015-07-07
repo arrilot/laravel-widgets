@@ -14,7 +14,7 @@ class WidgetGroupTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->widgetGroup = new WidgetGroup('key1', new TestApplicationWrapper);
+        $this->widgetGroup = new WidgetGroup('key1', new TestApplicationWrapper());
     }
 
     public function testItCanDisplayWidgets()
@@ -47,7 +47,7 @@ class WidgetGroupTest extends PHPUnit_Framework_TestCase
         $this->widgetGroup->addWidget('Slider', ['slides' => 5, 'foo' => 'Taylor']);
         $this->widgetGroup->position(50)->addWidget('Slider');
 
-        $widgetGroup2 =  new WidgetGroup('key2', new TestApplicationWrapper);
+        $widgetGroup2 = new WidgetGroup('key2', new TestApplicationWrapper());
         $widgetGroup2->position(40)->addWidget('Slider', ['slides' => 10]);
         $widgetGroup2->position(40)->addWidget('Slider', ['slides' => 15]);
 

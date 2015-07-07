@@ -54,8 +54,8 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
     /**
      * Get the specified configuration value.
      *
-     * @param  string  $key
-     * @param  mixed   $default
+     * @param string $key
+     * @param mixed  $default
      *
      * @return mixed
      */
@@ -87,8 +87,8 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
     /**
      * Wrapper around app()->make().
      *
-     * @param  string  $abstract
-     * @param  array   $parameters
+     * @param string $abstract
+     * @param array  $parameters
      *
      * @return mixed
      */

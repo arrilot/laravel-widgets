@@ -17,7 +17,7 @@ class WidgetFactoryTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->factory = new WidgetFactory(new TestApplicationWrapper);
+        $this->factory = new WidgetFactory(new TestApplicationWrapper());
     }
 
     public function tearDown()
@@ -128,7 +128,7 @@ class WidgetFactoryTest extends PHPUnit_Framework_TestCase
         $output = $this->factory->run('testCachedWidget', ['foo' => 'bar']);
 
         $key = 'arrilot.widgets.'.serialize(['testCachedWidget', ['foo' => 'bar']]);
-        $widget = new TestCachedWidget;
+        $widget = new TestCachedWidget();
 
         $this->assertEquals('Cached output. Key: '.$key.', minutes: '.$widget->cacheTime, $output);
     }

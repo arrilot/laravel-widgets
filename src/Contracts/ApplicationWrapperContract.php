@@ -6,7 +6,6 @@ use Closure;
 
 interface ApplicationWrapperContract
 {
-
     /**
      * Wrapper around Cache::remember().
      *
@@ -31,8 +30,8 @@ interface ApplicationWrapperContract
     /**
      * Get the specified configuration value.
      *
-     * @param  string  $key
-     * @param  mixed   $default
+     * @param string $key
+     * @param mixed  $default
      *
      * @return mixed
      */
@@ -55,13 +54,10 @@ interface ApplicationWrapperContract
     /**
      * Wrapper around app()->make().
      *
-     * @param  string  $abstract
-     * @param  array   $parameters
+     * @param string $abstract
+     * @param array  $parameters
      *
      * @return mixed
      */
     public function make($abstract, array $parameters = []);
-
 }
-
-

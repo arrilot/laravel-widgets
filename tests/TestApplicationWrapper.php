@@ -40,8 +40,8 @@ class TestApplicationWrapper implements ApplicationWrapperContract
     /**
      * Get the specified configuration value.
      *
-     * @param  string  $key
-     * @param  mixed   $default
+     * @param string $key
+     * @param mixed  $default
      *
      * @return mixed
      */
@@ -61,7 +61,7 @@ class TestApplicationWrapper implements ApplicationWrapperContract
      */
     public function csrf_token()
     {
-        return "token_stub";
+        return 'token_stub';
     }
 
     /**
@@ -71,24 +71,24 @@ class TestApplicationWrapper implements ApplicationWrapperContract
      */
     public function getNamespace()
     {
-        return "App\\";
+        return 'App\\';
     }
 
     /**
      * Wrapper around app()->make().
      *
-     * @param  string  $abstract
-     * @param  array   $parameters
+     * @param string $abstract
+     * @param array  $parameters
      *
      * @return mixed
      */
     public function make($abstract, array $parameters = [])
     {
-        if($abstract == 'arrilot.widget') {
+        if ($abstract == 'arrilot.widget') {
             return new WidgetFactory($this);
         }
 
-        if($abstract == 'arrilot.async-widget') {
+        if ($abstract == 'arrilot.async-widget') {
             return new AsyncWidgetFactory($this);
         }
 

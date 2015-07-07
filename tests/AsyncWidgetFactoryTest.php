@@ -6,7 +6,7 @@ use Arrilot\Widgets\Factories\AsyncWidgetFactory;
 use Arrilot\Widgets\WidgetId;
 use PHPUnit_Framework_TestCase;
 
-class AsyncFactoryTest extends PHPUnit_Framework_TestCase
+class AsyncWidgetFactoryTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var AsyncWidgetFactory
@@ -15,7 +15,7 @@ class AsyncFactoryTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->factory = new AsyncWidgetFactory(new TestApplicationWrapper);
+        $this->factory = new AsyncWidgetFactory(new TestApplicationWrapper());
     }
 
     public function tearDown()
