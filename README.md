@@ -1,6 +1,6 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/Arrilot/laravel-widgets.svg?style=flat)](https://packagist.org/packages/Arrilot/laravel-widgets)
 [![Build Status](https://img.shields.io/travis/Arrilot/laravel-widgets/master.svg?style=flat)](https://travis-ci.org/Arrilot/laravel-widgets)
-[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/Arrilot/laravel-widgets/master.svg?style=flat)](https://scrutinizer-ci.com/g/Arrilot/laravel-widgets/)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/Arrilot/laravel-widgets/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Arrilot/laravel-widgets/)
 [![MIT License](https://img.shields.io/packagist/l/Arrilot/laravel-widgets.svg?style=flat)](https://packagist.org/packages/Arrilot/laravel-widgets)
 
 #Widgets for Laravel
