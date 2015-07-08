@@ -9,6 +9,8 @@
 
 ### For Laravel 4, please use the [1.0 branch](https://github.com/Arrilot/laravel-widgets/tree/1.0)!
 
+*Note: this is the doc for the latest stable release. If you need documentation for your specific version you can find it by click on a corresponding tag here. https://github.com/Arrilot/laravel-widgets*
+
 ## Installation
 
 1) Run ```composer require arrilot/laravel-widgets```
