@@ -9,7 +9,7 @@
 
 ### For Laravel 4, please use the [1.0 branch](https://github.com/Arrilot/laravel-widgets/tree/1.0)!
 
-*Note: this is the doc for the latest stable release. If you need documentation for your specific version you can find it by click on a corresponding tag here https://github.com/Arrilot/laravel-widgets/releases*
+*Note: this is the doc for the latest stable release. If you need documentation for your specific version you can find it by clicking on a corresponding tag here https://github.com/Arrilot/laravel-widgets/releases*
 
 ## Installation
 
