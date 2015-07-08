@@ -143,7 +143,7 @@ class RecentNews extends AbstractWidget {
     ...
 }
 
-@widget('recentNews', ['count' => 10]) // $this->config('foo') is still 'bar'
+@widget('recentNews', ['count' => 10]) // $this->config['foo'] is still 'bar'
 ```
 
 Config array is available in all widget methods so you can use it to configure placeholder and container too (see below)
