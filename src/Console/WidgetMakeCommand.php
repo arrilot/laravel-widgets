@@ -138,7 +138,7 @@ class WidgetMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace.'\Widgets';
+        return config('laravel-widgets.default_namespace', $rootNamespace.'\Widgets');
     }
 
     /**

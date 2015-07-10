@@ -1,13 +1,15 @@
+[![Latest Stable Version](https://poser.pugx.org/arrilot/laravel-widgets/v/stable.svg)](https://packagist.org/packages/arrilot/laravel-widgets/)
 [![Total Downloads](https://img.shields.io/packagist/dt/Arrilot/laravel-widgets.svg?style=flat)](https://packagist.org/packages/Arrilot/laravel-widgets)
 [![Build Status](https://img.shields.io/travis/Arrilot/laravel-widgets/master.svg?style=flat)](https://travis-ci.org/Arrilot/laravel-widgets)
-[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/Arrilot/laravel-widgets/master.svg?style=flat)](https://scrutinizer-ci.com/g/Arrilot/laravel-widgets/)
-[![MIT License](https://img.shields.io/packagist/l/Arrilot/laravel-widgets.svg?style=flat)](https://packagist.org/packages/Arrilot/laravel-widgets)
+[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/Arrilot/laravel-widgets/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/Arrilot/laravel-widgets/)
 
 #Widgets for Laravel
 
 *A powerful alternative to view composers. Asynchronous widgets, reloadable widgets, console generator, caching - everything you can think of.*
 
 ### For Laravel 4, please use the [1.0 branch](https://github.com/Arrilot/laravel-widgets/tree/1.0)!
+
+*Note: this is the doc for the latest stable release. If you need documentation for your specific version you can find it by clicking on a corresponding tag here https://github.com/Arrilot/laravel-widgets/releases*
 
 ## Installation
 
@@ -89,11 +91,11 @@ The last step is to call the widget.
 You've actually got several ways to do so.
 
 ```php
-{!! Widget::run('recentNews') !!}
+{{ Widget::run('recentNews') }}
 ```
 or
 ```php
-{!! Widget::recentNews() !!}
+{{ Widget::recentNews() }}
 ```
 or even
 ```php
@@ -101,6 +103,8 @@ or even
 ```
 
 There is no real difference between them. The choice is up to you.
+
+*Note: For Laravel 5.0.0 - 5.1.3 you have to use `{!! !!}` tags instead of `{{ }}`*
 
 ## Passing variables to widget
 
@@ -128,7 +132,7 @@ class RecentNews extends AbstractWidget {
 ```
 `['count' => 10]` is a config array that can be accessed by $this->config.
 
-Note: Config fields that are not specified when you call the widget aren't overwritten:
+*Note: Config fields that are not specified when you call the widget aren't overwritten:*
 
 ```php
 class RecentNews extends AbstractWidget {
@@ -141,7 +145,7 @@ class RecentNews extends AbstractWidget {
     ...
 }
 
-@widget('recentNews', ['count' => 10]) // $this->config('foo') is still 'bar'
+@widget('recentNews', ['count' => 10]) // $this->config['foo'] is still 'bar'
 ```
 
 Config array is available in all widget methods so you can use it to configure placeholder and container too (see below)
@@ -165,6 +169,8 @@ By default the package tries to find your widget in the ```App\Widgets``` namesp
 
 You can overwrite this by publishing package config and setting `default_namespace` property.
 
+To publish config use: ```php artisan vendor:publish --provider="Arrilot\Widgets\ServiceProvider"```
+
 Although using the default namespace is very convenient, in some situations you may wish to have more flexibility. 
 For example, if you've got dozens of widgets it makes sense to group them in namespaced folders.
 
@@ -173,19 +179,19 @@ You have two ways to call those widgets:
 1) You can pass the full widget name from the `default_namespace` (basically `App\Widgets`) to the `run` method.
 ```php
 @widget('News\RecentNews', $config)
-{!! Widget::run('News\RecentNews', $config) !!}
+{{ Widget::run('News\RecentNews', $config) }}
 ```
 
 2) You can use dot notation instead.
 ```php
 @widget('news.recentNews', $config)
-{!! Widget::run('news.recentNews', $config) !!}
+{{ Widget::run('news.recentNews', $config) }}
 ```
 
-Note: you can pass FQCN too.
+You can pass FQCN too.
 ```php
 @widget('\App\Http\Some\Namespace\Widget', $config)
-{!! Widget::run('\App\Http\Some\Namespace\Widget', $config) !!}
+{{ Widget::run('\App\Http\Some\Namespace\Widget', $config) }}
 ```
 
 ## Asynchronous widgets
@@ -292,7 +298,7 @@ Widget::group('sidebar')->position(5)->addWidget(<the same arguments list as in 
 Widget::group('sidebar')->position(4)->addAsyncWidget(<the same arguments list as in run() method>);
 
 // display them in a view in the correct order
-{!! Widget::group('sidebar')->display() !!}
+{{ Widget::group('sidebar')->display() }}
 //or 
 @widgetGroup('sidebar')
 ```

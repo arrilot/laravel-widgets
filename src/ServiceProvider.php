@@ -24,16 +24,12 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             __DIR__.'/config/config.php', 'laravel-widgets'
         );
 
-        $config = [
-            'defaultNamespace' => config('laravel-widgets.default_namespace') ?: $this->getAppNamespace().'Widgets',
-        ];
-
-        $this->app->bind('arrilot.widget', function () use ($config) {
-            return new WidgetFactory($config, new LaravelApplicationWrapper());
+        $this->app->bind('arrilot.widget', function () {
+            return new WidgetFactory(new LaravelApplicationWrapper());
         });
 
-        $this->app->bind('arrilot.async-widget', function () use ($config) {
-            return new AsyncWidgetFactory($config, new LaravelApplicationWrapper());
+        $this->app->bind('arrilot.async-widget', function () {
+            return new AsyncWidgetFactory(new LaravelApplicationWrapper());
         });
 
         $this->app->singleton('command.widget.make', function ($app) {
@@ -63,7 +59,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             $router->post('load-widget', 'WidgetController@showWidget');
         });
 
-        $this->registerBladeExtensions();
+        $this->registerBladeDirectives();
     }
 
     /**
@@ -77,9 +73,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     }
 
     /**
-     * Register blade extensions.
+     * Register blade directives.
      */
-    protected function registerBladeExtensions()
+    protected function registerBladeDirectives()
     {
         Blade::extend(function ($view) {
             $pattern = $this->createMatcher('widget');
@@ -90,7 +86,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         Blade::extend(function ($view) {
             $pattern = $this->createMatcher('async-widget');
 
-            return preg_replace($pattern, '$1<?php app("arrilot.async-widget")->run$2; ?>', $view);
+            return preg_replace($pattern, '$1<?php echo app("arrilot.async-widget")->run$2; ?>', $view);
         });
 
         Blade::extend(function ($view) {

@@ -3,17 +3,14 @@
 namespace Arrilot\Widgets\Factories;
 
 use Arrilot\Widgets\AbstractWidget;
+use Arrilot\Widgets\Contracts\ApplicationWrapperContract;
 use Arrilot\Widgets\Misc\InvalidWidgetClassException;
+use Arrilot\Widgets\Misc\ViewExpressionTrait;
 use Arrilot\Widgets\WidgetId;
 
 abstract class AbstractWidgetFactory
 {
-    /**
-     * Factory config.
-     *
-     * @var array
-     */
-    protected $config;
+    use ViewExpressionTrait;
 
     /**
      * Widget object to work with.
@@ -53,7 +50,7 @@ abstract class AbstractWidgetFactory
     /**
      * Laravel application wrapper for better testability.
      *
-     * @var \Arrilot\Widgets\Misc\LaravelApplicationWrapper;
+     * @var ApplicationWrapperContract;
      */
     public $app;
 
@@ -72,13 +69,14 @@ abstract class AbstractWidgetFactory
     public static $skipWidgetContainer = false;
 
     /**
-     * @param $config
-     * @param $app
+     * Constructor.
+     *
+     * @param ApplicationWrapperContract $app
      */
-    public function __construct($config, $app)
+    public function __construct(ApplicationWrapperContract $app)
     {
-        $this->config = $config;
         $this->app = $app;
+
         $this->javascriptFactory = new JavascriptFactory($this);
     }
 
@@ -113,9 +111,11 @@ abstract class AbstractWidgetFactory
         $this->widgetConfig = (array) array_shift($params);
         $this->widgetParams = $params;
 
+        $rootNamespace = $this->app->config('laravel-widgets.default_namespace', $this->app->getNamespace().'Widgets');
+
         $widgetClass = class_exists($this->widgetName)
             ? $this->widgetName
-            : $this->config['defaultNamespace'].'\\'.$this->widgetName;
+            : $rootNamespace.'\\'.$this->widgetName;
 
         $widget = new $widgetClass($this->widgetConfig);
         if ($widget instanceof AbstractWidget === false) {

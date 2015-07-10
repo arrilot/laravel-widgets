@@ -1,29 +1,15 @@
 <?php
 
-namespace Arrilot\Widgets\Misc;
+namespace Arrilot\Widgets\Test;
 
 use Arrilot\Widgets\Contracts\ApplicationWrapperContract;
+use Arrilot\Widgets\Factories\AsyncWidgetFactory;
+use Arrilot\Widgets\Factories\WidgetFactory;
 use Closure;
-use Illuminate\Console\AppNamespaceDetectorTrait;
-use Illuminate\Container\Container;
+use Doctrine\Instantiator\Exception\InvalidArgumentException;
 
-class LaravelApplicationWrapper implements ApplicationWrapperContract
+class TestApplicationWrapper implements ApplicationWrapperContract
 {
-    use AppNamespaceDetectorTrait;
-
-    /**
-     * Laravel application instance.
-     */
-    protected $app;
-
-    /**
-     * Constructor.
-     */
-    public function __construct()
-    {
-        $this->app = Container::getInstance();
-    }
-
     /**
      * Wrapper around Cache::remember().
      *
@@ -35,7 +21,7 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
      */
     public function cache($key, $minutes, Closure $callback)
     {
-        return $this->app->make('cache')->remember($key, $minutes, $callback);
+        return 'Cached output. Key: '.$key.', minutes: '.$minutes;
     }
 
     /**
@@ -48,7 +34,7 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
      */
     public function call($method, $params = [])
     {
-        return $this->app->call($method, $params);
+        return call_user_func_array($method, $params);
     }
 
     /**
@@ -61,7 +47,11 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
      */
     public function config($key, $default = null)
     {
-        return $this->app->make('config')->get($key, $default);
+        if ($key == 'laravel-widgets.default_namespace') {
+            return 'Arrilot\Widgets\Test\Dummies';
+        }
+
+        throw new InvalidArgumentException("Key {$key} is not defined for testing");
     }
 
     /**
@@ -71,7 +61,7 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
      */
     public function csrf_token()
     {
-        return csrf_token();
+        return 'token_stub';
     }
 
     /**
@@ -81,7 +71,7 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
      */
     public function getNamespace()
     {
-        return $this->getAppNamespace();
+        return 'App\\';
     }
 
     /**
@@ -94,6 +84,14 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
      */
     public function make($abstract, array $parameters = [])
     {
-        return $this->app->make($abstract, $parameters);
+        if ($abstract == 'arrilot.widget') {
+            return new WidgetFactory($this);
+        }
+
+        if ($abstract == 'arrilot.async-widget') {
+            return new AsyncWidgetFactory($this);
+        }
+
+        throw new InvalidArgumentException("Binding {$abstract} cannot be resolved while testing");
     }
 }
