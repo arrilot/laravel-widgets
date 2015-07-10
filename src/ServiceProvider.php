@@ -77,10 +77,13 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
     /**
      * Register a blade directive.
+     *
+     * @param $name
+     * @param $expression
      */
     protected function registerBladeDirective($name, $expression)
     {
-        Blade::extend(function ($view) use ($name, $expression){
+        Blade::extend(function ($view) use ($name, $expression) {
             $pattern = $this->createMatcher($name);
 
             return preg_replace($pattern, $expression, $view);
