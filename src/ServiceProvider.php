@@ -59,7 +59,10 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             $router->post('load-widget', 'WidgetController@showWidget');
         });
 
-        $this->registerBladeDirectives();
+        $this->registerBladeDirective('widget', '$1<?php echo app("arrilot.widget")->run$2; ?>');
+        $this->registerBladeDirective('async-widget', '$1<?php echo app("arrilot.async-widget")->run$2; ?>');
+        $this->registerBladeDirective('asyncWidget', '$1<?php echo app("arrilot.async-widget")->run$2; ?>');
+        $this->registerBladeDirective('widgetGroup', '$1<?php echo Widget::group$2->display(); ?>');
     }
 
     /**
@@ -73,32 +76,14 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     }
 
     /**
-     * Register blade directives.
+     * Register a blade directive.
      */
-    protected function registerBladeDirectives()
+    protected function registerBladeDirective($name, $expression)
     {
-        Blade::extend(function ($view) {
-            $pattern = $this->createMatcher('widget');
+        Blade::extend(function ($view) use ($name, $expression){
+            $pattern = $this->createMatcher($name);
 
-            return preg_replace($pattern, '$1<?php echo app("arrilot.widget")->run$2; ?>', $view);
-        });
-
-        Blade::extend(function ($view) {
-            $pattern = $this->createMatcher('async-widget');
-
-            return preg_replace($pattern, '$1<?php echo app("arrilot.async-widget")->run$2; ?>', $view);
-        });
-
-        Blade::extend(function ($view) {
-            $pattern = $this->createMatcher('asyncWidget');
-
-            return preg_replace($pattern, '$1<?php echo app("arrilot.async-widget")->run$2; ?>', $view);
-        });
-
-        Blade::extend(function ($view) {
-            $pattern = $this->createMatcher('widgetGroup');
-
-            return preg_replace($pattern, '$1<?php echo Widget::group$2->display(); ?>', $view);
+            return preg_replace($pattern, $expression, $view);
         });
     }
 
