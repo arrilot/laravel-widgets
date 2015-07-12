@@ -23,7 +23,7 @@ class WidgetFactory extends AbstractWidgetFactory
         $args = func_get_args();
         $this->instantiateWidget($args);
 
-        if ($cacheTime = $this->getCacheTime()) {
+        if ($cacheTime = (double)$this->getCacheTime()) {
             $content = $this->app->cache($this->widget->cacheKey($args), $cacheTime, function () {
                 return $this->getContent();
             });
@@ -31,7 +31,7 @@ class WidgetFactory extends AbstractWidgetFactory
             $content = $this->getContent();
         }
 
-        if ($timeout = $this->getReloadTimeout()) {
+        if ($timeout = (double)$this->getReloadTimeout()) {
             $content .= $this->javascriptFactory->getReloader($timeout);
 
             $content = $this->wrapContentInContainer($content);
