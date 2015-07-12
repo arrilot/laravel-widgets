@@ -132,7 +132,7 @@ class RecentNews extends AbstractWidget {
 ```
 `['count' => 10]` is a config array that can be accessed by $this->config.
 
-*Note: Config fields that are not specified when you call the widget aren't overwritten:*
+*Note: Config fields that are not specified when you call the widget aren't overridden:*
 
 ```php
 class RecentNews extends AbstractWidget {
@@ -167,7 +167,7 @@ public function run($sort_by, $sort_order) { }
 
 By default the package tries to find your widget in the ```App\Widgets``` namespace.
 
-You can overwrite this by publishing package config and setting `default_namespace` property.
+You can override this by publishing package config and setting `default_namespace` property.
 
 To publish config use: ```php artisan vendor:publish --provider="Arrilot\Widgets\ServiceProvider"```
 
@@ -251,7 +251,7 @@ This container is defined by AbstractWidget::container() method and can be custo
 ```php
     /**
      * Async and reloadable widgets are wrapped in container.
-     * You can customize it by overwriting this method.
+     * You can customize it by overriding this method.
      *
      * @return array
      */
@@ -284,7 +284,7 @@ class RecentNews extends AbstractWidget
 
 No caching is turned on by default.
 A cache key depends on widget name and each widget parameter.
-Overwrite ```cacheKey``` method if you need to adjust it.
+override ```cacheKey``` method if you need to adjust it.
 
 ## Widget groups (extra)
 

@@ -52,7 +52,7 @@ abstract class AbstractWidget
 
     /**
      * Async and reloadable widgets are wrapped in container.
-     * You can customize it by overwriting this method.
+     * You can customize it by overriding this method.
      *
      * @return array
      */
