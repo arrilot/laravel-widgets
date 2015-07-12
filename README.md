@@ -310,3 +310,6 @@ Widget::group('sidebar')->position(4)->addAsyncWidget(<the same arguments list a
 equals
 
 `Widget::group('sidebar')->position(100)->addWidget('files');`
+
+You can also set a separator to display between widgets in a group.
+`Widget::group('sidebar')->setSeparator('<hr>');` 
