@@ -83,7 +83,6 @@ class JavascriptFactory
         $token = $this->widgetFactory->app->csrf_token();
 
         if ($this->useJquery()) {
-
             return json_encode([
                 'id'     => $id,
                 'name'   => $name,
@@ -118,20 +117,21 @@ class JavascriptFactory
     {
         if ($this->useJquery()) {
             $id = WidgetId::get();
+
             return
                 "var widgetTimer{$id} = setInterval(function() {".
-                    "if (window.$) {".
+                    'if (window.$) {'.
                         "$('#{$this->getContainerId()}').load('".$this->ajaxLink."', {$this->produceJavascriptData()});".
                         "clearInterval(widgetTimer{$id});".
-                    "}".
-                "}, 100);";
+                    '}'.
+                '}, 100);';
         }
 
         return
             'var xhr = new XMLHttpRequest();'.
-            'var params = ' . $this->produceJavascriptData() . ";".
-            'var container = document.getElementById("' . $this->getContainerId() . '");'.
-            'xhr.open("POST", "' . $this->ajaxLink . '", true);'.
+            'var params = '.$this->produceJavascriptData().';'.
+            'var container = document.getElementById("'.$this->getContainerId().'");'.
+            'xhr.open("POST", "'.$this->ajaxLink.'", true);'.
             'xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");'.
             'xhr.send(params);'.
             'xhr.onreadystatechange = function() {'.

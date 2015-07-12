@@ -144,7 +144,7 @@ class WidgetGroup
      * Add a widget with a given type to the array.
      *
      * @param string $type
-     * @param array $arguments
+     * @param array  $arguments
      */
     protected function addWidgetWithType($type, array $arguments = [])
     {

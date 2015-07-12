@@ -25,7 +25,7 @@ class WidgetFactory extends AbstractWidgetFactory
 
         $content = $this->getContentFromCache($args);
 
-        if ($timeout = (double)$this->getReloadTimeout()) {
+        if ($timeout = (double) $this->getReloadTimeout()) {
             $content .= $this->javascriptFactory->getReloader($timeout);
             $content = $this->wrapContentInContainer($content);
         }
@@ -88,11 +88,12 @@ class WidgetFactory extends AbstractWidgetFactory
      * Runs widget class otherwise.
      *
      * @param $args
+     *
      * @return mixed
      */
     protected function getContentFromCache($args)
     {
-        if ($cacheTime = (double)$this->getCacheTime()) {
+        if ($cacheTime = (double) $this->getCacheTime()) {
             return $this->app->cache($this->widget->cacheKey($args), $cacheTime, function () {
                 return $this->getContent();
             });

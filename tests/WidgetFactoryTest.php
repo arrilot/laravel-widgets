@@ -104,12 +104,12 @@ class WidgetFactoryTest extends TestCase
             '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">Feed was executed with $slides = 6'.
                 '<script type="text/javascript">'.
                     'setTimeout( function() {'.
-                        "var widgetTimer1 = setInterval(function() {".
-                            "if (window.$) {".
-                                "$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->javascriptDataStub('TestRepeatableFeed').");".
-                                "clearInterval(widgetTimer1);".
-                            "}".
-                        "}, 100);".
+                        'var widgetTimer1 = setInterval(function() {'.
+                            'if (window.$) {'.
+                                "$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->javascriptDataStub('TestRepeatableFeed').');'.
+                                'clearInterval(widgetTimer1);'.
+                            '}'.
+                        '}, 100);'.
                     '}, 10000)'.
                 '</script>'.
             '</div>', $output);
@@ -123,12 +123,12 @@ class WidgetFactoryTest extends TestCase
             '<p id="arrilot-widget-container-1" data-id="123">Dummy Content'.
                 '<script type="text/javascript">'.
                     'setTimeout( function() {'.
-                        "var widgetTimer1 = setInterval(function() {".
-                            "if (window.$) {".
-                                "$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->javascriptDataStub('TestWidgetWithCustomContainer').");".
-                                "clearInterval(widgetTimer1);".
-                            "}".
-                        "}, 100);".
+                        'var widgetTimer1 = setInterval(function() {'.
+                            'if (window.$) {'.
+                                "$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->javascriptDataStub('TestWidgetWithCustomContainer').');'.
+                                'clearInterval(widgetTimer1);'.
+                            '}'.
+                        '}, 100);'.
                     '}, 10000)'.
                 '</script>'.
             '</p>', $output);
