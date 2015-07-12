@@ -5,10 +5,8 @@ namespace Arrilot\Widgets\Test;
 use Arrilot\Widgets\Factories\WidgetFactory;
 use Arrilot\Widgets\Test\Dummies\TestCachedWidget;
 use Arrilot\Widgets\WidgetGroup;
-use Arrilot\Widgets\WidgetId;
-use PHPUnit_Framework_TestCase;
 
-class WidgetFactoryTest extends PHPUnit_Framework_TestCase
+class WidgetFactoryTest extends TestCase
 {
     /**
      * @var WidgetFactory
@@ -18,11 +16,6 @@ class WidgetFactoryTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->factory = new WidgetFactory(new TestApplicationWrapper());
-    }
-
-    public function tearDown()
-    {
-        WidgetId::reset();
     }
 
     public function testItThrowsExceptionForBadWidgetClass()
@@ -109,7 +102,7 @@ class WidgetFactoryTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">Feed was executed with $slides = 6'.
-            '<script type="text/javascript">setTimeout( function() { $(\'#arrilot-widget-container-1\').load(\'/arrilot/load-widget\', '.javascript_data_stub('TestRepeatableFeed').') }, 10000)</script>'.
+            '<script type="text/javascript">setTimeout( function() { $(\'#arrilot-widget-container-1\').load(\'/arrilot/load-widget\', '.$this->javascriptDataStub('TestRepeatableFeed').') }, 10000)</script>'.
             '</div>', $output);
     }
 
@@ -119,7 +112,7 @@ class WidgetFactoryTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals(
             '<p id="arrilot-widget-container-1" data-id="123">Dummy Content'.
-            '<script type="text/javascript">setTimeout( function() { $(\'#arrilot-widget-container-1\').load(\'/arrilot/load-widget\', '.javascript_data_stub('TestWidgetWithCustomContainer').') }, 10000)</script>'.
+            '<script type="text/javascript">setTimeout( function() { $(\'#arrilot-widget-container-1\').load(\'/arrilot/load-widget\', '.$this->javascriptDataStub('TestWidgetWithCustomContainer').') }, 10000)</script>'.
             '</p>', $output);
     }
 

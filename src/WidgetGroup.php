@@ -38,6 +38,20 @@ class WidgetGroup
     protected $position = 100;
 
     /**
+     * The separator to display between widgets in the group.
+     *
+     * @var string
+     */
+    protected $separator = '';
+
+    /**
+     * The number of widgets in the group.
+     *
+     * @var int
+     */
+    protected $count = 0;
+
+    /**
      * @param $name
      * @param ApplicationWrapperContract $app
      */
@@ -58,9 +72,14 @@ class WidgetGroup
         ksort($this->widgets);
 
         $output = '';
+        $count = 0;
         foreach ($this->widgets as $position => $widgets) {
             foreach ($widgets as $widget) {
-                $output .=  $this->displayWidget($widget);
+                $count++;
+                $output .= $this->displayWidget($widget);
+                if ($this->count !== $count) {
+                    $output .= $this->separator;
+                }
             }
         }
 
@@ -108,6 +127,42 @@ class WidgetGroup
     }
 
     /**
+     * Set a separator to display between widgets in the group.
+     *
+     * @param string $separator
+     *
+     * @return $this
+     */
+    public function setSeparator($separator)
+    {
+        $this->separator = $separator;
+
+        return $this;
+    }
+
+    /**
+     * Add a widget with a given type to the array.
+     *
+     * @param string $type
+     * @param array $arguments
+     */
+    protected function addWidgetWithType($type, array $arguments = [])
+    {
+        if (!isset($this->widgets[$this->position])) {
+            $this->widgets[$this->position] = [];
+        }
+
+        $this->widgets[$this->position][] = [
+            'arguments' => $arguments,
+            'type'      => $type,
+        ];
+
+        $this->count++;
+
+        $this->resetPosition();
+    }
+
+    /**
      * Display a widget according to its type.
      *
      * @param $widget
@@ -128,25 +183,5 @@ class WidgetGroup
     protected function resetPosition()
     {
         $this->position = 100;
-    }
-
-    /**
-     * Add a widget with a given type to the array.
-     *
-     * @param string $type
-     * @param array  $arguments
-     */
-    protected function addWidgetWithType($type, array $arguments = [])
-    {
-        if (!isset($this->widgets[$this->position])) {
-            $this->widgets[$this->position] = [];
-        }
-
-        $this->widgets[$this->position][] = [
-            'arguments' => $arguments,
-            'type'      => $type,
-        ];
-
-        $this->resetPosition();
     }
 }

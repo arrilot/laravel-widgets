@@ -3,9 +3,8 @@
 namespace Arrilot\Widgets\Test;
 
 use Arrilot\Widgets\WidgetGroup;
-use PHPUnit_Framework_TestCase;
 
-class WidgetGroupTest extends PHPUnit_Framework_TestCase
+class WidgetGroupTest extends TestCase
 {
     /**
      * @var WidgetGroup
@@ -26,7 +25,7 @@ class WidgetGroupTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('Slider was executed with $slides = 5 foo: bar'.
             '<div id="arrilot-widget-container-2" style="display:inline" class="arrilot-widget-container">Placeholder here!'.
-            "<script type=\"text/javascript\">$('#arrilot-widget-container-2').load('/arrilot/load-widget', ".javascript_data_stub('Slider', [], 2).')</script>'.
+            "<script type=\"text/javascript\">$('#arrilot-widget-container-2').load('/arrilot/load-widget', ".$this->javascriptDataStub('Slider', [], 2).')</script>'.
             '</div>', $output);
     }
 
@@ -61,5 +60,19 @@ class WidgetGroupTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('Slider was executed with $slides = 10 foo: bar'.
             'Slider was executed with $slides = 15 foo: bar', $output2);
         $this->assertEquals(100, $widgetGroup2->getPosition());
+    }
+
+    public function testSeparator()
+    {
+        $this->widgetGroup->addWidget('Slider', ['slides' => 5]);
+        $this->widgetGroup->addAsyncWidget('Slider');
+
+        $output = $this->widgetGroup->setSeparator('<hr>')->display();
+
+        $this->assertEquals('Slider was executed with $slides = 5 foo: bar'.
+            '<hr>'.
+            '<div id="arrilot-widget-container-2" style="display:inline" class="arrilot-widget-container">Placeholder here!'.
+            "<script type=\"text/javascript\">$('#arrilot-widget-container-2').load('/arrilot/load-widget', ".$this->javascriptDataStub('Slider', [], 2).')</script>'.
+            '</div>', $output);
     }
 }

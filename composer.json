@@ -26,9 +26,6 @@
         }
     },
     "autoload-dev": {
-        "files": [
-          "tests/helpers.php"
-        ],
         "psr-4": {
             "Arrilot\\Widgets\\Test\\": "tests"
         }
