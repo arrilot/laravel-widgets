@@ -115,13 +115,17 @@ class JavascriptFactory
      */
     protected function constructAjaxCall()
     {
+        $ajaxLink = $this->ajaxLink;
+        $containerId = $this->getContainerId();
+        $data = $this->produceJavascriptData();
+
         if ($this->useJquery()) {
             $id = WidgetId::get();
 
             return
                 "var widgetTimer{$id} = setInterval(function() {".
                     'if (window.$) {'.
-                        "$('#{$this->getContainerId()}').load('".$this->ajaxLink."', {$this->produceJavascriptData()});".
+                        "$('#{$containerId}').load('".$ajaxLink."', {$data});".
                         "clearInterval(widgetTimer{$id});".
                     '}'.
                 '}, 100);';
@@ -129,9 +133,9 @@ class JavascriptFactory
 
         return
             'var xhr = new XMLHttpRequest();'.
-            'var params = '.$this->produceJavascriptData().';'.
-            'var container = document.getElementById("'.$this->getContainerId().'");'.
-            'xhr.open("POST", "'.$this->ajaxLink.'", true);'.
+            'var params = '.$data.';'.
+            'var container = document.getElementById("'.$containerId.'");'.
+            'xhr.open("POST", "'.$ajaxLink.'", true);'.
             'xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");'.
             'xhr.send(params);'.
             'xhr.onreadystatechange = function() {'.
