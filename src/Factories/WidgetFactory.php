@@ -23,21 +23,32 @@ class WidgetFactory extends AbstractWidgetFactory
         $args = func_get_args();
         $this->instantiateWidget($args);
 
-        if ($cacheTime = (double)$this->getCacheTime()) {
-            $content = $this->app->cache($this->widget->cacheKey($args), $cacheTime, function () {
-                return $this->getContent();
-            });
-        } else {
-            $content = $this->getContent();
-        }
+        $content = $this->getContentFromCache($args);
 
         if ($timeout = (double)$this->getReloadTimeout()) {
             $content .= $this->javascriptFactory->getReloader($timeout);
-
             $content = $this->wrapContentInContainer($content);
         }
 
         return $this->convertToViewExpression($content);
+    }
+
+    /**
+     * Get the widget group object.
+     *
+     * @param $name
+     *
+     * @return mixed
+     */
+    public function group($name)
+    {
+        if (isset($this->groups[$name])) {
+            return $this->groups[$name];
+        }
+
+        $this->groups[$name] = new WidgetGroup($name, $this->app);
+
+        return $this->groups[$name];
     }
 
     /**
@@ -73,20 +84,20 @@ class WidgetFactory extends AbstractWidgetFactory
     }
 
     /**
-     * Get the widget group object.
+     * Gets content from cache if it's turned on.
+     * Runs widget class otherwise.
      *
-     * @param $name
-     *
+     * @param $args
      * @return mixed
      */
-    public function group($name)
+    protected function getContentFromCache($args)
     {
-        if (isset($this->groups[$name])) {
-            return $this->groups[$name];
+        if ($cacheTime = (double)$this->getCacheTime()) {
+            return $this->app->cache($this->widget->cacheKey($args), $cacheTime, function () {
+                return $this->getContent();
+            });
         }
 
-        $this->groups[$name] = new WidgetGroup($name, $this->app);
-
-        return $this->groups[$name];
+        return $this->getContent();
     }
 }
