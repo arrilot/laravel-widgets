@@ -23,9 +23,17 @@ class WidgetGroupTest extends TestCase
 
         $output = $this->widgetGroup->display();
 
-        $this->assertEquals('Slider was executed with $slides = 5 foo: bar'.
+        $this->assertEquals(
+            'Slider was executed with $slides = 5 foo: bar'.
             '<div id="arrilot-widget-container-2" style="display:inline" class="arrilot-widget-container">Placeholder here!'.
-            "<script type=\"text/javascript\">$('#arrilot-widget-container-2').load('/arrilot/load-widget', ".$this->javascriptDataStub('Slider', [], 2).')</script>'.
+                "<script type=\"text/javascript\">".
+                    "var widgetTimer2 = setInterval(function() {".
+                        "if (window.$) {".
+                            "$('#arrilot-widget-container-2').load('/arrilot/load-widget', ".$this->javascriptDataStub('Slider', [], 2).");".
+                            "clearInterval(widgetTimer2);".
+                        "}".
+                    "}, 100);".
+                "</script>".
             '</div>', $output);
     }
 
@@ -69,10 +77,18 @@ class WidgetGroupTest extends TestCase
 
         $output = $this->widgetGroup->setSeparator('<hr>')->display();
 
-        $this->assertEquals('Slider was executed with $slides = 5 foo: bar'.
+        $this->assertEquals(
+            'Slider was executed with $slides = 5 foo: bar'.
             '<hr>'.
             '<div id="arrilot-widget-container-2" style="display:inline" class="arrilot-widget-container">Placeholder here!'.
-            "<script type=\"text/javascript\">$('#arrilot-widget-container-2').load('/arrilot/load-widget', ".$this->javascriptDataStub('Slider', [], 2).')</script>'.
+            "<script type=\"text/javascript\">".
+            "var widgetTimer2 = setInterval(function() {".
+            "if (window.$) {".
+            "$('#arrilot-widget-container-2').load('/arrilot/load-widget', ".$this->javascriptDataStub('Slider', [], 2).");".
+            "clearInterval(widgetTimer2);".
+            "}".
+            "}, 100);".
+            "</script>".
             '</div>', $output);
     }
 }

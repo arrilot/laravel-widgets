@@ -51,6 +51,10 @@ class TestApplicationWrapper implements ApplicationWrapperContract
             return 'Arrilot\Widgets\Test\Dummies';
         }
 
+        if ($key == 'laravel-widgets.disable_jquery') {
+            return false;
+        }
+
         throw new InvalidArgumentException("Key {$key} is not defined for testing");
     }
 
