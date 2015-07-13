@@ -77,7 +77,7 @@ class JavascriptFactory
      */
     protected function useJquery()
     {
-        return !$this->widgetFactory->app->config('laravel-widgets.disable_jquery', false);
+        return $this->widgetFactory->app->config('laravel-widgets.use_jquery_for_ajax_calls', false);
     }
 
     /**
@@ -87,35 +87,34 @@ class JavascriptFactory
      */
     protected function constructAjaxCall()
     {
-        $data = [
+        $queryParams = [
             'id'     => WidgetId::get(),
             'name'   => $this->widgetFactory->widgetName,
             'params' => serialize($this->widgetFactory->widgetFullParams),
-            '_token' => $this->widgetFactory->app->csrf_token(),
         ];
 
+        $url = $this->ajaxLink."?".http_build_query($queryParams);
+
         return $this->useJquery()
-            ? $this->constructJqueryAjaxCall($data)
-            : $this->constructNativeJsAjaxCall($data);
+            ? $this->constructJqueryAjaxCall($url)
+            : $this->constructNativeJsAjaxCall($url);
     }
 
     /**
      * Construct ajax call with jquery.
      *
-     * @param array $data
+     * @param string $url
      *
      * @return string
      */
-    protected function constructJqueryAjaxCall(array $data)
+    protected function constructJqueryAjaxCall($url)
     {
         $id = WidgetId::get();
-
-        $jsData = json_encode($data);
 
         return
             "var widgetTimer{$id} = setInterval(function() {".
                 'if (window.$) {'.
-                    "$('#{$this->getContainerId()}').load('".$this->ajaxLink."', {$jsData});".
+                    "$('#{$this->getContainerId()}').load('{$url}');".
                     "clearInterval(widgetTimer{$id});".
                 '}'.
             '}, 100);';
@@ -124,37 +123,29 @@ class JavascriptFactory
     /**
      * Construct ajax call without jquery.
      *
-     * @param array $data
+     * @param string $url
      *
      * @return string
      */
-    protected function constructNativeJsAjaxCall(array $data)
+    protected function constructNativeJsAjaxCall($url)
     {
-        $jsData = "'id=' + encodeURIComponent('{$data['id']}')".
-                "'&name=' + encodeURIComponent('{$data['name']}')".
-                "'&params=' + encodeURIComponent('{$data['params']}')".
-                "'&_token=' + encodeURIComponent('{$data['token']})";
-
         return
             'var xhr = new XMLHttpRequest();'.
-            'var params = '.$jsData.';'.
-            'var container = document.getElementById("'.$this->getContainerId().'");'.
-            'xhr.open("POST", "'.$this->ajaxLink.'", true);'.
-            'xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");'.
-            'xhr.send(params);'.
+            'xhr.open("GET", "'.$url.'", true);'.
             'xhr.onreadystatechange = function() {'.
                 'if(xhr.readyState == 4 && xhr.status == 200) {'.
-                'var data = xhr.responseText;'.
-                'container.innerHTML = data;'.
-                'var scripts = container.getElementsByTagName("script");'.
-                'for(var i=0; i < scripts.length; i++) {'.
-                    'if (window.execScript) {'.
+                    'var container = document.getElementById("'.$this->getContainerId().'");'.
+                    'container.innerHTML = xhr.responseText;'.
+                    'var scripts = container.getElementsByTagName("script");'.
+                    'for(var i=0; i < scripts.length; i++) {'.
+                        'if (window.execScript) {'.
                             'window.execScript(scripts[i].text);'.
                         '} else {'.
                             'window["eval"].call(window, scripts[i].text);'.
                         '}'.
                     '}'.
                 '}'.
-            '}';
+            '};'.
+            'xhr.send();';
     }
 }

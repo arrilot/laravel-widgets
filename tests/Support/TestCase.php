@@ -1,6 +1,6 @@
 <?php
 
-namespace Arrilot\Widgets\Test;
+namespace Arrilot\Widgets\Test\Support;
 
 use Arrilot\Widgets\WidgetId;
 use PHPUnit_Framework_TestCase;
@@ -12,13 +12,12 @@ class TestCase extends PHPUnit_Framework_TestCase
         WidgetId::reset();
     }
 
-    public function javascriptDataStub($widgetName, $widgetParams = [], $id = 1)
+    public function ajaxUrl($widgetName, $widgetParams = [], $id = 1)
     {
-        return json_encode([
+        return "/arrilot/load-widget?".http_build_query([
             'id'     => $id,
             'name'   => $widgetName,
             'params' => serialize($widgetParams),
-            '_token' => 'token_stub',
         ]);
     }
 }

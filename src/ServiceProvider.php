@@ -56,7 +56,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         ];
 
         $this->app['router']->group($routeConfig, function ($router) {
-            $router->post('load-widget', 'WidgetController@showWidget');
+            $router->get('load-widget', 'WidgetController@showWidget');
         });
 
         $this->registerBladeDirective('widget', '$1<?php echo app("arrilot.widget")->run$2; ?>');

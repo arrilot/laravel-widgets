@@ -2,5 +2,5 @@
 
 return [
     //'default_namespace' => 'App\Widgets',
-    'disable_jquery' => false,
+    'use_jquery_for_ajax_calls' => false,
 ];

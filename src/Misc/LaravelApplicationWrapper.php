@@ -65,16 +65,6 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
     }
 
     /**
-     * Wrapper around csrf_token().
-     *
-     * @return string
-     */
-    public function csrf_token()
-    {
-        return csrf_token();
-    }
-
-    /**
      * Wrapper around app()->getNamespace().
      *
      * @return string

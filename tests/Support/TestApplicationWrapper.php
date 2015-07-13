@@ -1,6 +1,6 @@
 <?php
 
-namespace Arrilot\Widgets\Test;
+namespace Arrilot\Widgets\Test\Support;
 
 use Arrilot\Widgets\Contracts\ApplicationWrapperContract;
 use Arrilot\Widgets\Factories\AsyncWidgetFactory;
@@ -10,6 +10,16 @@ use Doctrine\Instantiator\Exception\InvalidArgumentException;
 
 class TestApplicationWrapper implements ApplicationWrapperContract
 {
+    /**
+     * Configuration array double.
+     *
+     * @var array
+     */
+    public $config = [
+        'laravel-widgets.default_namespace' => 'Arrilot\Widgets\Test\Dummies',
+        'laravel-widgets.use_jquery_for_ajax_calls' => true,
+    ];
+
     /**
      * Wrapper around Cache::remember().
      *
@@ -47,25 +57,11 @@ class TestApplicationWrapper implements ApplicationWrapperContract
      */
     public function config($key, $default = null)
     {
-        if ($key == 'laravel-widgets.default_namespace') {
-            return 'Arrilot\Widgets\Test\Dummies';
-        }
-
-        if ($key == 'laravel-widgets.disable_jquery') {
-            return false;
+        if (isset($this->config[$key])) {
+            return $this->config[$key];
         }
 
         throw new InvalidArgumentException("Key {$key} is not defined for testing");
-    }
-
-    /**
-     * Wrapper around csrf_token().
-     *
-     * @return string
-     */
-    public function csrf_token()
-    {
-        return 'token_stub';
     }
 
     /**

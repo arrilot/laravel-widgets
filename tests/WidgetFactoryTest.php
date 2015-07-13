@@ -4,6 +4,8 @@ namespace Arrilot\Widgets\Test;
 
 use Arrilot\Widgets\Factories\WidgetFactory;
 use Arrilot\Widgets\Test\Dummies\TestCachedWidget;
+use Arrilot\Widgets\Test\Support\TestApplicationWrapper;
+use Arrilot\Widgets\Test\Support\TestCase;
 use Arrilot\Widgets\WidgetGroup;
 
 class WidgetFactoryTest extends TestCase
@@ -106,7 +108,7 @@ class WidgetFactoryTest extends TestCase
                     'setTimeout( function() {'.
                         'var widgetTimer1 = setInterval(function() {'.
                             'if (window.$) {'.
-                                "$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->javascriptDataStub('TestRepeatableFeed').');'.
+                                "$('#arrilot-widget-container-1').load('".$this->ajaxUrl('TestRepeatableFeed')."');".
                                 'clearInterval(widgetTimer1);'.
                             '}'.
                         '}, 100);'.
@@ -125,7 +127,7 @@ class WidgetFactoryTest extends TestCase
                     'setTimeout( function() {'.
                         'var widgetTimer1 = setInterval(function() {'.
                             'if (window.$) {'.
-                                "$('#arrilot-widget-container-1').load('/arrilot/load-widget', ".$this->javascriptDataStub('TestWidgetWithCustomContainer').');'.
+                                "$('#arrilot-widget-container-1').load('".$this->ajaxUrl('TestWidgetWithCustomContainer')."');".
                                 'clearInterval(widgetTimer1);'.
                             '}'.
                         '}, 100);'.

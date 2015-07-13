@@ -38,13 +38,6 @@ interface ApplicationWrapperContract
     public function config($key, $default = null);
 
     /**
-     * Wrapper around csrf_token().
-     *
-     * @return string
-     */
-    public function csrf_token();
-
-    /**
      * Wrapper around app()->getNamespace().
      *
      * @return string

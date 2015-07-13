@@ -2,6 +2,8 @@
 
 namespace Arrilot\Widgets\Test;
 
+use Arrilot\Widgets\Test\Support\TestApplicationWrapper;
+use Arrilot\Widgets\Test\Support\TestCase;
 use Arrilot\Widgets\WidgetGroup;
 
 class WidgetGroupTest extends TestCase
@@ -29,7 +31,7 @@ class WidgetGroupTest extends TestCase
                 '<script type="text/javascript">'.
                     'var widgetTimer2 = setInterval(function() {'.
                         'if (window.$) {'.
-                            "$('#arrilot-widget-container-2').load('/arrilot/load-widget', ".$this->javascriptDataStub('Slider', [], 2).');'.
+                            "$('#arrilot-widget-container-2').load('".$this->ajaxUrl('Slider', [], 2)."');".
                             'clearInterval(widgetTimer2);'.
                         '}'.
                     '}, 100);'.
@@ -84,7 +86,7 @@ class WidgetGroupTest extends TestCase
                 '<script type="text/javascript">'.
                     'var widgetTimer2 = setInterval(function() {'.
                         'if (window.$) {'.
-                            "$('#arrilot-widget-container-2').load('/arrilot/load-widget', ".$this->javascriptDataStub('Slider', [], 2).');'.
+                            "$('#arrilot-widget-container-2').load('".$this->ajaxUrl('Slider', [], 2)."');".
                             'clearInterval(widgetTimer2);'.
                         '}'.
                     '}, 100);'.
