@@ -71,34 +71,6 @@ class JavascriptFactory
     }
 
     /**
-     * Produce javascript data object for ajax call.
-     *
-     * @return string
-     */
-    protected function produceJavascriptData()
-    {
-        $id = WidgetId::get();
-        $name = $this->widgetFactory->widgetName;
-        $params = serialize($this->widgetFactory->widgetFullParams);
-        $token = $this->widgetFactory->app->csrf_token();
-
-        if ($this->useJquery()) {
-            return json_encode([
-                'id'     => $id,
-                'name'   => $name,
-                'params' => $params,
-                '_token' => $token,
-            ]);
-        }
-
-        return
-            "'id=' + encodeURIComponent('{$id}')".
-            "'&name=' + encodeURIComponent('{$name}')".
-            "'&params=' + encodeURIComponent('{$params}')".
-            "'&_token=' + encodeURIComponent('{$token}')";
-    }
-
-    /**
      * Determine what to use - jquery or native js.
      *
      * @return bool
@@ -115,36 +87,68 @@ class JavascriptFactory
      */
     protected function constructAjaxCall()
     {
-        $ajaxLink = $this->ajaxLink;
-        $containerId = $this->getContainerId();
-        $data = $this->produceJavascriptData();
+        $data = [
+            'id'     => WidgetId::get(),
+            'name'   => $this->widgetFactory->widgetName,
+            'params' => serialize($this->widgetFactory->widgetFullParams),
+            '_token' => $this->widgetFactory->app->csrf_token(),
+        ];
 
-        if ($this->useJquery()) {
-            $id = WidgetId::get();
+        return $this->useJquery()
+            ? $this->constructJqueryAjaxCall($data)
+            : $this->constructNativeJsAjaxCall($data);
+    }
 
-            return
-                "var widgetTimer{$id} = setInterval(function() {".
-                    'if (window.$) {'.
-                        "$('#{$containerId}').load('".$ajaxLink."', {$data});".
-                        "clearInterval(widgetTimer{$id});".
-                    '}'.
-                '}, 100);';
-        }
+    /**
+     * Construct ajax call with jquery.
+     *
+     * @param array $data
+     *
+     * @return string
+     */
+    protected function constructJqueryAjaxCall(array $data)
+    {
+        $id = WidgetId::get();
+
+        $jsData = json_encode($data);
+
+        return
+            "var widgetTimer{$id} = setInterval(function() {".
+                'if (window.$) {'.
+                    "$('#{$this->getContainerId()}').load('".$this->ajaxLink."', {$jsData});".
+                    "clearInterval(widgetTimer{$id});".
+                '}'.
+            '}, 100);';
+    }
+
+    /**
+     * Construct ajax call without jquery.
+     *
+     * @param array $data
+     *
+     * @return string
+     */
+    protected function constructNativeJsAjaxCall(array $data)
+    {
+        $jsData = "'id=' + encodeURIComponent('{$data['id']}')".
+                "'&name=' + encodeURIComponent('{$data['name']}')".
+                "'&params=' + encodeURIComponent('{$data['params']}')".
+                "'&_token=' + encodeURIComponent('{$data['token']})";
 
         return
             'var xhr = new XMLHttpRequest();'.
-            'var params = '.$data.';'.
-            'var container = document.getElementById("'.$containerId.'");'.
-            'xhr.open("POST", "'.$ajaxLink.'", true);'.
+            'var params = '.$jsData.';'.
+            'var container = document.getElementById("'.$this->getContainerId().'");'.
+            'xhr.open("POST", "'.$this->ajaxLink.'", true);'.
             'xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");'.
             'xhr.send(params);'.
             'xhr.onreadystatechange = function() {'.
                 'if(xhr.readyState == 4 && xhr.status == 200) {'.
-                    'var data = xhr.responseText;'.
-                    'container.innerHTML = data;'.
-                    'var scripts = container.getElementsByTagName("script");'.
-                    'for(var i=0; i < scripts.length; i++) {'.
-                        'if (window.execScript) {'.
+                'var data = xhr.responseText;'.
+                'container.innerHTML = data;'.
+                'var scripts = container.getElementsByTagName("script");'.
+                'for(var i=0; i < scripts.length; i++) {'.
+                    'if (window.execScript) {'.
                             'window.execScript(scripts[i].text);'.
                         '} else {'.
                             'window["eval"].call(window, scripts[i].text);'.
