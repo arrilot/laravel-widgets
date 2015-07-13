@@ -16,7 +16,7 @@ class TestApplicationWrapper implements ApplicationWrapperContract
      * @var array
      */
     public $config = [
-        'laravel-widgets.default_namespace' => 'Arrilot\Widgets\Test\Dummies',
+        'laravel-widgets.default_namespace'         => 'Arrilot\Widgets\Test\Dummies',
         'laravel-widgets.use_jquery_for_ajax_calls' => true,
     ];
 

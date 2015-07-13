@@ -174,7 +174,6 @@ class AsyncWidgetFactoryTest extends TestCase
 
     public function testItCanRunAsyncWidgetWithoutJquery()
     {
-
         $this->factory->app->config['laravel-widgets.use_jquery_for_ajax_calls'] = false;
 
         $output = $this->factory->run('testDefaultSlider');

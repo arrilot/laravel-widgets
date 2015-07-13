@@ -9,7 +9,7 @@
 
 ### For Laravel 4, please use the [1.0 branch](https://github.com/Arrilot/laravel-widgets/tree/1.0)!
 
-*Note: this is the doc for the latest stable release. If you need documentation for your specific version you can find it by clicking on a corresponding tag here https://github.com/Arrilot/laravel-widgets/releases*
+> Note: This is the doc for the latest stable release. If you need documentation for your specific version you can find it by clicking on a corresponding tag here https://github.com/Arrilot/laravel-widgets/releases
 
 ## Installation
 
@@ -104,7 +104,7 @@ or even
 
 There is no real difference between them. The choice is up to you.
 
-*Note: For Laravel 5.0.0 - 5.1.3 you have to use `{!! !!}` tags instead of `{{ }}`*
+> Note: For Laravel 5.0.0 - 5.1.3 you have to use `{!! !!}` tags instead of `{{ }}`
 
 ## Passing variables to widget
 
@@ -132,7 +132,7 @@ class RecentNews extends AbstractWidget {
 ```
 `['count' => 10]` is a config array that can be accessed by $this->config.
 
-*Note: Config fields that are not specified when you call the widget aren't overridden:*
+> Note: Config fields that are not specified when you call the widget aren't overridden:
 
 ```php
 class RecentNews extends AbstractWidget {
@@ -199,15 +199,13 @@ You can pass FQCN too.
 In some situations it can be very beneficial to load widget content with AJAX.
 
 Fortunately, this can be achieved very easily!
+All you need to do is to change facade or blade directive - `Widget::` => `AsyncWidget::`, `@widget` => `@asyncWidget`
 
-1. Make sure you have jquery loaded for ajax calls before the widget is called.
-2. Change facade or blade directive - `Widget::` => `AsyncWidget::`, `@widget` => `@asyncWidget`
-
-Done.
+> Note: Since version 3.1 you no longer need jquery to make ajax calls. Set `use_jquery_for_ajax_calls` to `true` in the config file if you need it.
 
 By default nothing is shown until ajax call is finished.
 
-This can be easily customized by adding a `placeholder()` method to the widget class.
+This can be customized by adding a `placeholder()` method to the widget class.
 
 ```php
 public function placeholder()
@@ -220,10 +218,7 @@ public function placeholder()
 
 You can go even further and automatically reload widget every N seconds.
 
-To achieve that:
-
-1. Make sure you have jquery loaded for ajax calls before the widget is called.
-2. Set the `$reloadTimeout` property of the widget class.
+To achieve that simply set the `$reloadTimeout` property of the widget class.
 
 ```php
 class RecentNews extends AbstractWidget

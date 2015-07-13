@@ -93,7 +93,7 @@ class JavascriptFactory
             'params' => serialize($this->widgetFactory->widgetFullParams),
         ];
 
-        $url = $this->ajaxLink."?".http_build_query($queryParams);
+        $url = $this->ajaxLink.'?'.http_build_query($queryParams);
 
         return $this->useJquery()
             ? $this->constructJqueryAjaxCall($url)
