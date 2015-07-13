@@ -201,7 +201,7 @@ In some situations it can be very beneficial to load widget content with AJAX.
 Fortunately, this can be achieved very easily!
 All you need to do is to change facade or blade directive - `Widget::` => `AsyncWidget::`, `@widget` => `@asyncWidget`
 
-> Note: Since version 3.1 you no longer need jquery to make ajax calls. Set `use_jquery_for_ajax_calls` to `true` in the config file if you need it.
+> Note: Since version 3.1 you no longer need `jquery` to make ajax calls. However you can set `use_jquery_for_ajax_calls` to `true` in the config file if you need it.
 
 By default nothing is shown until ajax call is finished.
 
