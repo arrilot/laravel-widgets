@@ -132,7 +132,7 @@ class RecentNews extends AbstractWidget {
 ```
 `['count' => 10]` is a config array that can be accessed by $this->config.
 
-> Note: Config fields that are not specified when you call the widget aren't overridden:
+> Note: Config fields that are not specified when you call a widget aren't overridden:
 
 ```php
 class RecentNews extends AbstractWidget {
@@ -148,7 +148,7 @@ class RecentNews extends AbstractWidget {
 @widget('recentNews', ['count' => 10]) // $this->config['foo'] is still 'bar'
 ```
 
-Config array is available in all widget methods so you can use it to configure placeholder and container too (see below)
+Config array is available in every widget method so you can use it to configure placeholder and container too (see below)
 
 ### Directly
 
@@ -169,26 +169,26 @@ By default the package tries to find your widget in the ```App\Widgets``` namesp
 
 You can override this by publishing package config and setting `default_namespace` property.
 
-To publish config use: ```php artisan vendor:publish --provider="Arrilot\Widgets\ServiceProvider"```
+Publish config command - ```php artisan vendor:publish --provider="Arrilot\Widgets\ServiceProvider"```
 
 Although using the default namespace is very convenient, in some situations you may wish to have more flexibility. 
 For example, if you've got dozens of widgets it makes sense to group them in namespaced folders.
 
-You have two ways to call those widgets:
+No problem, you have several ways to call those widgets:
 
-1) You can pass the full widget name from the `default_namespace` (basically `App\Widgets`) to the `run` method.
+1) Pass a full widget name from the `default_namespace` (basically `App\Widgets`) to the `run` method.
 ```php
 @widget('News\RecentNews', $config)
 {{ Widget::run('News\RecentNews', $config) }}
 ```
 
-2) You can use dot notation instead.
+2) Use dot notation.
 ```php
 @widget('news.recentNews', $config)
 {{ Widget::run('news.recentNews', $config) }}
 ```
 
-You can pass FQCN too.
+3) FQCN is also an option.
 ```php
 @widget('\App\Http\Some\Namespace\Widget', $config)
 {{ Widget::run('\App\Http\Some\Namespace\Widget', $config) }}
@@ -218,7 +218,7 @@ public function placeholder()
 
 You can go even further and automatically reload widget every N seconds.
 
-To achieve that simply set the `$reloadTimeout` property of the widget class.
+Just set the `$reloadTimeout` property of the widget class and you are done.
 
 ```php
 class RecentNews extends AbstractWidget
@@ -231,7 +231,6 @@ class RecentNews extends AbstractWidget
     public $reloadTimeout = 10;
 }
 ```
-Done.
 
 Both sync and async widgets can become reloadable.
 
