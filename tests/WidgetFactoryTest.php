@@ -69,6 +69,13 @@ class WidgetFactoryTest extends TestCase
         $this->assertEquals('Default test slider was executed with $slides = 6', $output);
     }
 
+    public function testItLoadsWidgetsFromRootNamespaceFirst()
+    {
+        $output = $this->factory->run('Exception');
+
+        $this->assertEquals('Exception widget was executed instead of predefined php class', $output);
+    }
+
     public function testItCanRunNestedWidgets()
     {
         $output = $this->factory->run('Profile\TestNamespace\TestFeed');

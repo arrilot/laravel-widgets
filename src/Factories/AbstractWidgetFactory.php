@@ -113,16 +113,14 @@ abstract class AbstractWidgetFactory
 
         $rootNamespace = $this->app->config('laravel-widgets.default_namespace', $this->app->getNamespace().'Widgets');
 
-        $widgetClass = class_exists($this->widgetName)
-            ? $this->widgetName
-            : $rootNamespace.'\\'.$this->widgetName;
+        $fqcn = $rootNamespace.'\\'.$this->widgetName;
+        $widgetClass = class_exists($fqcn) ? $fqcn : $this->widgetName;
 
-        $widget = new $widgetClass($this->widgetConfig);
-        if ($widget instanceof AbstractWidget === false) {
-            throw new InvalidWidgetClassException();
+        if (!is_subclass_of($widgetClass, 'Arrilot\Widgets\AbstractWidget')) {
+            throw new InvalidWidgetClassException('Class "'.$widgetClass.'" must extend "Arrilot\Widgets\AbstractWidget" class');
         }
 
-        $this->widget = $widget;
+        $this->widget = new $widgetClass($this->widgetConfig);
     }
 
     /**
