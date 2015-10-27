@@ -13,7 +13,7 @@ class Slider extends AbstractWidget
 
     public function run()
     {
-        return "Slider was executed with \$slides = ".$this->config['slides'].' foo: '.$this->config['foo'];
+        return 'Slider was executed with $slides = '.$this->config['slides'].' foo: '.$this->config['foo'];
     }
 
     public function placeholder()

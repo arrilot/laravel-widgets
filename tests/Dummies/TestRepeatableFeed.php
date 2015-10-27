@@ -17,6 +17,6 @@ class TestRepeatableFeed extends AbstractWidget
 
     public function run()
     {
-        return "Feed was executed with \$slides = ".$this->slides;
+        return 'Feed was executed with $slides = '.$this->slides;
     }
 }

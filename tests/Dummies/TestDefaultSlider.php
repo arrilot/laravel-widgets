@@ -10,6 +10,6 @@ class TestDefaultSlider extends AbstractWidget
 
     public function run()
     {
-        return "Default test slider was executed with \$slides = ".$this->slides;
+        return 'Default test slider was executed with $slides = '.$this->slides;
     }
 }

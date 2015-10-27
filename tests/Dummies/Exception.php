@@ -8,6 +8,6 @@ class Exception extends AbstractWidget
 {
     public function run()
     {
-        return "Exception widget was executed instead of predefined php class";
+        return 'Exception widget was executed instead of predefined php class';
     }
 }
