@@ -214,6 +214,8 @@ public function placeholder()
 }
 ```
 
+> Note: If you need to do smth with the routes package uses to load async widgets (e.g. you run app in a subfolder http://site.com/app/) you need to copy Arrilot\Widgets\ServiceProvider to your app, modify it according to your needs and register it in Laravel instead of the former one.
+
 ## Reloadable widgets
 
 You can go even further and automatically reload widget every N seconds.
