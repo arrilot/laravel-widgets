@@ -37,6 +37,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         });
 
         $this->commands('command.widget.make');
+
+        $this->app->alias('arrilot.widget', 'Arrilot\Widgets\Factories\WidgetFactory');
+        $this->app->alias('arrilot.async-widget', 'Arrilot\Widgets\Factories\AsyncWidgetFactory');
     }
 
     /**
