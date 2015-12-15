@@ -93,4 +93,39 @@ class WidgetGroupTest extends TestCase
                 '</script>'.
             '</div>', $output);
     }
+
+    public function testIsEmpty()
+    {
+        $this->assertTrue($this->widgetGroup->isEmpty());
+
+        $this->widgetGroup->addWidget('Slider');
+
+        $this->assertFalse($this->widgetGroup->isEmpty());
+    }
+
+    public function testAny()
+    {
+        $this->assertFalse($this->widgetGroup->any());
+
+        $this->widgetGroup->addWidget('Slider');
+
+        $this->assertTrue($this->widgetGroup->any());
+    }
+
+    public function testCount()
+    {
+        $this->assertSame(0, $this->widgetGroup->count());
+
+        $this->widgetGroup->addWidget('Slider');
+
+        $this->assertSame(1, $this->widgetGroup->count());
+
+        $this->widgetGroup->position(50)->addWidget('Slider');
+
+        $this->assertSame(2, $this->widgetGroup->count());
+
+        $this->widgetGroup->position(50)->addWidget('Slider');
+
+        $this->assertSame(3, $this->widgetGroup->count());
+    }
 }

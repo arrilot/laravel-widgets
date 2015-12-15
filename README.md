@@ -309,3 +309,9 @@ equals
 
 You can also set a separator to display between widgets in a group.
 `Widget::group('sidebar')->setSeparator('<hr>');` 
+
+### Checking the state of a widget group
+
+`Widget::group('sidebar')->isEmpty();` 
+`Widget::group('sidebar')->any();` 
+`Widget::group('sidebar')->count();` 

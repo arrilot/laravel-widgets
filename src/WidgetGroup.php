@@ -141,6 +141,41 @@ class WidgetGroup
     }
 
     /**
+     * Check if there are any widgets in the group.
+     *
+     * @return bool
+     */
+    public function any()
+    {
+        return ! $this->isEmpty();
+    }
+
+    /**
+     * Check if there are no widgets in the group.
+     *
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return empty($this->widgets);
+    }
+
+    /**
+     * Count the number of widgets in this group.
+     *
+     * @return int
+     */
+    public function count()
+    {
+        $count = 0;
+        foreach ($this->widgets as $position => $widgets) {
+            $count += count($widgets);
+        }
+
+        return $count;
+    }
+
+    /**
      * Add a widget with a given type to the array.
      *
      * @param string $type
