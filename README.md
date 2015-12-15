@@ -312,6 +312,8 @@ You can also set a separator to display between widgets in a group.
 
 ### Checking the state of a widget group
 
-`Widget::group('sidebar')->isEmpty();` 
-`Widget::group('sidebar')->any();` 
-`Widget::group('sidebar')->count();` 
+`Widget::group('sidebar')->isEmpty();`
+
+`Widget::group('sidebar')->any();`
+
+`Widget::group('sidebar')->count();`
