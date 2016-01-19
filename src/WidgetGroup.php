@@ -147,7 +147,7 @@ class WidgetGroup
      */
     public function any()
     {
-        return ! $this->isEmpty();
+        return !$this->isEmpty();
     }
 
     /**
