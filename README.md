@@ -161,7 +161,7 @@ public function run($sort_by, $sort_order) { }
 ...
 ```
 
-`run()` method is resolved via Laravel service container so method injection is available here too.
+`run()` method is resolved via Service Container, so method injection is available here too.
 
 ## Namespaces
 
@@ -201,7 +201,7 @@ In some situations it can be very beneficial to load widget content with AJAX.
 Fortunately, this can be achieved very easily!
 All you need to do is to change facade or blade directive - `Widget::` => `AsyncWidget::`, `@widget` => `@asyncWidget`
 
-> Note: Since version 3.1 you no longer need `jquery` to make ajax calls. However you can set `use_jquery_for_ajax_calls` to `true` in the config file if you need it.
+> Note: Since version 3.1 you no longer need `jquery` to make ajax calls. However you can set `use_jquery_for_ajax_calls` to `true` in the config file if you need for some reason.
 
 By default nothing is shown until ajax call is finished.
 
@@ -241,7 +241,7 @@ Consider using web sockets too but they are waaaay harder to set up on the other
 
 ## Container
 
-Async and Reloadable widgets both require some DOM interaction so they wrap all widget output in a container.
+Async and Reloadable widgets both require some DOM interaction so they wrap all widget output in a html container.
 This container is defined by AbstractWidget::container() method and can be customized therefore.
 
 ```php
@@ -279,14 +279,13 @@ class RecentNews extends AbstractWidget
 ```
 
 No caching is turned on by default.
-A cache key depends on widget name and each widget parameter.
-override ```cacheKey``` method if you need to adjust it.
+A cache key depends on a widget name and each widget parameter.
+Override ```cacheKey``` method if you need to adjust it.
 
 ## Widget groups (extra)
 
-In most cases Blade is a perfect tool fot setting the position and order of widgets.
-However, in some cases you may find useful the approach with widget groups.
-Please check the following example:
+In most cases Blade is a perfect tool for setting the position and order of widgets.
+However, in some cases you may find useful the approach with widget groups:
 
 ```php
 // add several widgets to the 'sidebar' group anywhere you want (even in controller)
@@ -312,8 +311,8 @@ You can also set a separator to display between widgets in a group.
 
 ### Checking the state of a widget group
 
-`Widget::group('sidebar')->isEmpty();`
+`Widget::group('sidebar')->isEmpty(); // bool`
 
-`Widget::group('sidebar')->any();`
+`Widget::group('sidebar')->any(); // bool`
 
-`Widget::group('sidebar')->count();`
+`Widget::group('sidebar')->count(); // int`
