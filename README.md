@@ -260,6 +260,8 @@ This container is defined by AbstractWidget::container() method and can be custo
     }
 ```
 
+> Note: Nested async or reloadable widgets are not supported because of container id collision.
+
 ## Caching
 
 There is also a simple built-in way to cache entire widget output.
