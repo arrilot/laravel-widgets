@@ -87,6 +87,8 @@ class RecentNews extends AbstractWidget
 }
 ```
 
+> Note: You can use your own stubs if you need. Publish config file to change paths.
+
 The last step is to call the widget.
 You've actually got several ways to do so.
 
