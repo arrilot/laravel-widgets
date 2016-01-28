@@ -130,22 +130,24 @@ class JavascriptFactory
     protected function constructNativeJsAjaxCall($url)
     {
         return
-            'var xhr = new XMLHttpRequest();'.
-            'xhr.open("GET", "'.$url.'", true);'.
-            'xhr.onreadystatechange = function() {'.
-                'if(xhr.readyState == 4 && xhr.status == 200) {'.
-                    'var container = document.getElementById("'.$this->getContainerId().'");'.
-                    'container.innerHTML = xhr.responseText;'.
-                    'var scripts = container.getElementsByTagName("script");'.
-                    'for(var i=0; i < scripts.length; i++) {'.
-                        'if (window.execScript) {'.
-                            'window.execScript(scripts[i].text);'.
-                        '} else {'.
-                            'window["eval"].call(window, scripts[i].text);'.
+            'setTimeout(function() {'.
+                'var xhr = new XMLHttpRequest();'.
+                'xhr.open("GET", "'.$url.'", true);'.
+                'xhr.onreadystatechange = function() {'.
+                    'if(xhr.readyState == 4 && xhr.status == 200) {'.
+                        'var container = document.getElementById("'.$this->getContainerId().'");'.
+                        'container.innerHTML = xhr.responseText;'.
+                        'var scripts = container.getElementsByTagName("script");'.
+                        'for(var i=0; i < scripts.length; i++) {'.
+                            'if (window.execScript) {'.
+                                'window.execScript(scripts[i].text);'.
+                            '} else {'.
+                                'window["eval"].call(window, scripts[i].text);'.
+                            '}'.
                         '}'.
                     '}'.
-                '}'.
-            '};'.
-            'xhr.send();';
+                '};'.
+                'xhr.send();'.
+            '}, 0);';
     }
 }
