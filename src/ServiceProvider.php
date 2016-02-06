@@ -58,9 +58,11 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             'prefix'    => 'arrilot',
         ];
 
-        $this->app['router']->group($routeConfig, function ($router) {
-            $router->get('load-widget', 'WidgetController@showWidget');
-        });
+        if (! $this->app->routesAreCached()) {
+            $this->app['router']->group($routeConfig, function ($router) {
+                $router->get('load-widget', 'WidgetController@showWidget');
+            });
+        }
 
         $this->registerBladeDirective('widget', '$1<?php echo app("arrilot.widget")->run$2; ?>');
         $this->registerBladeDirective('async-widget', '$1<?php echo app("arrilot.async-widget")->run$2; ?>');
