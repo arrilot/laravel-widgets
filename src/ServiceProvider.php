@@ -31,6 +31,10 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->app->bind('arrilot.async-widget', function () {
             return new AsyncWidgetFactory(new LaravelApplicationWrapper());
         });
+    
+        $this->app->singleton('arrilot.widget-group-collection', function () {
+            return new WidgetGroupCollection(new LaravelApplicationWrapper());
+        });
 
         $this->app->singleton('command.widget.make', function ($app) {
             return new WidgetMakeCommand($app['files']);
@@ -40,6 +44,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
         $this->app->alias('arrilot.widget', 'Arrilot\Widgets\Factories\WidgetFactory');
         $this->app->alias('arrilot.async-widget', 'Arrilot\Widgets\Factories\AsyncWidgetFactory');
+        $this->app->alias('arrilot.widget-group-collection', 'Arrilot\Widgets\WidgetGroupCollection');
     }
 
     /**
@@ -67,7 +72,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->registerBladeDirective('widget', '$1<?php echo app("arrilot.widget")->run$2; ?>');
         $this->registerBladeDirective('async-widget', '$1<?php echo app("arrilot.async-widget")->run$2; ?>');
         $this->registerBladeDirective('asyncWidget', '$1<?php echo app("arrilot.async-widget")->run$2; ?>');
-        $this->registerBladeDirective('widgetGroup', '$1<?php echo Widget::group$2->display(); ?>');
+        $this->registerBladeDirective('widgetGroup', '$1<?php echo  app("arrilot.widget-group-collection")->group$2->display(); ?>');
     }
 
     /**

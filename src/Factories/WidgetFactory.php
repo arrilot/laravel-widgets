@@ -2,17 +2,8 @@
 
 namespace Arrilot\Widgets\Factories;
 
-use Arrilot\Widgets\WidgetGroup;
-
 class WidgetFactory extends AbstractWidgetFactory
 {
-    /**
-     * The array of widget groups.
-     *
-     * @var array
-     */
-    protected $groups;
-
     /**
      * Run widget without magic method.
      *
@@ -31,24 +22,6 @@ class WidgetFactory extends AbstractWidgetFactory
         }
 
         return $this->convertToViewExpression($content);
-    }
-
-    /**
-     * Get the widget group object.
-     *
-     * @param $name
-     *
-     * @return mixed
-     */
-    public function group($name)
-    {
-        if (isset($this->groups[$name])) {
-            return $this->groups[$name];
-        }
-
-        $this->groups[$name] = new WidgetGroup($name, $this->app);
-
-        return $this->groups[$name];
     }
 
     /**

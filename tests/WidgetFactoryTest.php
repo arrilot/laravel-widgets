@@ -152,13 +152,4 @@ class WidgetFactoryTest extends TestCase
 
         $this->assertEquals('Cached output. Key: '.$key.', minutes: '.$widget->cacheTime, $output);
     }
-
-    public function testItGrantsAccessToWidgetGroup()
-    {
-        $groupObject = $this->factory->group('sidebar');
-
-        $expectedObject = new WidgetGroup('sidebar', new TestApplicationWrapper());
-
-        $this->assertEquals($expectedObject, $groupObject);
-    }
 }
