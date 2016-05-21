@@ -2,8 +2,6 @@
 
 namespace Arrilot\Widgets\Test;
 
-use Arrilot\Widgets\Factories\WidgetFactory;
-use Arrilot\Widgets\Test\Dummies\TestCachedWidget;
 use Arrilot\Widgets\Test\Support\TestApplicationWrapper;
 use Arrilot\Widgets\Test\Support\TestCase;
 use Arrilot\Widgets\WidgetGroup;

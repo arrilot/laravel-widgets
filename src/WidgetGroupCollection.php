@@ -6,7 +6,6 @@ use Arrilot\Widgets\Contracts\ApplicationWrapperContract;
 
 class WidgetGroupCollection
 {
-    
     /**
      * The array of widget groups.
      *

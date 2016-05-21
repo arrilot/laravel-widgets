@@ -31,7 +31,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         $this->app->bind('arrilot.async-widget', function () {
             return new AsyncWidgetFactory(new LaravelApplicationWrapper());
         });
-    
+
         $this->app->singleton('arrilot.widget-group-collection', function () {
             return new WidgetGroupCollection(new LaravelApplicationWrapper());
         });
@@ -63,7 +63,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             'prefix'    => 'arrilot',
         ];
 
-        if (! $this->app->routesAreCached()) {
+        if (!$this->app->routesAreCached()) {
             $this->app['router']->group($routeConfig, function ($router) {
                 $router->get('load-widget', 'WidgetController@showWidget');
             });
