@@ -40,7 +40,7 @@ class WidgetExpression extends Expression
      *
      * @param string $method method name
      * @param array  $params
-     * 
+     *
      * @return mixed
      */
     public function __call($method, array $params = [])
