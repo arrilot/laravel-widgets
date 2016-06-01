@@ -22,7 +22,6 @@ class WidgetExpression extends Expression
     {
         $this->widget = $widget;
         parent::__construct($html);
-
     }
 
     /**
