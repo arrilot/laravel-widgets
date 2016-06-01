@@ -14,6 +14,7 @@ class WidgetExpression extends Expression
 
     /**
      * {@inheritdoc}
+     *
      * @param AbstractWidget $widget instance of the widget this expression
      *                               represents
      */
@@ -39,6 +40,7 @@ class WidgetExpression extends Expression
      *
      * @param string $method method name
      * @param array  $params
+     * 
      * @return mixed
      */
     public function __call($method, array $params = [])
