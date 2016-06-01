@@ -2,18 +2,18 @@
 
 namespace Arrilot\Widgets\Misc;
 
-use Illuminate\View\Expression;
 use Arrilot\Widgets\AbstractWidget;
+use Illuminate\View\Expression;
 
 /**
- * Represents an widget to the view
+ * Represents an widget to the view.
  */
 class WidgetExpression extends Expression
 {
     protected $widget;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      * @param AbstractWidget $widget instance of the widget this expression
      *                               represents
      */
@@ -25,7 +25,7 @@ class WidgetExpression extends Expression
     }
 
     /**
-     * Get the instance of the widget this expression represents
+     * Get the instance of the widget this expression represents.
      *
      * @return AbstractWidget
      */
@@ -35,10 +35,10 @@ class WidgetExpression extends Expression
     }
 
     /**
-     * Call a method directly on the widget instance
+     * Call a method directly on the widget instance.
      *
-     * @param  string $method method name
-     * @param  array $params
+     * @param string $method method name
+     * @param array  $params
      * @return mixed
      */
     public function __call($method, array $params = [])
