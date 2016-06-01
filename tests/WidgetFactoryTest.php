@@ -6,6 +6,7 @@ use Arrilot\Widgets\Factories\WidgetFactory;
 use Arrilot\Widgets\Test\Dummies\TestCachedWidget;
 use Arrilot\Widgets\Test\Support\TestApplicationWrapper;
 use Arrilot\Widgets\Test\Support\TestCase;
+use Arrilot\Widgets\AbstractWidget;
 
 class WidgetFactoryTest extends TestCase
 {
@@ -150,5 +151,12 @@ class WidgetFactoryTest extends TestCase
         $widget = new TestCachedWidget();
 
         $this->assertEquals('Cached output. Key: '.$key.', minutes: '.$widget->cacheTime, $output);
+    }
+
+    public function testWidgetExpression()
+    {
+        $widget = $this->factory->run('Slider');
+
+        $this->assertInstanceOf('\\Arrilot\\Widgets\\AbstractWidget', $widget->getWidget());
     }
 }

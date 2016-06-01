@@ -16,6 +16,9 @@ trait ViewExpressionTrait
     protected function convertToViewExpression($html)
     {
         if (interface_exists('Illuminate\Contracts\Support\Htmlable') && class_exists('Illuminate\Support\HtmlString')) {
+            if (property_exists($this, 'widget')) {
+                return new WidgetExpression($html, $this->widget);
+            }
             return new HtmlString($html);
         }
 
