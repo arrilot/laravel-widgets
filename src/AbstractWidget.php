@@ -75,4 +75,14 @@ abstract class AbstractWidget
     {
         return 'arrilot.widgets.'.serialize($params);
     }
+
+    /**
+     * Add defaults to configuration array.
+     *
+     * @param array $defaults
+     */
+    protected function addConfigDefaults(array $defaults)
+    {
+        $this->config = array_merge($this->config, $defaults);
+    }
 }

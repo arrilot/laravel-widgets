@@ -134,6 +134,8 @@ class RecentNews extends AbstractWidget {
 ```
 `['count' => 10]` is a config array that can be accessed by $this->config.
 
+Config array is available in every widget method so you can use it to configure placeholder and container too (see below)
+
 > Note: Config fields that are not specified when you call a widget aren't overridden:
 
 ```php
@@ -150,7 +152,24 @@ class RecentNews extends AbstractWidget {
 @widget('recentNews', ['count' => 10]) // $this->config['foo'] is still 'bar'
 ```
 
-Config array is available in every widget method so you can use it to configure placeholder and container too (see below)
+> Note2: You may want (but you probably don't) to create your own BaseWidget and inherit from it.
+That's fine. The only edge case is merging configs from a parent and a child. 
+In this case do the following:
+
+1) Do not add `protected $config = [...]` line to a child.
+
+2) Add defaults like that instead:
+
+```php
+    public function __construct(array $config = [])
+    {
+        $this->addConfigDefaults([
+            'child_key' => 'bar'
+        ]);
+
+        parent::__construct($config);
+    }
+```
 
 ### Directly
 
