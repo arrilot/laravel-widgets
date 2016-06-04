@@ -153,7 +153,7 @@ class RecentNews extends AbstractWidget {
 ```
 
 > Note2: You may want (but you probably don't) to create your own BaseWidget and inherit from it.
-That's fine. The only edge case is merging configs from a parent and a child. 
+That's fine. The only edge case is merging config defaults from a parent and a child. 
 In this case do the following:
 
 1) Do not add `protected $config = [...]` line to a child.
