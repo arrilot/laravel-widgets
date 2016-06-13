@@ -59,8 +59,9 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         ]);
 
         $routeConfig = [
-            'namespace' => 'Arrilot\Widgets\Controllers',
-            'prefix'    => 'arrilot',
+            'namespace'  => 'Arrilot\Widgets\Controllers',
+            'prefix'     => 'arrilot',
+            'middleware' => $this->app->config('laravel-widgets.route_middleware', []),
         ];
 
         if (!$this->app->routesAreCached()) {
