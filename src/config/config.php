@@ -5,6 +5,11 @@ return [
 
     'use_jquery_for_ajax_calls' => false,
 
+	/*
+	* Set  Ajax widget middleware
+	*/
+    'route_middleware' => [],
+
     /*
     * Relative path from the base directory to a regular widget stub.
     */
