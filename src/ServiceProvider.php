@@ -70,19 +70,19 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             });
         }
 
-        Blade::directive('widget', function($expression){
+        Blade::directive('widget', function ($expression) {
             return "<?php echo app('arrilot.widget')->run{$expression}; ?>";
         });
 
-        Blade::directive('async-widget', function($expression){
+        Blade::directive('async-widget', function ($expression) {
             return "<?php echo app('arrilot.async-widget')->run{$expression}; ?>";
         });
 
-        Blade::directive('asyncWidget', function($expression){
+        Blade::directive('asyncWidget', function ($expression) {
             return "<?php echo app('arrilot.async-widget')->run{$expression}; ?>";
         });
 
-        Blade::directive('asyncWidget', function($expression){
+        Blade::directive('asyncWidget', function ($expression) {
             return "<?php echo app('arrilot.arrilot.widget-group-collection')->group{$expression}->display(); ?>";
         });
     }
