@@ -74,16 +74,15 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             return "<?php echo app('arrilot.widget')->run{$expression}; ?>";
         });
 
-        Blade::directive('async-widget', function ($expression) {
-            return "<?php echo app('arrilot.async-widget')->run{$expression}; ?>";
-        });
+        // Blade::directive cannot recognize @async-widget, so @async-widget still use the custom matcher.
+        $this->registerBladeDirective('async-widget', '$1<?php echo app("arrilot.async-widget")->run$2; ?>');
 
         Blade::directive('asyncWidget', function ($expression) {
             return "<?php echo app('arrilot.async-widget')->run{$expression}; ?>";
         });
 
-        Blade::directive('asyncWidget', function ($expression) {
-            return "<?php echo app('arrilot.arrilot.widget-group-collection')->group{$expression}->display(); ?>";
+        Blade::directive('widgetGroup', function ($expression) {
+            return "<?php echo app('arrilot.widget-group-collection')->group{$expression}->display(); ?>";
         });
     }
 
