@@ -70,10 +70,21 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             });
         }
 
-        $this->registerBladeDirective('widget', '$1<?php echo app("arrilot.widget")->run$2; ?>');
-        $this->registerBladeDirective('async-widget', '$1<?php echo app("arrilot.async-widget")->run$2; ?>');
-        $this->registerBladeDirective('asyncWidget', '$1<?php echo app("arrilot.async-widget")->run$2; ?>');
-        $this->registerBladeDirective('widgetGroup', '$1<?php echo  app("arrilot.widget-group-collection")->group$2->display(); ?>');
+        Blade::directive('widget', function($expression){
+            return "<?php echo app('arrilot.widget')->run{$expression}; ?>";
+        });
+
+        Blade::directive('async-widget', function($expression){
+            return "<?php echo app('arrilot.async-widget')->run{$expression}; ?>";
+        });
+
+        Blade::directive('asyncWidget', function($expression){
+            return "<?php echo app('arrilot.async-widget')->run{$expression}; ?>";
+        });
+
+        Blade::directive('asyncWidget', function($expression){
+            return "<?php echo app('arrilot.arrilot.widget-group-collection')->group{$expression}->display(); ?>";
+        });
     }
 
     /**
