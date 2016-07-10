@@ -74,9 +74,6 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             return "<?php echo app('arrilot.widget')->run{$expression}; ?>";
         });
 
-        // Blade::directive cannot recognize @async-widget, so @async-widget still use the custom matcher.
-        $this->registerBladeDirective('async-widget', '$1<?php echo app("arrilot.async-widget")->run$2; ?>');
-
         Blade::directive('asyncWidget', function ($expression) {
             return "<?php echo app('arrilot.async-widget')->run{$expression}; ?>";
         });
@@ -94,34 +91,5 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function provides()
     {
         return ['arrilot.widget', 'arrilot.async-widget'];
-    }
-
-    /**
-     * Register a blade directive.
-     *
-     * @param $name
-     * @param $expression
-     */
-    protected function registerBladeDirective($name, $expression)
-    {
-        Blade::extend(function ($view) use ($name, $expression) {
-            $pattern = $this->createMatcher($name);
-
-            return preg_replace($pattern, $expression, $view);
-        });
-    }
-
-    /**
-     * Substitution for $compiler->createMatcher().
-     *
-     * Get the regular expression for a generic Blade function.
-     *
-     * @param string $function
-     *
-     * @return string
-     */
-    protected function createMatcher($function)
-    {
-        return '/(?<!\w)(\s*)@'.$function.'(\s*\(.*\))/';
     }
 }
