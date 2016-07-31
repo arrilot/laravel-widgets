@@ -25,7 +25,7 @@ class TestApplicationWrapper implements ApplicationWrapperContract
      *
      * @param $key
      * @param $minutes
-     * @param callable $callback
+     * @param Closure $callback
      *
      * @return mixed
      */
@@ -90,6 +90,10 @@ class TestApplicationWrapper implements ApplicationWrapperContract
 
         if ($abstract == 'arrilot.async-widget') {
             return new AsyncWidgetFactory($this);
+        }
+    
+        if ($abstract == 'encrypter') {
+            return new TestEncrypter();
         }
 
         throw new InvalidArgumentException("Binding {$abstract} cannot be resolved while testing");

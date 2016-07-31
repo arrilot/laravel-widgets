@@ -90,7 +90,7 @@ class JavascriptFactory
         $queryParams = [
             'id'     => WidgetId::get(),
             'name'   => $this->widgetFactory->widgetName,
-            'params' => serialize($this->widgetFactory->widgetFullParams),
+            'params' => $this->widgetFactory->encryptWidgetParams($this->widgetFactory->widgetFullParams),
         ];
 
         $url = $this->ajaxLink.'?'.http_build_query($queryParams);

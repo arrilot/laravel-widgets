@@ -22,7 +22,7 @@ class WidgetController extends BaseController
 
         $factory = app()->make('arrilot.widget');
         $widgetName = $request->input('name', '');
-        $widgetParams = unserialize($request->input('params', ''));
+        $widgetParams = $factory->decryptWidgetParams($request->input('params', ''));
 
         return call_user_func_array([$factory, $widgetName], $widgetParams);
     }

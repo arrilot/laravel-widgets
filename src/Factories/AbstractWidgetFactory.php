@@ -155,4 +155,28 @@ abstract class AbstractWidgetFactory
 
         return '<'.$container['element'].' id="'.$this->javascriptFactory->getContainerId().'" '.$container['attributes'].'>'.$content.'</'.$container['element'].'>';
     }
+    
+    /**
+     * Encrypt widget params to be transported via HTTP.
+     * 
+     * @param array $params
+     * @return string 
+     */
+    public function encryptWidgetParams($params)
+    {
+        return $this->app->make('encrypter')->encrypt(json_encode($params));
+    }
+
+    /**
+     * Decrypt widget params that were transported via HTTP.
+     *
+     * @param string $params
+     * @return array
+     */
+    public function decryptWidgetParams($params)
+    {
+        $params = json_decode($this->app->make('encrypter')->decrypt($params), true);
+
+        return $params ? $params : [];
+    }
 }
