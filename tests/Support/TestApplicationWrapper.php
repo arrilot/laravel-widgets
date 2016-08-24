@@ -91,7 +91,7 @@ class TestApplicationWrapper implements ApplicationWrapperContract
         if ($abstract == 'arrilot.async-widget') {
             return new AsyncWidgetFactory($this);
         }
-    
+
         if ($abstract == 'encrypter') {
             return new TestEncrypter();
         }
