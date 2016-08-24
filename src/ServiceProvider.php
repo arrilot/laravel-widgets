@@ -71,15 +71,15 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
         }
 
         Blade::directive('widget', function ($expression) {
-            return "<?php echo app('arrilot.widget')->run{$expression}; ?>";
+            return "<?php echo app('arrilot.widget')->run({$expression}); ?>";
         });
 
         Blade::directive('asyncWidget', function ($expression) {
-            return "<?php echo app('arrilot.async-widget')->run{$expression}; ?>";
+            return "<?php echo app('arrilot.async-widget')->run({$expression}); ?>";
         });
 
         Blade::directive('widgetGroup', function ($expression) {
-            return "<?php echo app('arrilot.widget-group-collection')->group{$expression}->display(); ?>";
+            return "<?php echo app('arrilot.widget-group-collection')->group({$expression})->display(); ?>";
         });
     }
 
