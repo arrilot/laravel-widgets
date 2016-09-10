@@ -7,9 +7,9 @@
 
 *A powerful alternative to view composers. Asynchronous widgets, reloadable widgets, console generator, caching - everything you can think of.*
 
-### For Laravel 4, please use the [1.0 branch](https://github.com/Arrilot/laravel-widgets/tree/1.0)!
+### For Laravel 4, please use the [1.0 branch](https://github.com/arrilot/laravel-widgets/tree/1.0)!
 
-> Note: This is the doc for the latest stable release. If you need documentation for your specific version you can find it by clicking on a corresponding tag here https://github.com/Arrilot/laravel-widgets/releases
+> Note: This is the doc for the latest stable release. If you need documentation for your specific version you can find it by clicking on a corresponding tag there https://github.com/arrilot/laravel-widgets/releases
 
 ## Installation
 
@@ -27,7 +27,7 @@
 ?>
 ```
 
-3) Add some facades here too. If you prefer custom blade directives instead of facades (see later) you can skip it.
+3) Add some facades here too. If you prefer custom blade directives to facades you can skip this step.
 
 ```php
 <?php
@@ -93,15 +93,15 @@ The last step is to call the widget.
 You've actually got several ways to do so.
 
 ```php
-{{ Widget::run('recentNews') }}
+@widget('recentNews')
 ```
 or
 ```php
-{{ Widget::recentNews() }}
+{{ Widget::run('recentNews') }}
 ```
 or even
 ```php
-@widget('recentNews')
+{{ Widget::recentNews() }}
 ```
 
 There is no real difference between them. The choice is up to you.
@@ -123,13 +123,11 @@ class RecentNews extends AbstractWidget {
     protected $config = [
         'count' => 5
     ];
-    
     ...
 }
 
 ...
 @widget('recentNews') // shows 5
-...
 @widget('recentNews', ['count' => 10]) // shows 10
 ```
 `['count' => 10]` is a config array that can be accessed by $this->config.
@@ -152,7 +150,7 @@ class RecentNews extends AbstractWidget {
 @widget('recentNews', ['count' => 10]) // $this->config['foo'] is still 'bar'
 ```
 
-> Note2: You may want (but you probably don't) to create your own BaseWidget and inherit from it.
+> Note 2: You may want (but you probably don't) to create your own BaseWidget and inherit from it.
 That's fine. The only edge case is merging config defaults from a parent and a child. 
 In this case do the following:
 
@@ -178,21 +176,19 @@ You can also choose to pass additional parameters to `run()` method directly.
 ```php
 @widget('recentNews', ['count' => 10], 'date', 'asc')
 ...
-public function run($sort_by, $sort_order) { }
+public function run($sortBy, $sortOrder) { }
 ...
 ```
 
-`run()` method is resolved via Service Container, so method injection is available here too.
+`run()` method is resolved via Service Container, so method injection is also available here.
 
 ## Namespaces
 
 By default the package tries to find your widget in the ```App\Widgets``` namespace.
 
-You can override this by publishing package config and setting `default_namespace` property.
+You can override this by publishing package config (```php artisan vendor:publish --provider="Arrilot\Widgets\ServiceProvider"```) and setting `default_namespace` property.
 
-Publish config command - ```php artisan vendor:publish --provider="Arrilot\Widgets\ServiceProvider"```
-
-Although using the default namespace is very convenient, in some situations you may wish to have more flexibility. 
+Although using the default namespace is very convenient, in some cases you may wish to have more flexibility. 
 For example, if you've got dozens of widgets it makes sense to group them in namespaced folders.
 
 No problem, you have several ways to call those widgets:
@@ -200,19 +196,16 @@ No problem, you have several ways to call those widgets:
 1) Pass a full widget name from the `default_namespace` (basically `App\Widgets`) to the `run` method.
 ```php
 @widget('News\RecentNews', $config)
-{{ Widget::run('News\RecentNews', $config) }}
 ```
 
 2) Use dot notation.
 ```php
 @widget('news.recentNews', $config)
-{{ Widget::run('news.recentNews', $config) }}
 ```
 
 3) FQCN is also an option.
 ```php
 @widget('\App\Http\Some\Namespace\Widget', $config)
-{{ Widget::run('\App\Http\Some\Namespace\Widget', $config) }}
 ```
 
 ## Asynchronous widgets
@@ -224,7 +217,7 @@ All you need to do is to change facade or blade directive - `Widget::` => `Async
 
 > Note: Widget params are encrypted and sent via ajax call. Expect them to be json_encoded and json_decoded afterwards.
 
-> Note: Since version 3.1 you no longer need `jquery` to make ajax calls. However you can set `use_jquery_for_ajax_calls` to `true` in the config file if you need for some reason.
+> Note: Since version 3.1 you no longer need `jquery` to make ajax calls. However you can set `use_jquery_for_ajax_calls` to `true` in the config file if you want to.
 
 By default nothing is shown until ajax call is finished.
 
@@ -237,7 +230,7 @@ public function placeholder()
 }
 ```
 
-> Note: If you need to do smth with the routes package uses to load async widgets (e.g. you run app in a subfolder http://site.com/app/) you need to copy Arrilot\Widgets\ServiceProvider to your app, modify it according to your needs and register it in Laravel instead of the former one.
+> Side note: If you need to do smth with the routes package uses to load async widgets (e.g. you run app in a subfolder http://site.com/app/) you need to copy Arrilot\Widgets\ServiceProvider to your app, modify it according to your needs and register it in Laravel instead of the former one.
 
 ## Reloadable widgets
 
@@ -260,12 +253,12 @@ class RecentNews extends AbstractWidget
 Both sync and async widgets can become reloadable.
 
 You should use this feature with care, because it can easily spam your app with ajax calls if timeouts are too low.
-Consider using web sockets too but they are waaaay harder to set up on the other hand.
+Consider using web sockets too but they are way harder to set up.
 
 ## Container
 
 Async and Reloadable widgets both require some DOM interaction so they wrap all widget output in a html container.
-This container is defined by AbstractWidget::container() method and can be customized therefore.
+This container is defined by `AbstractWidget::container()` method and can be customized too.
 
 ```php
     /**
@@ -283,7 +276,7 @@ This container is defined by AbstractWidget::container() method and can be custo
     }
 ```
 
-> Note: Nested async or reloadable widgets are not supported because of container id collision.
+> Note: Nested async or reloadable widgets are not supported.
 
 ## Caching
 
@@ -310,17 +303,17 @@ Override ```cacheKey``` method if you need to adjust it.
 ## Widget groups (extra)
 
 In most cases Blade is a perfect tool for setting the position and order of widgets.
-However, in some cases you may find useful the approach with widget groups:
+However, sometimes you may find useful the following approach:
 
 ```php
 // add several widgets to the 'sidebar' group anywhere you want (even in controller)
-Widget::group('sidebar')->position(5)->addWidget(<the same arguments list as in run() method>);
-Widget::group('sidebar')->position(4)->addAsyncWidget(<the same arguments list as in run() method>);
+Widget::group('sidebar')->position(5)->addWidget('widgetName1', $config1);
+Widget::group('sidebar')->position(4)->addAsyncWidget('widgetName2', $config2);
 
 // display them in a view in the correct order
-{{ Widget::group('sidebar')->display() }}
-//or 
 @widgetGroup('sidebar')
+//or 
+{{ Widget::group('sidebar')->display() }}
 ```
 
 `position()` can be omitted from the chain.
