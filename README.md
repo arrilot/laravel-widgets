@@ -7,10 +7,6 @@
 
 *A powerful alternative to view composers. Asynchronous widgets, reloadable widgets, console generator, caching - everything you can think of.*
 
-### For Laravel 4, please use the [1.0 branch](https://github.com/arrilot/laravel-widgets/tree/1.0)!
-
-> Note: This is the doc for the latest stable release. If you need documentation for your specific version you can find it by clicking on a corresponding tag there https://github.com/arrilot/laravel-widgets/releases
-
 ## Installation
 
 1) Run ```composer require arrilot/laravel-widgets```
