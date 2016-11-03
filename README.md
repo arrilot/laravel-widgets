@@ -102,7 +102,7 @@ or even
 
 There is no real difference between them. The choice is up to you.
 
-> Note: For Laravel 5.0.0 - 5.1.3 you have to use `{!! !!}` tags instead of `{{ }}`
+> Note: Since Laravel 5.0 you have to use `{!! !!}` tags instead of `{{ }}`
 
 ## Passing variables to widget
 
