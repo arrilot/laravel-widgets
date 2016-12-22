@@ -26,6 +26,7 @@ class JavascriptFactory
     public function __construct(AbstractWidgetFactory $widgetFactory)
     {
         $this->widgetFactory = $widgetFactory;
+        $this->ajaxLink = url('/').$this->ajaxLink;
     }
 
     /**
