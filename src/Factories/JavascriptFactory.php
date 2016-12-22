@@ -3,6 +3,7 @@
 namespace Arrilot\Widgets\Factories;
 
 use Arrilot\Widgets\WidgetId;
+use Illuminate\Contracts\Routing\UrlGenerator;
 
 class JavascriptFactory
 {
@@ -26,7 +27,7 @@ class JavascriptFactory
     public function __construct(AbstractWidgetFactory $widgetFactory)
     {
         $this->widgetFactory = $widgetFactory;
-        $this->ajaxLink = url('/').$this->ajaxLink;
+        $this->ajaxLink = $this->widgetFactory->app->make(UrlGenerator::class)->to('/arrilot/load-widget');
     }
 
     /**
