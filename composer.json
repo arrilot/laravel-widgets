@@ -17,7 +17,8 @@
         "illuminate/view": ">=5.1",
         "illuminate/container": ">=5.1",
         "illuminate/console": ">=5.1",
-        "illuminate/routing": ">5.1"
+        "illuminate/routing": ">5.1",
+        "symfony/routing": "2.8.*|3.0.*"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0"
