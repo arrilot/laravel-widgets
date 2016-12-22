@@ -3,7 +3,7 @@
 namespace Arrilot\Widgets\Factories;
 
 use Arrilot\Widgets\WidgetId;
-use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Routing\UrlGenerator;
 
 class JavascriptFactory
 {
