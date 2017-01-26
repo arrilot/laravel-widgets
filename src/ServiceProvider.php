@@ -6,13 +6,10 @@ use Arrilot\Widgets\Console\WidgetMakeCommand;
 use Arrilot\Widgets\Factories\AsyncWidgetFactory;
 use Arrilot\Widgets\Factories\WidgetFactory;
 use Arrilot\Widgets\Misc\LaravelApplicationWrapper;
-use Illuminate\Console\AppNamespaceDetectorTrait;
 use Illuminate\Support\Facades\Blade;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
-    use AppNamespaceDetectorTrait;
-
     /**
      * Register the service provider.
      *

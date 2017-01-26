@@ -2,14 +2,11 @@
 
 namespace Arrilot\Widgets\Console;
 
-use Illuminate\Console\AppNamespaceDetectorTrait;
 use Illuminate\Console\GeneratorCommand;
 use Symfony\Component\Console\Input\InputOption;
 
 class WidgetMakeCommand extends GeneratorCommand
 {
-    use AppNamespaceDetectorTrait;
-
     /**
      * The console command name.
      *
@@ -98,7 +95,7 @@ class WidgetMakeCommand extends GeneratorCommand
         );
 
         $stub = str_replace(
-            '{{rootNamespace}}', $this->getAppNamespace(), $stub
+            '{{rootNamespace}}', $this->laravel->getNamespace(), $stub
         );
 
         return $this;
@@ -194,7 +191,7 @@ class WidgetMakeCommand extends GeneratorCommand
      */
     protected function makeViewName()
     {
-        $name = str_replace($this->getAppNamespace(), '', $this->argument('name'));
+        $name = str_replace($this->laravel->getNamespace(), '', $this->argument('name'));
         $name = str_replace('\\', '/', $name);
 
         // convert to snake_case part by part to avoid unexpected underscores.

@@ -4,13 +4,10 @@ namespace Arrilot\Widgets\Misc;
 
 use Arrilot\Widgets\Contracts\ApplicationWrapperContract;
 use Closure;
-use Illuminate\Console\AppNamespaceDetectorTrait;
 use Illuminate\Container\Container;
 
 class LaravelApplicationWrapper implements ApplicationWrapperContract
 {
-    use AppNamespaceDetectorTrait;
-
     /**
      * Laravel application instance.
      */
@@ -71,7 +68,7 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
      */
     public function getNamespace()
     {
-        return $this->getAppNamespace();
+        return $this->app->getNamespace();
     }
 
     /**
