@@ -1,7 +1,7 @@
 [![Latest Stable Version](https://poser.pugx.org/arrilot/laravel-widgets/v/stable.svg)](https://packagist.org/packages/arrilot/laravel-widgets/)
-[![Total Downloads](https://img.shields.io/packagist/dt/arrilot/laravel-widgets.svg?style=flat)](https://packagist.org/packages/arrilot/laravel-widgets)
-[![Build Status](https://img.shields.io/travis/arrilot/laravel-widgets/master.svg?style=flat)](https://travis-ci.org/arrilot/laravel-widgets)
-[![Scrutinizer Quality Score](https://scrutinizer-ci.com/g/arrilot/laravel-widgets/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/arrilot/laravel-widgets/)
+[![Total Downloads](https://img.shields.io/packagist/dt/arrilot/laravel-widgets.svg)](https://packagist.org/packages/arrilot/laravel-widgets)
+[![Build Status](https://img.shields.io/travis/arrilot/laravel-widgets/master.svg)](https://travis-ci.org/arrilot/laravel-widgets)
+[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/arrilot/laravel-widgets/master.svg)](https://scrutinizer-ci.com/g/arrilot/laravel-widgets/)
 
 #Widgets for Laravel
 
@@ -76,7 +76,7 @@ class RecentNews extends AbstractWidget
     {
         //
 
-        return view("widgets.recent_news", [
+        return view('widgets.recent_news', [
             'config' => $this->config,
         ]);
     }
@@ -153,14 +153,14 @@ In this case do the following:
 2) Add defaults like that instead:
 
 ```php
-    public function __construct(array $config = [])
-    {
-        $this->addConfigDefaults([
-            'child_key' => 'bar'
-        ]);
+public function __construct(array $config = [])
+{
+    $this->addConfigDefaults([
+        'child_key' => 'bar'
+    ]);
 
-        parent::__construct($config);
-    }
+    parent::__construct($config);
+}
 ```
 
 ### Directly
@@ -220,7 +220,7 @@ This can be customized by adding a `placeholder()` method to the widget class.
 ```php
 public function placeholder()
 {
-    return "Loading...";
+    return 'Loading...';
 }
 ```
 
@@ -255,19 +255,19 @@ Async and Reloadable widgets both require some DOM interaction so they wrap all 
 This container is defined by `AbstractWidget::container()` method and can be customized too.
 
 ```php
-    /**
-     * Async and reloadable widgets are wrapped in container.
-     * You can customize it by overriding this method.
-     *
-     * @return array
-     */
-    public function container()
-    {
-        return [
-            'element'       => 'div',
-            'attributes'    => 'style="display:inline" class="arrilot-widget-container"',
-        ];
-    }
+/**
+ * Async and reloadable widgets are wrapped in container.
+ * You can customize it by overriding this method.
+ *
+ * @return array
+ */
+public function container()
+{
+    return [
+        'element'       => 'div',
+        'attributes'    => 'style="display:inline" class="arrilot-widget-container"',
+    ];
+}
 ```
 
 > Note: Nested async or reloadable widgets are not supported.
@@ -306,7 +306,7 @@ Widget::group('sidebar')->position(4)->addAsyncWidget('widgetName2', $config2);
 
 // display them in a view in the correct order
 @widgetGroup('sidebar')
-//or 
+// or 
 {{ Widget::group('sidebar')->display() }}
 ```
 
