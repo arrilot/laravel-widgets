@@ -23,7 +23,7 @@
 ?>
 ```
 
-3) Add some facades here too. If you prefer custom blade directives to facades you can skip this step.
+3) Add some facades here too. You can skip this step if you prefer custom blade directives.
 
 ```php
 <?php
@@ -112,7 +112,8 @@ Imagine that we usually need to show *five* news, but in some views we need to s
 This can be easily achieved like that:
 
 ```php
-class RecentNews extends AbstractWidget {
+class RecentNews extends AbstractWidget
+{
     ...
     protected $config = [
         'count' => 5
@@ -131,7 +132,8 @@ Config array is available in every widget method so you can use it to configure 
 > Note: Config fields that are not specified when you call a widget aren't overridden:
 
 ```php
-class RecentNews extends AbstractWidget {
+class RecentNews extends AbstractWidget
+{
     ...
     protected $config = [
         'count' => 5,
