@@ -21,7 +21,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             __DIR__.'/config/config.php', 'laravel-widgets'
         );
 
-        $this->app->bind('arrilot.widget', function () {
+        $this->app->singleton('arrilot.widget', function () {
             return new WidgetFactory(new LaravelApplicationWrapper());
         });
 
