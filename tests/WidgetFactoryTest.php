@@ -151,4 +151,11 @@ class WidgetFactoryTest extends TestCase
 
         $this->assertEquals('Cached output. Key: '.$key.', minutes: '.$widget->cacheTime, $output);
     }
+
+    public function testWidgetExpression()
+    {
+        $widget = $this->factory->run('Slider');
+
+        $this->assertInstanceOf('\\Arrilot\\Widgets\\AbstractWidget', $widget->getWidget());
+    }
 }
