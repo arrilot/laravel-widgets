@@ -3,6 +3,7 @@
 namespace Arrilot\Widgets\Misc;
 
 use Illuminate\Support\HtmlString;
+use Illuminate\View\Expression;
 
 trait ViewExpressionTrait
 {
@@ -15,8 +16,10 @@ trait ViewExpressionTrait
      */
     protected function convertToViewExpression($html)
     {
-        if (interface_exists('Illuminate\Contracts\Support\Htmlable') && class_exists('Illuminate\Support\HtmlString')) {
+        if (class_exists('Illuminate\Support\HtmlString')) {
             return new HtmlString($html);
+        } elseif (class_exists('Illuminate\View\Expression')) {
+            return new Expression($html);
         }
 
         return $html;
