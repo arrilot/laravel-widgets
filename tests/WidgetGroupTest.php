@@ -94,6 +94,29 @@ class WidgetGroupTest extends TestCase
             '</div>', $output);
     }
 
+    public function testWrap()
+    {
+        $this->widgetGroup->addWidget('Slider', ['slides' => 5]);
+        $this->widgetGroup->addAsyncWidget('Slider');
+
+        $output = $this->widgetGroup->wrap(function($content, $index, $count) {
+            return "<div class='widget widget-{$index}-{$count}'>{$content}</div>";
+        })->display();
+
+        $this->assertEquals(
+            '<div class=\'widget widget-0-2\'>Slider was executed with $slides = 5 foo: bar</div>'.
+            '<div class=\'widget widget-1-2\'><div id="arrilot-widget-container-2" style="display:inline" class="arrilot-widget-container">Placeholder here!'.
+                '<script type="text/javascript">'.
+                    'var widgetTimer2 = setInterval(function() {'.
+                        'if (window.$) {'.
+                            "$('#arrilot-widget-container-2').load('".$this->ajaxUrl('Slider', [], 2)."');".
+                            'clearInterval(widgetTimer2);'.
+                        '}'.
+                    '}, 100);'.
+                '</script>'.
+            '</div></div>', $output);
+    }
+
     public function testIsEmpty()
     {
         $this->assertTrue($this->widgetGroup->isEmpty());

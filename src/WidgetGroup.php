@@ -52,6 +52,13 @@ class WidgetGroup
     protected $count = 0;
 
     /**
+     * A callback that defines extra markup that wraps every widget in the group.
+     *
+     * @var callable
+     */
+    protected $wrapCallback;
+
+    /**
      * @param $name
      * @param ApplicationWrapperContract $app
      */
@@ -72,12 +79,12 @@ class WidgetGroup
         ksort($this->widgets);
 
         $output = '';
-        $count = 0;
+        $index = 0;
         foreach ($this->widgets as $position => $widgets) {
             foreach ($widgets as $widget) {
-                $count++;
-                $output .= $this->displayWidget($widget);
-                if ($this->count !== $count) {
+                $output .= $this->performWrap($this->displayWidget($widget), $index, $this->count);
+                $index++;
+                if ($this->count !== $index) {
                     $output .= $this->separator;
                 }
             }
@@ -119,7 +126,7 @@ class WidgetGroup
     /**
      * Getter for position.
      *
-     * @return array
+     * @return int
      */
     public function getPosition()
     {
@@ -136,6 +143,20 @@ class WidgetGroup
     public function setSeparator($separator)
     {
         $this->separator = $separator;
+
+        return $this;
+    }
+
+    /**
+     * Setter for $this->wrapCallback.
+     *
+     * @param callable $callable
+     *
+     * @return $this
+     */
+    public function wrap(callable $callable)
+    {
+        $this->wrapCallback = $callable;
 
         return $this;
     }
@@ -218,5 +239,25 @@ class WidgetGroup
     protected function resetPosition()
     {
         $this->position = 100;
+    }
+
+    /**
+     * Wraps widget content in a special markup defined by $this->wrap().
+     *
+     * @param string $content
+     * @param int $index
+     * @param int $total
+     *
+     * @return string
+     */
+    protected function performWrap($content, $index, $total)
+    {
+        if (is_null($this->wrapCallback)) {
+            return $content;
+        }
+
+        $callback = $this->wrapCallback;
+
+        return $callback($content, $index, $total);
     }
 }

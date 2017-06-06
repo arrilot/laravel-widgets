@@ -323,8 +323,16 @@ equals
 
 `Widget::group('sidebar')->position(100)->addWidget('files');`
 
-You can also set a separator to display between widgets in a group.
-`Widget::group('sidebar')->setSeparator('<hr>');` 
+You can set a separator that will be display between widgets in a group.
+`Widget::group('sidebar')->setSeparator('<hr>')->...;`
+
+You can also wrap each widget in a group using `wrap` method like that.
+```php
+Widget::group('sidebar')->wrap(function ($content, $index, $total) {
+    // $total is a total number of widgets in a group.
+    return "<div class='widget-{$index}'>{$content}</div>";
+})->...;
+```
 
 ### Checking the state of a widget group
 
