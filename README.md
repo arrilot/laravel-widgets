@@ -11,6 +11,9 @@
 
 1) Run ```composer require arrilot/laravel-widgets```
 
+For Laravel >= 5.5 that's all.
+For Laravel < 5.5 read on.
+
 2) Register a service provider in the `app.php` configuration file
 
 ```php
