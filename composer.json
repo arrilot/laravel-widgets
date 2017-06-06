@@ -30,5 +30,16 @@
         "psr-4": {
             "Arrilot\\Widgets\\Test\\": "tests"
         }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Arrilot\\Widgets\\ServiceProvider"
+            ],
+            "aliases": {
+                "Widget": "Arrilot\\Widgets\\Facade",
+                "AsyncWidget": "Arrilot\\Widgets\\AsyncFacade"
+            }
+        }
     }
 }
