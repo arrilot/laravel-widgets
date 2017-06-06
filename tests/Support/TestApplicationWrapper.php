@@ -7,6 +7,7 @@ use Arrilot\Widgets\Factories\AsyncWidgetFactory;
 use Arrilot\Widgets\Factories\WidgetFactory;
 use Closure;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
+use Illuminate\Contracts\Routing\UrlGenerator;
 
 class TestApplicationWrapper implements ApplicationWrapperContract
 {
@@ -94,6 +95,10 @@ class TestApplicationWrapper implements ApplicationWrapperContract
 
         if ($abstract == 'encrypter') {
             return new TestEncrypter();
+        }
+
+        if ($abstract == UrlGenerator::class) {
+            return new TestUrlGenerator();
         }
 
         throw new InvalidArgumentException("Binding {$abstract} cannot be resolved while testing");
