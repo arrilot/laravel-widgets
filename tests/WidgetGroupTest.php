@@ -140,15 +140,64 @@ class WidgetGroupTest extends TestCase
         $this->assertSame(0, $this->widgetGroup->count());
 
         $this->widgetGroup->addWidget('Slider');
-
         $this->assertSame(1, $this->widgetGroup->count());
 
         $this->widgetGroup->position(50)->addWidget('Slider');
-
         $this->assertSame(2, $this->widgetGroup->count());
 
         $this->widgetGroup->position(50)->addWidget('Slider');
-
         $this->assertSame(3, $this->widgetGroup->count());
+    }
+    
+    public function testRemoveById()
+    {
+        $id1 = $this->widgetGroup->addWidget('Slider');
+        $id2 = $this->widgetGroup->addWidget('Slider');
+        $this->assertSame(2, $this->widgetGroup->count());
+
+        $this->widgetGroup->removeById($id1);
+        $this->assertSame(1, $this->widgetGroup->count());
+
+        $this->widgetGroup->removeById($id2);
+        $this->assertSame(0, $this->widgetGroup->count());
+    }
+
+    public function testRemoveByName()
+    {
+        $this->widgetGroup->addWidget('Slider');
+        $this->widgetGroup->addWidget('TestDefaultSlider');
+        $this->widgetGroup->addWidget('Slider');
+        $this->assertSame(3, $this->widgetGroup->count());
+
+        $this->widgetGroup->removeByName('Slider');
+        $this->assertSame(1, $this->widgetGroup->count());
+
+        $this->widgetGroup->removeByName('TestDefaultSlider');
+        $this->assertSame(0, $this->widgetGroup->count());
+    }
+
+    public function testRemoveByPosition()
+    {
+        $this->widgetGroup->position(60)->addWidget('Slider');
+        $this->widgetGroup->position(50)->addWidget('TestDefaultSlider');
+        $this->widgetGroup->position(50)->addWidget('Slider');
+        $this->assertSame(3, $this->widgetGroup->count());
+
+        $this->widgetGroup->removeByPosition(50);
+        $this->assertSame(1, $this->widgetGroup->count());
+
+        $this->widgetGroup->removeByPosition(60);
+        $this->assertSame(0, $this->widgetGroup->count());
+    }
+
+    public function testRemoveAll()
+    {
+        $this->widgetGroup->addWidget('Slider');
+        $this->widgetGroup->addWidget('TestDefaultSlider');
+        $this->widgetGroup->addWidget('Slider');
+        $this->assertSame(3, $this->widgetGroup->count());
+
+        $this->widgetGroup->removeAll();
+        $this->assertSame(0, $this->widgetGroup->count());
     }
 }

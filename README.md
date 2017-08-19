@@ -334,7 +334,39 @@ Widget::group('sidebar')->wrap(function ($content, $index, $total) {
 })->...;
 ```
 
-### Checking the state of a widget group
+### Removing widgets from a group
+
+There is a couple of ways to remove widget/widgets from a group after they've been already added.
+
+1) Remove one widget by its unique `id`
+```php
+$id1 = Widget::group('sidebar')->addWidget('files');
+$id2 = Widget::group('sidebar')->addAsyncWidget('files');
+Widget::group('sidebar')->removeById($id1); // There is only second widget in the group now
+```
+
+2) Remove all widgets with specific name
+```php
+Widget::group('sidebar')->addWidget('files');
+Widget::group('sidebar')->addAsyncWidget('files');
+Widget::group('sidebar')->removeByName('files'); // Widget group is empty now
+```
+
+3) Remove all widgets that are placed on a specific position.
+```php
+Widget::group('sidebar')->position(42)->addWidget('files');
+Widget::group('sidebar')->position(42)->addAsyncWidget('files');
+Widget::group('sidebar')->removeByPosition(42); // Widget group is empty now
+```
+
+4) Remove all widgets at once.
+```php
+Widget::group('sidebar')->addWidget('files');
+Widget::group('sidebar')->addAsyncWidget('files');
+Widget::group('sidebar')->removeAll(); // Widget group is empty now
+```
+
+### Checking the state of a group
 
 `Widget::group('sidebar')->isEmpty(); // bool`
 
