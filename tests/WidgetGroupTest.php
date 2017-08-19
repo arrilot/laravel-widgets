@@ -99,7 +99,7 @@ class WidgetGroupTest extends TestCase
         $this->widgetGroup->addWidget('Slider', ['slides' => 5]);
         $this->widgetGroup->addAsyncWidget('Slider');
 
-        $output = $this->widgetGroup->wrap(function($content, $index, $count) {
+        $output = $this->widgetGroup->wrap(function ($content, $index, $count) {
             return "<div class='widget widget-{$index}-{$count}'>{$content}</div>";
         })->display();
 
@@ -148,7 +148,7 @@ class WidgetGroupTest extends TestCase
         $this->widgetGroup->position(50)->addWidget('Slider');
         $this->assertSame(3, $this->widgetGroup->count());
     }
-    
+
     public function testRemoveById()
     {
         $id1 = $this->widgetGroup->addWidget('Slider');
