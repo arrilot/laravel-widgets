@@ -106,6 +106,7 @@ class WidgetGroup
             foreach ($widgets as $i => $widget) {
                 if ($widget['id'] === $id) {
                     unset($this->widgets[$position][$i]);
+
                     return;
                 }
             }
@@ -250,12 +251,13 @@ class WidgetGroup
 
         return $count;
     }
-    
+
     /**
      * Add a widget with a given type to the array.
      *
      * @param string $type
-     * @param array $arguments
+     * @param array  $arguments
+     *
      * @return int
      */
     protected function addWidgetWithType($type, array $arguments = [])
@@ -304,8 +306,8 @@ class WidgetGroup
      * Wraps widget content in a special markup defined by $this->wrap().
      *
      * @param string $content
-     * @param int $index
-     * @param int $total
+     * @param int    $index
+     * @param int    $total
      *
      * @return string
      */
