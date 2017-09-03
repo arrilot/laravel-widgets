@@ -2,9 +2,9 @@
 
 namespace Arrilot\Widgets\Console;
 
-use RuntimeException;
-use Illuminate\Support\Str;
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Str;
+use RuntimeException;
 use Symfony\Component\Console\Input\InputOption;
 
 class WidgetMakeCommand extends GeneratorCommand
@@ -141,7 +141,7 @@ class WidgetMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        $namespace =  config('laravel-widgets.default_namespace', $rootNamespace.'\Widgets');
+        $namespace = config('laravel-widgets.default_namespace', $rootNamespace.'\Widgets');
 
         if (!Str::startsWith($namespace, $rootNamespace)) {
             throw new RuntimeException("You can not use the generator if the default namespace ($namespace) does not start with application namespace ($rootNamespace)");
