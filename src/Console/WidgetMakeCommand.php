@@ -31,7 +31,21 @@ class WidgetMakeCommand extends GeneratorCommand
     protected $type = 'Widget';
 
     /**
-     * Execute the console command.
+     * Execute the console command for Laravel >= 5.5
+     *
+     * @return void
+     */
+    public function handle()
+    {
+        parent::handle();
+
+        if (!$this->option('plain')) {
+            $this->createView();
+        }
+    }
+
+    /**
+     * Execute the console command for Laravel < 5.5
      *
      * @return void
      */
