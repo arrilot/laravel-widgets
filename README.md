@@ -5,7 +5,7 @@
 
 # Widgets for Laravel
 
-*A powerful alternative to view composers. Asynchronous widgets, reloadable widgets, console generator, caching - everything you can think of.*
+*A powerful alternative to view composers. Asynchronous widgets, reloadable widgets, console generator, caching - everything you can imagine.*
 
 ## Installation
 
