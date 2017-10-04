@@ -37,7 +37,13 @@ class WidgetMakeCommand extends GeneratorCommand
      */
     public function handle()
     {
-        parent::handle();
+        // hack for Laravel < 5.5
+        dd(is_callable('parent::handle'));
+        if (is_callable('parent::handle')) {
+            parent::handle();
+        } else {
+            parent::fire();
+        }
 
         if (!$this->option('plain')) {
             $this->createView();
