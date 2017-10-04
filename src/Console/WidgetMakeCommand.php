@@ -31,7 +31,7 @@ class WidgetMakeCommand extends GeneratorCommand
     protected $type = 'Widget';
 
     /**
-     * Execute the console command for Laravel >= 5.5
+     * Execute the console command for Laravel >= 5.5.
      *
      * @return void
      */
@@ -51,7 +51,7 @@ class WidgetMakeCommand extends GeneratorCommand
     }
 
     /**
-     * Execute the console command for Laravel < 5.5
+     * Execute the console command for Laravel < 5.5.
      *
      * @return void
      */
