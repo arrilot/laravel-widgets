@@ -21,6 +21,14 @@ abstract class AbstractWidget
     public $cacheTime = false;
 
     /**
+     * Should widget params be encrypted before sending them to /arrilot/load-widget?
+     * Turning encryption off can help with making custom reloads from javascript, but makes widget params publicly accessible.
+     *
+     * @var bool
+     */
+    public $encryptParams = true;
+
+    /**
      * The configuration array.
      *
      * @var array

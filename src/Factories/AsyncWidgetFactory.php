@@ -14,7 +14,7 @@ class AsyncWidgetFactory extends AbstractWidgetFactory
         $this->instantiateWidget(func_get_args());
 
         $placeholder = call_user_func([$this->widget, 'placeholder']);
-        $loader = $this->javascriptFactory->getLoader();
+        $loader = $this->javascriptFactory->getLoader($this->widget->encryptParams);
         $content = $this->wrapContentInContainer($placeholder.$loader);
 
         return $this->convertToViewExpression($content);

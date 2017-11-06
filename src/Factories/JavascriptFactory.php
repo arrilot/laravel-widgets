@@ -31,13 +31,15 @@ class JavascriptFactory
     /**
      * Construct javascript code to load the widget.
      *
+     * @param bool $encryptParams
+     *
      * @return string
      */
-    public function getLoader()
+    public function getLoader($encryptParams = true)
     {
         return
             '<script type="text/javascript">'.
-                $this->constructAjaxCall().
+                $this->constructAjaxCall($encryptParams).
             '</script>';
     }
 
@@ -45,17 +47,18 @@ class JavascriptFactory
      * Construct javascript code to reload the widget.
      *
      * @param float|int $timeout
+     * @param bool $encryptParams
      *
      * @return string
      */
-    public function getReloader($timeout)
+    public function getReloader($timeout, $encryptParams = true)
     {
         $timeout = $timeout * 1000;
 
         return
             '<script type="text/javascript">'.
                 'setTimeout( function() {'.
-                    $this->constructAjaxCall().
+                    $this->constructAjaxCall($encryptParams).
                 '}, '.$timeout.')'.
             '</script>';
     }
@@ -83,15 +86,21 @@ class JavascriptFactory
     /**
      * Construct ajax call for loaders.
      *
+     * @param bool $encryptParams
+     *
      * @return string
      */
-    protected function constructAjaxCall()
+    protected function constructAjaxCall($encryptParams = true)
     {
+        $encodedParams = json_encode($this->widgetFactory->widgetFullParams);
         $queryParams = [
             'id'     => WidgetId::get(),
             'name'   => $this->widgetFactory->widgetName,
-            'params' => $this->widgetFactory->encryptWidgetParams($this->widgetFactory->widgetFullParams),
+            'params' => $encryptParams ? $this->widgetFactory->encryptWidgetParams($encodedParams) : $encodedParams,
         ];
+        if (!$encryptParams) {
+            $queryParams['skip_encryption'] = 1;
+        }
 
         $url = $this->ajaxLink.'?'.http_build_query($queryParams);
 

@@ -214,9 +214,12 @@ In some situations it can be very beneficial to load widget content with AJAX.
 Fortunately, this can be achieved very easily!
 All you need to do is to change facade or blade directive - `Widget::` => `AsyncWidget::`, `@widget` => `@asyncWidget`
 
-> Note: Widget params are encrypted and sent via ajax call. Expect them to be json_encoded and json_decoded afterwards.
+Widget params are encrypted (by default) and sent via ajax call under the hood. So expect them to be `json_encoded()` and `json_decoded()` afterwards.
 
-> Note: Since version 3.1 you no longer need `jquery` to make ajax calls. However you can set `use_jquery_for_ajax_calls` to `true` in the config file if you want to.
+> Note: You can turn encryption off for a given widget by setting `public $encryptParams = false;` on it. However, this action makes widget params publicly accessible, so please make sure you do not leave any vulnerabilities.
+For example, if you pass something like user_id through widget params and turn encryption off, you do need to add one more access check inside the widget.
+
+> Note: You can set `use_jquery_for_ajax_calls` to `true` in the config file to use it for ajax calls if you want to.
 
 By default nothing is shown until ajax call is finished.
 

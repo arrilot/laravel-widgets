@@ -17,7 +17,7 @@ class WidgetFactory extends AbstractWidgetFactory
         $content = $this->getContentFromCache($args);
 
         if ($timeout = (float) $this->getReloadTimeout()) {
-            $content .= $this->javascriptFactory->getReloader($timeout);
+            $content .= $this->javascriptFactory->getReloader($timeout, $this->widget->encryptParams);
             $content = $this->wrapContentInContainer($content);
         }
 

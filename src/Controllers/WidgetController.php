@@ -22,9 +22,14 @@ class WidgetController extends BaseController
 
         $factory = app()->make('arrilot.widget');
         $widgetName = $request->input('name', '');
-        $widgetParams = $factory->decryptWidgetParams($request->input('params', ''));
 
-        return call_user_func_array([$factory, $widgetName], $widgetParams);
+        $widgetParams = $request->input('skip_encryption', '')
+            ? $request->input('params', '')
+            : $factory->decryptWidgetParams($request->input('params', ''));
+
+        $decodedParams = json_decode($widgetParams, true);
+
+        return call_user_func_array([$factory, $widgetName], $decodedParams ?: []);
     }
 
     /**
@@ -36,5 +41,8 @@ class WidgetController extends BaseController
     {
         WidgetId::set($request->input('id', 1) - 1);
         AbstractWidgetFactory::$skipWidgetContainer = true;
+        if ($request->input('skip_encryption', '')) {
+            AbstractWidgetFactory::$allowOnlyWidgetsWithDisabledEncryption = true;
+        }
     }
 }
