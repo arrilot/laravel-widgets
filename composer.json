@@ -12,11 +12,11 @@
     "homepage": "https://github.com/Arrilot/laravel-widgets",
     "require": {
         "php": ">=5.5.9",
-        "illuminate/support": ">=5.1",
-        "illuminate/contracts": ">=5.1",
-        "illuminate/view": ">=5.1",
-        "illuminate/container": ">=5.1",
-        "illuminate/console": ">=5.1"
+        "illuminate/support": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*",
+        "illuminate/contracts": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*",
+        "illuminate/view": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*",
+        "illuminate/container": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*",
+        "illuminate/console": "5.1.* || 5.2.* || 5.3.* || 5.4.* || 5.5.*"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0"
