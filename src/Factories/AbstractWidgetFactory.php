@@ -125,8 +125,12 @@ abstract class AbstractWidgetFactory
         $fqcn = $rootNamespace.'\\'.$this->widgetName;
         $widgetClass = class_exists($fqcn) ? $fqcn : $this->widgetName;
 
+        if (!class_exists($widgetClass)) {
+            throw new InvalidWidgetClassException('Class "'.$widgetClass.'" does not exist');
+        }
+
         if (!is_subclass_of($widgetClass, 'Arrilot\Widgets\AbstractWidget')) {
-            throw new InvalidWidgetClassException('Class "'.$widgetClass.'" must exist and extend "Arrilot\Widgets\AbstractWidget" class');
+            throw new InvalidWidgetClassException('Class "'.$widgetClass.'" must extend "Arrilot\Widgets\AbstractWidget" class');
         }
 
         $this->widget = new $widgetClass($this->widgetConfig);
