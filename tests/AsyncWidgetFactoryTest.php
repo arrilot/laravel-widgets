@@ -162,7 +162,7 @@ class AsyncWidgetFactoryTest extends TestCase
                 '<script type="text/javascript">'.
                     'var widgetTimer1 = setInterval(function() {'.
                         'if (window.$) {'.
-                            "$('#arrilot-widget-container-1').load('".$this->ajaxUrl('Profile\testNamespace\testFeed')."');".
+                            "$('#arrilot-widget-container-1').load('".$this->ajaxUrl('Profile\TestNamespace\TestFeed')."');".
                             'clearInterval(widgetTimer1);'.
                         '}'.
                     '}, 100);'.
