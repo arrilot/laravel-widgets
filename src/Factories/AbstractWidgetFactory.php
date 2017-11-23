@@ -149,7 +149,7 @@ abstract class AbstractWidgetFactory
      */
     protected function parseFullWidgetNameFromString($widgetName)
     {
-        return studly_case(str_replace('.', '\\', $widgetName));
+        return studly_case(str_replace('.', '\\_', $widgetName));
     }
 
     /**
