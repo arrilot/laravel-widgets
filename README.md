@@ -302,6 +302,10 @@ No caching is turned on by default.
 A cache key depends on a widget name and each widget parameter.
 Override ```cacheKey``` method if you need to adjust it.
 
+To simplify cache flushing, a tag `widget` is assigned by default to all widgets. 
+You can define one or more additional tags to your widgets by setting the values 
+in the `$cacheTags` property in your widget class.
+
 ## Widget groups (extra)
 
 In most cases Blade is a perfect tool for setting the position and order of widgets.
