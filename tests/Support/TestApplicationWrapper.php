@@ -25,11 +25,12 @@ class TestApplicationWrapper implements ApplicationWrapperContract
      *
      * @param $key
      * @param $minutes
+     * @param $tags
      * @param Closure $callback
      *
      * @return mixed
      */
-    public function cache($key, $minutes, Closure $callback)
+    public function cache($key, $minutes, $tags, Closure $callback)
     {
         return 'Cached output. Key: '.$key.', minutes: '.$minutes;
     }

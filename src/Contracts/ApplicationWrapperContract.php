@@ -11,11 +11,12 @@ interface ApplicationWrapperContract
      *
      * @param $key
      * @param $minutes
+     * @param $tags
      * @param callable $callback
      *
      * @return mixed
      */
-    public function cache($key, $minutes, Closure $callback);
+    public function cache($key, $minutes, $tags, Closure $callback);
 
     /**
      * Wrapper around app()->call().
