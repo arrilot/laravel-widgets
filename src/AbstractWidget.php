@@ -98,7 +98,7 @@ abstract class AbstractWidget
      */
     public function cacheTags()
     {
-        return array_merge(['widget'], $this->cacheTags);
+        return array_unique(array_merge(['widgets'], $this->cacheTags));
     }
 
     /**

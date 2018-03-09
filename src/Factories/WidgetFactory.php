@@ -68,10 +68,7 @@ class WidgetFactory extends AbstractWidgetFactory
     {
         if ($cacheTime = (float) $this->getCacheTime()) {
 
-            $cacheKey = $this->widget->cacheKey($args);
-            $cacheTags = $this->widget->cacheTags();
-
-            return $this->app->cache($cacheKey, $cacheTime, $cacheTags, function () {
+            return $this->app->cache($this->widget->cacheKey($args), $cacheTime, $this->widget->cacheTags(), function () {
                 return $this->getContent();
             });
         }
