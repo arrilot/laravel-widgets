@@ -35,7 +35,7 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
     {
         $cache = $this->app->make('cache');
 
-        if(method_exists($cache->getStore(), 'tags')) {
+        if (method_exists($cache->getStore(), 'tags')) {
             $cache = $cache->tags($tags);
         }
 

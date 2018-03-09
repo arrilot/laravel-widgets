@@ -92,7 +92,7 @@ abstract class AbstractWidget
     }
 
     /**
-     * Cache tags to help flush all cache with the same tag(s)
+     * Cache tags to help flush all cache with the same tag(s).
      *
      * @return array
      */
