@@ -26,13 +26,20 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
      *
      * @param $key
      * @param $minutes
+     * @param $tags
      * @param callable $callback
      *
      * @return mixed
      */
-    public function cache($key, $minutes, Closure $callback)
+    public function cache($key, $minutes, $tags, Closure $callback)
     {
-        return $this->app->make('cache')->remember($key, $minutes, $callback);
+        $cache = $this->app->make('cache');
+
+        if (method_exists($cache->getStore(), 'tags')) {
+            $cache = $cache->tags($tags);
+        }
+
+        return $cache->remember($key, $minutes, $callback);
     }
 
     /**

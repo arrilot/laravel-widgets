@@ -302,6 +302,39 @@ No caching is turned on by default.
 A cache key depends on a widget name and each widget parameter.
 Override ```cacheKey``` method if you need to adjust it.
 
+### Cache tagging
+
+When tagging is supported ([see the Laravel cache documentation](https://laravel.com/docs/cache#cache-tags)) and to 
+simplify cache flushing, a tag `widgets` is assigned by default to all widgets. 
+You can define one or more additional tags to your widgets by setting the values 
+in the `$cacheTags` property in your widget class. Example :
+
+```php
+class RecentNews extends AbstractWidget
+{
+    /**
+     * Cache tags allow you to tag related items in the cache 
+     * and then flush all cached values that assigned a given tag.
+     *
+     * @var array
+     */
+    public $cacheTags = ['news', 'frontend'];
+}
+```
+
+For this example, if you need to flush :
+
+```php
+// Clear widgets with the tag news
+Cache::tags('news')->flush();
+
+// Clear widgets with the tag news OR backend
+Cache::tags(['news', 'frontend'])->flush();
+
+// Flush all widgets cache
+Cache::tags('widgets')->flush();
+```
+
 ## Widget groups (extra)
 
 In most cases Blade is a perfect tool for setting the position and order of widgets.
