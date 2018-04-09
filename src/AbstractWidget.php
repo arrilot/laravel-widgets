@@ -21,6 +21,13 @@ abstract class AbstractWidget
     public $cacheTime = false;
 
     /**
+     * Cache tags allow you to tag related items in the cache and then flush all cached values that assigned a given tag.
+     *
+     * @var array
+     */
+    public $cacheTags = [];
+
+    /**
      * Should widget params be encrypted before sending them to /arrilot/load-widget?
      * Turning encryption off can help with making custom reloads from javascript, but makes widget params publicly accessible.
      *
@@ -82,6 +89,16 @@ abstract class AbstractWidget
     public function cacheKey(array $params = [])
     {
         return 'arrilot.widgets.'.serialize($params);
+    }
+
+    /**
+     * Cache tags to help flush all cache with the same tag(s).
+     *
+     * @return array
+     */
+    public function cacheTags()
+    {
+        return array_unique(array_merge(['widgets'], $this->cacheTags));
     }
 
     /**

@@ -8,6 +8,8 @@ class TestCachedWidget extends AbstractWidget
 {
     public $cacheTime = 60;
 
+    public $cacheTags = ['test'];
+
     protected $slides = 6;
 
     public function run()

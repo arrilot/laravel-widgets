@@ -47,7 +47,7 @@ class JavascriptFactory
      * Construct javascript code to reload the widget.
      *
      * @param float|int $timeout
-     * @param bool $encryptParams
+     * @param bool      $encryptParams
      *
      * @return string
      */
