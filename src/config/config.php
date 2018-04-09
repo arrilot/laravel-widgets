@@ -8,7 +8,7 @@ return [
     /*
     * Set Ajax widget middleware
     */
-    'route_middleware' => [],
+    'route_middleware' => ['web'],
 
     /*
     * Relative path from the base directory to a regular widget stub.
