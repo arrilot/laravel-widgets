@@ -101,7 +101,7 @@ class TestApplicationWrapper implements ApplicationWrapperContract
         if (is_subclass_of($abstract, AbstractWidget::class)) {
             $app = \Illuminate\Container\Container::getInstance();
 
-            return $app->make($abstract, $parameters);
+            return $app->makeWith($abstract, $parameters);
         }
 
         throw new InvalidArgumentException("Binding {$abstract} cannot be resolved while testing");
