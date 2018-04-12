@@ -100,6 +100,7 @@ class TestApplicationWrapper implements ApplicationWrapperContract
 
         if (is_subclass_of($abstract, AbstractWidget::class)) {
             $app = \Illuminate\Container\Container::getInstance();
+
             return $app->make($abstract, $parameters);
         }
 
