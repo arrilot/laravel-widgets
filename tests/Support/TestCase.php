@@ -3,9 +3,9 @@
 namespace Arrilot\Widgets\Test\Support;
 
 use Arrilot\Widgets\WidgetId;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase as BaseTestCase;
 
-class TestCase extends PHPUnit_Framework_TestCase
+class TestCase extends BaseTestCase
 {
     public function tearDown()
     {

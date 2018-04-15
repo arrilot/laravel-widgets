@@ -67,24 +67,16 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             });
         }
 
-        $omitParenthesis = version_compare($this->app->version(), '5.3', '<');
-
-        Blade::directive('widget', function ($expression) use ($omitParenthesis) {
-            $expression = $omitParenthesis ? $expression : "($expression)";
-
-            return "<?php echo app('arrilot.widget')->run{$expression}; ?>";
+        Blade::directive('widget', function ($expression) {
+            return "<?php echo app('arrilot.widget')->run($expression); ?>";
         });
 
-        Blade::directive('asyncWidget', function ($expression) use ($omitParenthesis) {
-            $expression = $omitParenthesis ? $expression : "($expression)";
-
-            return "<?php echo app('arrilot.async-widget')->run{$expression}; ?>";
+        Blade::directive('asyncWidget', function ($expression) {
+            return "<?php echo app('arrilot.async-widget')->run($expression); ?>";
         });
 
-        Blade::directive('widgetGroup', function ($expression) use ($omitParenthesis) {
-            $expression = $omitParenthesis ? $expression : "($expression)";
-
-            return "<?php echo app('arrilot.widget-group-collection')->group{$expression}->display(); ?>";
+        Blade::directive('widgetGroup', function ($expression) {
+            return "<?php echo app('arrilot.widget-group-collection')->group($expression)->display(); ?>";
         });
     }
 

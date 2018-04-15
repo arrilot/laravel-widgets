@@ -88,8 +88,6 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
      */
     public function make($abstract, array $parameters = [])
     {
-        return method_exists($app, 'makeWith')
-            ? $app->makeWith($abstract, $parameters)
-            : $app->make($abstract, $parameters);
+        return $this->app->make($abstract, $parameters);
     }
 }

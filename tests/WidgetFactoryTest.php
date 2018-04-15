@@ -21,7 +21,7 @@ class WidgetFactoryTest extends TestCase
 
     public function testItThrowsExceptionForBadWidgetClass()
     {
-        $this->setExpectedException('\Arrilot\Widgets\Misc\InvalidWidgetClassException');
+        $this->expectException('\Arrilot\Widgets\Misc\InvalidWidgetClassException');
 
         $this->factory->run('testBadSlider');
     }
