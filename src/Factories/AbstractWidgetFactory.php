@@ -133,7 +133,7 @@ abstract class AbstractWidgetFactory
             throw new InvalidWidgetClassException('Class "'.$widgetClass.'" must extend "Arrilot\Widgets\AbstractWidget" class');
         }
 
-        $this->widget = new $widgetClass($this->widgetConfig);
+        $this->widget = $this->app->make($widgetClass, ['config' => $this->widgetConfig]);
 
         if (static::$allowOnlyWidgetsWithDisabledEncryption && $this->widget->encryptParams) {
             throw new EncryptException('Widget "'.$widgetClass.'" was not called properly');
