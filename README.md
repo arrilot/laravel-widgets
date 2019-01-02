@@ -9,32 +9,9 @@
 
 ## Installation
 
-1) Run ```composer require arrilot/laravel-widgets```
+Run ```composer require arrilot/laravel-widgets```
 
-2) Register a service provider in the `app.php` configuration file
-
-```php
-<?php
-
-'providers' => [
-    ...
-    Arrilot\Widgets\ServiceProvider::class,
-],
-?>
-```
-
-3) Add some facades here. You can skip this step if you prefer custom blade directives.
-
-```php
-<?php
-
-'aliases' => [
-    ...
-    'Widget'       => Arrilot\Widgets\Facade::class,
-    'AsyncWidget'  => Arrilot\Widgets\AsyncFacade::class,
-],
-?>
-```
+Laravel >=5.5 uses Package Auto-Discovery, so you don't need to manually add the ServiceProvider and Facades
 
 ## Usage
 
