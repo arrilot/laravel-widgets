@@ -24,6 +24,6 @@ return [
      * Define aliases to classes
      */
      'aliases' => [
-          'test' => \Arrilot\Widgets\Test\Dummies\TestDefaultSlider::class
+         // 'test' => \Arrilot\Widgets\Test\Dummies\TestDefaultSlider::class
      ]
 ];
