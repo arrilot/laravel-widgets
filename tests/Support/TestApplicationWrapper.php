@@ -20,6 +20,9 @@ class TestApplicationWrapper implements ApplicationWrapperContract
     public $config = [
         'laravel-widgets.default_namespace'         => 'Arrilot\Widgets\Test\Dummies',
         'laravel-widgets.use_jquery_for_ajax_calls' => true,
+        'laravel-widgets.aliases.valid'             => \Arrilot\Widgets\Test\Dummies\TestDefaultSlider::class,
+        'laravel-widgets.aliases.invalid'           => \Arrilot\Widgets\Test\Dummies\Invalid::class,
+        'laravel-widgets.aliases.empty'             => '',
     ];
 
     /**
@@ -54,7 +57,7 @@ class TestApplicationWrapper implements ApplicationWrapperContract
      * Get the specified configuration value.
      *
      * @param string $key
-     * @param mixed  $default
+     * @param mixed $default
      *
      * @return mixed
      */
@@ -81,7 +84,7 @@ class TestApplicationWrapper implements ApplicationWrapperContract
      * Wrapper around app()->make().
      *
      * @param string $abstract
-     * @param array  $parameters
+     * @param array $parameters
      *
      * @return mixed
      */

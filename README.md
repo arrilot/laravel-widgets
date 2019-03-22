@@ -181,6 +181,44 @@ No problem, there are several ways to call those widgets:
 @widget('\App\Http\Some\Namespace\Widget', $config)
 ```
 
+4) Use an alias by setting it in the config, example :
+```php
+[
+    'aliases' => [
+        'example' => \App\Http\Some\Namespace\Widget::class,
+        'news' => [
+            'list' => \Vendor\NewsPackage\Widgets\NewsList::class,
+        ]
+    ]    
+]
+```
+
+Then you can call aliases by they key :
+
+```php
+@widget('example', $config)    // = \App\Http\Some\Namespace\Widget
+@widget('news.list', $config)  // = \Vendor\NewsPackage\Widgets\NewsList
+```
+
+NB : aliases does not have priority on dot notation
+
+Aliases can be useful when you want to include widgets in your own packages. To include your package's widgets you just 
+have to merge aliases arrays in the service provider.
+
+```php
+public function register()
+{
+    $config = array_merge_recursive(
+        config('laravel-widgets.aliases'),
+        [ 'mypackagealias' => \MyVendorName\MyPackageName\Widgets\MyWidget::class ]
+    );
+
+    config(['laravel-widgets.aliases' => $config]);
+    
+    // Allows you to call @widget('mypackagealias')
+}
+``` 
+
 ## Asynchronous widgets
 
 In some situations it can be very beneficial to load widget content with AJAX.

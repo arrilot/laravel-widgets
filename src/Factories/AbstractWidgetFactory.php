@@ -4,6 +4,7 @@ namespace Arrilot\Widgets\Factories;
 
 use Arrilot\Widgets\AbstractWidget;
 use Arrilot\Widgets\Contracts\ApplicationWrapperContract;
+use Arrilot\Widgets\Misc\AliasNotFoundException;
 use Arrilot\Widgets\Misc\EncryptException;
 use Arrilot\Widgets\Misc\InvalidWidgetClassException;
 use Arrilot\Widgets\Misc\ViewExpressionTrait;
@@ -92,7 +93,7 @@ abstract class AbstractWidgetFactory
      * Magic method that catches all widget calls.
      *
      * @param string $widgetName
-     * @param array  $params
+     * @param array $params
      *
      * @return mixed
      */
@@ -115,7 +116,8 @@ abstract class AbstractWidgetFactory
     {
         WidgetId::increment();
 
-        $this->widgetName = $this->parseFullWidgetNameFromString(array_shift($params));
+        $label = array_shift($params);
+        $this->widgetName = $this->parseFullWidgetNameFromString($label);
         $this->widgetFullParams = $params;
         $this->widgetConfig = (array) array_shift($params);
         $this->widgetParams = $params;
@@ -123,7 +125,20 @@ abstract class AbstractWidgetFactory
         $rootNamespace = $this->app->config('laravel-widgets.default_namespace', $this->app->getNamespace().'Widgets');
 
         $fqcn = $rootNamespace.'\\'.$this->widgetName;
-        $widgetClass = class_exists($fqcn) ? $fqcn : $this->widgetName;
+
+        if (class_exists($fqcn)) {
+            $widgetClass = $fqcn;
+        } else {
+            if (class_exists($this->widgetName)) {
+                $widgetClass = $this->widgetName;
+            } else {
+                $widgetClass = $this->app->config('laravel-widgets.aliases.'.$label);
+            }
+        }
+
+        if (empty($widgetClass)) {
+            throw new AliasNotFoundException('Widget alias "'.$label.'" is empty or not found');
+        }
 
         if (!class_exists($widgetClass)) {
             throw new InvalidWidgetClassException('Class "'.$widgetClass.'" does not exist');

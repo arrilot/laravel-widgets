@@ -19,4 +19,11 @@ return [
     * Relative path from the base directory to a plain widget stub.
     */
     'widget_plain_stub'  => 'vendor/arrilot/laravel-widgets/src/Console/stubs/widget_plain.stub',
+
+     /*
+     * Define aliases to classes
+     */
+     'aliases' => [
+          'test' => \Arrilot\Widgets\Test\Dummies\TestDefaultSlider::class
+     ]
 ];

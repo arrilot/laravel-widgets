@@ -68,6 +68,27 @@ class WidgetFactoryTest extends TestCase
         $this->assertEquals('Default test slider was executed with $slides = 6', $output);
     }
 
+    public function testItCanRunWidgetsUsingAlias()
+    {
+        $output = $this->factory->run('valid');
+
+        $this->assertEquals('Default test slider was executed with $slides = 6', $output);
+    }
+
+    public function testItThrowsExceptionForBadAlias()
+    {
+        $this->expectException('\Arrilot\Widgets\Misc\InvalidWidgetClassException');
+
+        $output = $this->factory->run('invalid');
+    }
+
+    public function testItThrowsExceptionForEmptyAlias()
+    {
+        $this->expectException('\Arrilot\Widgets\Misc\AliasNotFoundException');
+
+        $output = $this->factory->run('empty');
+    }
+
     public function testItLoadsWidgetsFromRootNamespaceFirst()
     {
         $output = $this->factory->run('Exception');
@@ -110,16 +131,16 @@ class WidgetFactoryTest extends TestCase
 
         $this->assertEquals(
             '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">Feed was executed with $slides = 6'.
-                '<script type="text/javascript">'.
-                    'setTimeout( function() {'.
-                        'var widgetTimer1 = setInterval(function() {'.
-                            'if (window.$) {'.
-                                "$('#arrilot-widget-container-1').load('".$this->ajaxUrl('TestRepeatableFeed')."');".
-                                'clearInterval(widgetTimer1);'.
-                            '}'.
-                        '}, 100);'.
-                    '}, 10000)'.
-                '</script>'.
+            '<script type="text/javascript">'.
+            'setTimeout( function() {'.
+            'var widgetTimer1 = setInterval(function() {'.
+            'if (window.$) {'.
+            "$('#arrilot-widget-container-1').load('".$this->ajaxUrl('TestRepeatableFeed')."');".
+            'clearInterval(widgetTimer1);'.
+            '}'.
+            '}, 100);'.
+            '}, 10000)'.
+            '</script>'.
             '</div>', $output);
     }
 
@@ -129,16 +150,16 @@ class WidgetFactoryTest extends TestCase
 
         $this->assertEquals(
             '<p id="arrilot-widget-container-1" data-id="123">Dummy Content'.
-                '<script type="text/javascript">'.
-                    'setTimeout( function() {'.
-                        'var widgetTimer1 = setInterval(function() {'.
-                            'if (window.$) {'.
-                                "$('#arrilot-widget-container-1').load('".$this->ajaxUrl('TestWidgetWithCustomContainer')."');".
-                                'clearInterval(widgetTimer1);'.
-                            '}'.
-                        '}, 100);'.
-                    '}, 10000)'.
-                '</script>'.
+            '<script type="text/javascript">'.
+            'setTimeout( function() {'.
+            'var widgetTimer1 = setInterval(function() {'.
+            'if (window.$) {'.
+            "$('#arrilot-widget-container-1').load('".$this->ajaxUrl('TestWidgetWithCustomContainer')."');".
+            'clearInterval(widgetTimer1);'.
+            '}'.
+            '}, 100);'.
+            '}, 10000)'.
+            '</script>'.
             '</p>', $output);
     }
 
