@@ -9,6 +9,7 @@ use Arrilot\Widgets\Misc\EncryptException;
 use Arrilot\Widgets\Misc\InvalidWidgetClassException;
 use Arrilot\Widgets\Misc\ViewExpressionTrait;
 use Arrilot\Widgets\WidgetId;
+use Illuminate\Support\Str;
 
 abstract class AbstractWidgetFactory
 {
@@ -93,7 +94,7 @@ abstract class AbstractWidgetFactory
      * Magic method that catches all widget calls.
      *
      * @param string $widgetName
-     * @param array $params
+     * @param array  $params
      *
      * @return mixed
      */
@@ -164,7 +165,7 @@ abstract class AbstractWidgetFactory
      */
     protected function parseFullWidgetNameFromString($widgetName)
     {
-        return studly_case(str_replace('.', '\\_', $widgetName));
+        return Str::studly(str_replace('.', '\\_', $widgetName));
     }
 
     /**

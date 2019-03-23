@@ -6,9 +6,9 @@ use Arrilot\Widgets\AbstractWidget;
 use Arrilot\Widgets\Contracts\ApplicationWrapperContract;
 use Arrilot\Widgets\Factories\AsyncWidgetFactory;
 use Arrilot\Widgets\Factories\WidgetFactory;
-use Illuminate\Container\Container;
 use Closure;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
+use Illuminate\Container\Container;
 
 class TestApplicationWrapper implements ApplicationWrapperContract
 {
@@ -57,7 +57,7 @@ class TestApplicationWrapper implements ApplicationWrapperContract
      * Get the specified configuration value.
      *
      * @param string $key
-     * @param mixed $default
+     * @param mixed  $default
      *
      * @return mixed
      */
@@ -84,7 +84,7 @@ class TestApplicationWrapper implements ApplicationWrapperContract
      * Wrapper around app()->make().
      *
      * @param string $abstract
-     * @param array $parameters
+     * @param array  $parameters
      *
      * @return mixed
      */

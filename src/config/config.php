@@ -25,5 +25,5 @@ return [
      */
      'aliases' => [
          // 'test' => \Arrilot\Widgets\Test\Dummies\TestDefaultSlider::class
-     ]
+     ],
 ];

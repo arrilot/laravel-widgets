@@ -224,7 +224,7 @@ class WidgetMakeCommand extends GeneratorCommand
         // convert to snake_case part by part to avoid unexpected underscores.
         $nameArray = explode('/', $name);
         array_walk($nameArray, function (&$part) {
-            $part = snake_case($part);
+            $part = Str::snake($part);
         });
 
         return implode('/', $nameArray);
