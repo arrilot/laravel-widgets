@@ -24,6 +24,7 @@ class NamespacesRepository
     public function registerNamespace($alias, $namespace)
     {
         $this->namespaces[$alias] = rtrim($namespace, '\\');
+
         return $this;
     }
 
@@ -32,8 +33,9 @@ class NamespacesRepository
      *
      * @param string $label
      *
-     * @return string
      * @throws \Exception
+     *
+     * @return string
      */
     public function getNamespace($alias)
     {

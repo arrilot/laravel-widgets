@@ -96,8 +96,9 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
      *
      * @param string $id
      *
-     * @return mixed
      * @throws \Illuminate\Container\EntryNotFoundException
+     *
+     * @return mixed
      */
     public function get($id)
     {

@@ -7,9 +7,9 @@ use Arrilot\Widgets\Contracts\ApplicationWrapperContract;
 use Arrilot\Widgets\Factories\AsyncWidgetFactory;
 use Arrilot\Widgets\Factories\WidgetFactory;
 use Arrilot\Widgets\NamespacesRepository;
-use Illuminate\Container\Container;
 use Closure;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
+use Illuminate\Container\Container;
 
 class TestApplicationWrapper implements ApplicationWrapperContract
 {
