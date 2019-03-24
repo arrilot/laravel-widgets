@@ -3,6 +3,7 @@
 namespace Arrilot\Widgets\Test;
 
 use Arrilot\Widgets\Factories\WidgetFactory;
+use Arrilot\Widgets\NamespacesRepository;
 use Arrilot\Widgets\Test\Dummies\TestCachedWidget;
 use Arrilot\Widgets\Test\Support\TestApplicationWrapper;
 use Arrilot\Widgets\Test\Support\TestCase;
@@ -64,6 +65,20 @@ class WidgetFactoryTest extends TestCase
     public function testItCanRunWidgetsUsingFQCN()
     {
         $output = $this->factory->run('\Arrilot\Widgets\Test\Dummies\TestDefaultSlider');
+
+        $this->assertEquals('Default test slider was executed with $slides = 6', $output);
+    }
+
+    public function testItThrowsExceptionForNamespaceNotFound()
+    {
+        $this->expectException('Arrilot\Widgets\Misc\NamespaceNotFoundException');
+
+        $output = $this->factory->run('notfound::TestDefaultSlider');
+    }
+
+    public function testItCanRunWidgetsUsingNamespace()
+    {
+        $output = $this->factory->run('dummy::TestDefaultSlider');
 
         $this->assertEquals('Default test slider was executed with $slides = 6', $output);
     }

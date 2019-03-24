@@ -383,3 +383,31 @@ Widget::group('sidebar')->removeAll(); // Widget group is empty now
 `Widget::group('sidebar')->any(); // bool`
 
 `Widget::group('sidebar')->count(); // int`
+
+## Namespaces for third party packages (extra)
+
+In some cases, it may be useful to deliver widgets with your own packages. For example, if your package allows 
+you to manage news, it would be convenient to have immediately configurable widgets, ready for display, directly 
+delivered with your package.
+
+To avoid having to use the fqcn each time, you can set a widget namespace into your package provider. This way the 
+widgets from your package can be more easily identified, and especially the syntax will be shorter.
+
+To do that, all you have to do is to register the namespace in your package service provider :
+
+```php
+public function boot() 
+{
+    app('arrilot.widget-namespaces')->registerNamespace('my-package-name', '\VendorName\PackageName\Path\To\Widgets');
+}
+```
+
+After that you can use the namespace in your views :
+
+```php
+@widget('my-package-name::foo.bar')
+
+// is equivalent to
+@widget('\VendorName\PackageName\Path\To\Widgets\Foo\Bar')
+```
+ 

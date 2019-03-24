@@ -54,4 +54,13 @@ interface ApplicationWrapperContract
      * @return mixed
      */
     public function make($abstract, array $parameters = []);
+
+    /**
+     * Wrapper around app()->get().
+     *
+     * @param string $id
+     *
+     * @return mixed
+     */
+    public function get($id);
 }

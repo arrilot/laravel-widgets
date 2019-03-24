@@ -90,4 +90,17 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
     {
         return $this->app->make($abstract, $parameters);
     }
+
+    /**
+     * Wrapper around app()->get().
+     *
+     * @param string $id
+     *
+     * @return mixed
+     * @throws \Illuminate\Container\EntryNotFoundException
+     */
+    public function get($id)
+    {
+        return $this->app->get($id);
+    }
 }
