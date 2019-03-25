@@ -6,9 +6,10 @@ use Arrilot\Widgets\AbstractWidget;
 use Arrilot\Widgets\Contracts\ApplicationWrapperContract;
 use Arrilot\Widgets\Factories\AsyncWidgetFactory;
 use Arrilot\Widgets\Factories\WidgetFactory;
-use Illuminate\Container\Container;
+use Arrilot\Widgets\NamespacesRepository;
 use Closure;
 use Doctrine\Instantiator\Exception\InvalidArgumentException;
+use Illuminate\Container\Container;
 
 class TestApplicationWrapper implements ApplicationWrapperContract
 {
@@ -106,5 +107,19 @@ class TestApplicationWrapper implements ApplicationWrapperContract
         }
 
         throw new InvalidArgumentException("Binding {$abstract} cannot be resolved while testing");
+    }
+
+    /**
+     * Wrapper around app()->get().
+     *
+     * @param string $id
+     *
+     * @return mixed
+     */
+    public function get($id)
+    {
+        if ($id == 'arrilot.widget-namespaces') {
+            return (new NamespacesRepository())->registerNamespace('dummy', '\Arrilot\Widgets\Test\Dummies');
+        }
     }
 }

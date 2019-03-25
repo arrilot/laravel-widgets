@@ -68,6 +68,20 @@ class WidgetFactoryTest extends TestCase
         $this->assertEquals('Default test slider was executed with $slides = 6', $output);
     }
 
+    public function testItThrowsExceptionForNamespaceNotFound()
+    {
+        $this->expectException('Arrilot\Widgets\Misc\NamespaceNotFoundException');
+
+        $output = $this->factory->run('notfound::TestDefaultSlider');
+    }
+
+    public function testItCanRunWidgetsUsingNamespace()
+    {
+        $output = $this->factory->run('dummy::TestDefaultSlider');
+
+        $this->assertEquals('Default test slider was executed with $slides = 6', $output);
+    }
+
     public function testItLoadsWidgetsFromRootNamespaceFirst()
     {
         $output = $this->factory->run('Exception');

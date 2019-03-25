@@ -33,6 +33,10 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             return new WidgetGroupCollection(new LaravelApplicationWrapper());
         });
 
+        $this->app->singleton('arrilot.widget-namespaces', function () {
+            return new NamespacesRepository();
+        });
+
         $this->app->singleton('command.widget.make', function ($app) {
             return new WidgetMakeCommand($app['files']);
         });

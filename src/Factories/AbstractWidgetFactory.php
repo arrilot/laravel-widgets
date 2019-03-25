@@ -8,6 +8,7 @@ use Arrilot\Widgets\Misc\EncryptException;
 use Arrilot\Widgets\Misc\InvalidWidgetClassException;
 use Arrilot\Widgets\Misc\ViewExpressionTrait;
 use Arrilot\Widgets\WidgetId;
+use Illuminate\Support\Str;
 
 abstract class AbstractWidgetFactory
 {
@@ -115,12 +116,21 @@ abstract class AbstractWidgetFactory
     {
         WidgetId::increment();
 
-        $this->widgetName = $this->parseFullWidgetNameFromString(array_shift($params));
+        $str = array_shift($params);
+
+        if (preg_match('#^(.*?)::(.*?)$#', $str, $m)) {
+            $rootNamespace = $this->app->get('arrilot.widget-namespaces')->getNamespace($m[1]);
+            $str = $m[2];
+        }
+
+        $this->widgetName = $this->parseFullWidgetNameFromString($str);
         $this->widgetFullParams = $params;
         $this->widgetConfig = (array) array_shift($params);
         $this->widgetParams = $params;
 
-        $rootNamespace = $this->app->config('laravel-widgets.default_namespace', $this->app->getNamespace().'Widgets');
+        if (!isset($rootNamespace)) {
+            $rootNamespace = $this->app->config('laravel-widgets.default_namespace', $this->app->getNamespace().'Widgets');
+        }
 
         $fqcn = $rootNamespace.'\\'.$this->widgetName;
         $widgetClass = class_exists($fqcn) ? $fqcn : $this->widgetName;
@@ -149,7 +159,7 @@ abstract class AbstractWidgetFactory
      */
     protected function parseFullWidgetNameFromString($widgetName)
     {
-        return studly_case(str_replace('.', '\\_', $widgetName));
+        return Str::studly(str_replace('.', '\\_', $widgetName));
     }
 
     /**
