@@ -102,7 +102,7 @@ class JavascriptFactory
             $queryParams['skip_encryption'] = 1;
         }
 
-        $url = $this->ajaxLink.'?'.http_build_query($queryParams);
+        $url = url($this->ajaxLink).'?'.http_build_query($queryParams);
 
         return $this->useJquery()
             ? $this->constructJqueryAjaxCall($url)
