@@ -18,7 +18,7 @@ class JavascriptFactory
      *
      * @var string
      */
-    protected $ajaxLink = '/arrilot/load-widget';
+    protected $ajaxLink = config('laravel-widgets.ajaxLink', 'arrilot/load-widget');
 
     /**
      * @param $widgetFactory
