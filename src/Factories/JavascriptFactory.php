@@ -13,19 +13,20 @@ class JavascriptFactory
      */
     protected $widgetFactory;
 
-    /**
+       /**
      * Ajax link where widget can grab content.
      *
      * @var string
      */
-    protected $ajaxLink = '/arrilot/load-widget';
-
+	protected $ajaxLink;
+   
     /**
      * @param $widgetFactory
      */
     public function __construct(AbstractWidgetFactory $widgetFactory)
     {
         $this->widgetFactory = $widgetFactory;
+	    $this->ajaxLink = $this->widgetFactory->app->config('laravel-widgets.ajaxLink', 'arrilot/load-widget');
     }
 
     /**
