@@ -49,9 +49,30 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
      * @param array $params
      *
      * @return mixed
+     * @throws \ReflectionException
      */
     public function call($method, $params = [])
     {
+        $reflectedMethod = (new ReflectionMethod($method[0], $method[1]));
+
+        if ($reflectedMethod->getNumberOfParameters() !== 0) {
+            $methodParams = $reflectedMethod->getParameters();
+
+            foreach ($methodParams as $k => $param) {
+                if (! isset($params[$k])) {
+                    if ($param->isOptional() && $param->isDefaultValueAvailable()) {
+                        $params[$param->getName()] = $param->getDefaultValue();
+                        continue;
+                    }
+
+                    trigger_error($param->getName().' argument is missing in '.get_class($method[0]));
+                }
+
+                $params[$param->getName()] = $params[$k];
+                unset($params[$k]);
+            }
+        }
+
         return $this->app->call($method, $params);
     }
 
