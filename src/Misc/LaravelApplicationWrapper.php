@@ -48,8 +48,9 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
      * @param $method
      * @param array $params
      *
-     * @return mixed
      * @throws \ReflectionException
+     *
+     * @return mixed
      */
     public function call($method, $params = [])
     {
@@ -59,7 +60,7 @@ class LaravelApplicationWrapper implements ApplicationWrapperContract
             $methodParams = $reflectedMethod->getParameters();
 
             foreach ($methodParams as $k => $param) {
-                if (! isset($params[$k])) {
+                if (!isset($params[$k])) {
                     if ($param->isOptional() && $param->isDefaultValueAvailable()) {
                         $params[$param->getName()] = $param->getDefaultValue();
                         continue;
