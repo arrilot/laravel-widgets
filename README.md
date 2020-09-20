@@ -142,7 +142,7 @@ public function __construct(array $config = [])
 }
 ```
 
-### Directly
+### Directly (works only for Laravel versions below 7)
 
 You can also choose to pass additional parameters to `run()` method directly.
 
@@ -193,7 +193,7 @@ Widget params are encrypted (by default) and sent via ajax call under the hood. 
 > Note: You can turn encryption off for a given widget by setting `public $encryptParams = false;` on it. However, this action will make widget params publicly accessible, so please make sure to not leave any vulnerabilities.
 For example, if you pass something like user_id through widget params and turn encryption off, you do need to add one more access check inside the widget.
 
-> Note: You can set `use_jquery_for_ajax_calls` to `true` in the config file to use it for ajax calls if you want to.
+> Note: You can set `use_jquery_for_ajax_calls` to `true` in the config file to use it for ajax calls if you want to, but you need to manually add jquery to your page in this case.
 
 By default nothing is shown until ajax call is finished.
 
