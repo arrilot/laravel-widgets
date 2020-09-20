@@ -28,8 +28,11 @@ class WidgetController extends BaseController
             : $factory->decryptWidgetParams($request->input('params', ''));
 
         $decodedParams = json_decode($widgetParams, true);
+        
+        $params = $decodedParams ?: [];
+        array_unshift($params, $widgetName);
 
-        return call_user_func_array([$factory, $widgetName], $decodedParams ?: []);
+        return call_user_func_array([$factory, 'run'], $params);
     }
 
     /**

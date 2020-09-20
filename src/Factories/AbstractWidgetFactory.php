@@ -36,6 +36,13 @@ abstract class AbstractWidgetFactory
     public $widgetName;
 
     /**
+     * Custom widget namespace of the widget being called if is set.
+     *
+     * @var string|null
+     */
+    public $customWidgetNamespace;
+
+    /**
      * Array of widget parameters excluding the first one (config).
      *
      * @var array
@@ -120,9 +127,12 @@ abstract class AbstractWidgetFactory
 
         if (preg_match('#^(.*?)::(.*?)$#', $str, $m)) {
             $rootNamespace = $this->app->get('arrilot.widget-namespaces')->getNamespace($m[1]);
+            $this->customWidgetNamespace = $m[1];
             $str = $m[2];
+        } else {
+            $this->customWidgetNamespace = null;
         }
-
+        
         $this->widgetName = $this->parseFullWidgetNameFromString($str);
         $this->widgetFullParams = $params;
         $this->widgetConfig = (array) array_shift($params);
@@ -205,5 +215,17 @@ abstract class AbstractWidgetFactory
     public function decryptWidgetParams($params)
     {
         return $this->app->make('encrypter')->decrypt($params);
+    }
+
+    /**
+     * Get current widget name with optional custom widget namespace.
+     * 
+     * @return string
+     */
+    public function getWidgetNameWithCustomNamespace()
+    {
+        return $this->customWidgetNamespace 
+            ? $this->customWidgetNamespace . '::' . $this->widgetName
+            : $this->widgetName;
     }
 }

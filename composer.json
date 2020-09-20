@@ -42,5 +42,8 @@
                 "AsyncWidget": "Arrilot\\Widgets\\AsyncFacade"
             }
         }
+    },
+    "scripts": {
+        "test": "phpunit"
     }
 }
