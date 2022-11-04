@@ -118,15 +118,7 @@ class JavascriptFactory
      */
     protected function constructJqueryAjaxCall($url)
     {
-        $id = WidgetId::get();
-
-        return
-            "var widgetTimer{$id} = setInterval(function() {".
-                'if (window.$) {'.
-                    "$('#{$this->getContainerId()}').load('{$url}');".
-                    "clearInterval(widgetTimer{$id});".
-                '}'.
-            '}, 100);';
+        return 'if(window.$) {$(function() {$(\'#' . $this->getContainerId() . '\').load(\'' . $url . '\'); });}';
     }
 
     /**
