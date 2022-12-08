@@ -19,4 +19,10 @@ return [
     * Relative path from the base directory to a plain widget stub.
     */
     'widget_plain_stub'  => 'vendor/arrilot/laravel-widgets/src/Console/stubs/widget_plain.stub',
+
+    /** Define url prefix for ajax query builder: /prefix/name */
+    'url_prefix' => 'lazyapi',
+
+    /** Define url name for ajax query builder: /prefix/name */
+    'url_name' => 'load'
 ];

@@ -3,6 +3,7 @@
 namespace Arrilot\Widgets\Factories;
 
 use Arrilot\Widgets\WidgetId;
+use Illuminate\Support\Facades\Config;
 
 class JavascriptFactory
 {
@@ -18,13 +19,14 @@ class JavascriptFactory
      *
      * @var string
      */
-    protected $ajaxLink = '/arrilot/load-widget';
+    protected $ajaxLink = '/lazyapi/load';
 
     /**
      * @param $widgetFactory
      */
     public function __construct(AbstractWidgetFactory $widgetFactory)
     {
+        $this->ajaxLink = Config::get('laravel-widgets.url_prefix', 'lazyapi') . '/' . Config::get('laravel-widgets.url_name', 'load');
         $this->widgetFactory = $widgetFactory;
     }
 

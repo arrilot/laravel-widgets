@@ -3,6 +3,7 @@
 namespace Arrilot\Widgets\Test\Support;
 
 use Arrilot\Widgets\WidgetId;
+use Illuminate\Support\Facades\Config;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
@@ -14,7 +15,8 @@ class TestCase extends BaseTestCase
 
     public function ajaxUrl($widgetName, $widgetParams = [], $id = 1)
     {
-        return '/arrilot/load-widget?'.http_build_query([
+        $url = Config::get('laravel-widgets.url_prefix', 'lazyapi') . '/' . Config::get('laravel-widgets.url_name', 'load') . '?';
+        return $url . http_build_query([
             'id'     => $id,
             'name'   => $widgetName,
             'params' => json_encode($widgetParams),

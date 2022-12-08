@@ -7,6 +7,7 @@ use Arrilot\Widgets\Factories\AsyncWidgetFactory;
 use Arrilot\Widgets\Factories\WidgetFactory;
 use Arrilot\Widgets\Misc\LaravelApplicationWrapper;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Config;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
 {
@@ -61,13 +62,13 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
 
         $routeConfig = [
             'namespace'  => 'Arrilot\Widgets\Controllers',
-            'prefix'     => 'arrilot',
+            'prefix'     => $this->app['config']->get('laravel-widgets.url_prefix', 'lazyapi'),
             'middleware' => $this->app['config']->get('laravel-widgets.route_middleware', []),
         ];
 
         if (!$this->app->routesAreCached()) {
             $this->app['router']->group($routeConfig, function ($router) {
-                $router->get('load-widget', 'WidgetController@showWidget');
+                $router->get(Config::get('laravel-widgets.url_name', 'load'), 'WidgetController@showWidget');
             });
         }
 
