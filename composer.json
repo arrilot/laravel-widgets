@@ -1,5 +1,5 @@
 {
-    "name": "arrilot/laravel-widgets",
+    "name": "iohttp/laravel-widgets",
     "description": "A powerful alternative to view composers. Asynchronous widgets, reloadable widgets, console generator, caching - everything you can think of.",
     "license": "MIT",
     "keywords": ["laravel", "widgets", "ajax"],
