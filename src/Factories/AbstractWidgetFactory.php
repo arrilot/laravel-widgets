@@ -152,7 +152,7 @@ abstract class AbstractWidgetFactory
                 throw new EncryptException('Widget "'.$widgetClass.'" was not called properly');
             }
         } else {
-            throw new InvalidWidgetClassException('Class "'.$widgetClass.'" doesnt exists or not extend "Arrilot\Widgets\AbstractWidget" class');
+            //throw new InvalidWidgetClassException('Class "'.$widgetClass.'" doesnt exists or not extend "Arrilot\Widgets\AbstractWidget" class');
         }
     }
 
