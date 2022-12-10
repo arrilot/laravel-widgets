@@ -132,7 +132,7 @@ abstract class AbstractWidgetFactory
         } else {
             $this->customWidgetNamespace = null;
         }
-        
+
         $this->widgetName = $this->parseFullWidgetNameFromString($str);
         $this->widgetFullParams = $params;
         $this->widgetConfig = (array) array_shift($params);
@@ -145,18 +145,14 @@ abstract class AbstractWidgetFactory
         $fqcn = $rootNamespace.'\\'.$this->widgetName;
         $widgetClass = class_exists($fqcn) ? $fqcn : $this->widgetName;
 
-        if (!class_exists($widgetClass)) {
-            throw new InvalidWidgetClassException('Class "'.$widgetClass.'" does not exist');
-        }
+        if (class_exists($widgetClass) && is_subclass_of($widgetClass, 'Arrilot\Widgets\AbstractWidget')) {
+            $this->widget = $this->app->make($widgetClass, ['config' => $this->widgetConfig]);
 
-        if (!is_subclass_of($widgetClass, 'Arrilot\Widgets\AbstractWidget')) {
-            throw new InvalidWidgetClassException('Class "'.$widgetClass.'" must extend "Arrilot\Widgets\AbstractWidget" class');
-        }
-
-        $this->widget = $this->app->make($widgetClass, ['config' => $this->widgetConfig]);
-
-        if (static::$allowOnlyWidgetsWithDisabledEncryption && $this->widget->encryptParams) {
-            throw new EncryptException('Widget "'.$widgetClass.'" was not called properly');
+            if (static::$allowOnlyWidgetsWithDisabledEncryption && $this->widget->encryptParams) {
+                throw new EncryptException('Widget "'.$widgetClass.'" was not called properly');
+            }
+        } else {
+            throw new InvalidWidgetClassException('Class "'.$widgetClass.'" doesnt exists or not extend "Arrilot\Widgets\AbstractWidget" class');
         }
     }
 
@@ -219,12 +215,12 @@ abstract class AbstractWidgetFactory
 
     /**
      * Get current widget name with optional custom widget namespace.
-     * 
+     *
      * @return string
      */
     public function getWidgetNameWithCustomNamespace()
     {
-        return $this->customWidgetNamespace 
+        return $this->customWidgetNamespace
             ? $this->customWidgetNamespace . '::' . $this->widgetName
             : $this->widgetName;
     }

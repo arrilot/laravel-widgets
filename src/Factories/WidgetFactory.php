@@ -51,6 +51,11 @@ class WidgetFactory extends AbstractWidgetFactory
      */
     protected function getContent()
     {
+        // do not process empty/!enabled widgets
+        if (!$this->widget || (isset($this->widgetConfig['disabled']) && $this->widgetConfig['disabled'])) {
+            return '';
+        }
+
         $content = $this->app->call([$this->widget, 'run'], $this->widgetParams);
 
         return is_object($content) ? $content->__toString() : $content;
