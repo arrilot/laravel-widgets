@@ -3,7 +3,7 @@
 return [
     //'default_namespace' => 'App\Widgets',
 
-    'use_jquery_for_ajax_calls' => false,
+    'use_jquery_for_ajax_calls' => env('ARRILOT_USE_JQUERY', false),
 
     /*
     * Set Ajax widget middleware
