@@ -6,6 +6,7 @@ use Arrilot\Widgets\Console\WidgetMakeCommand;
 use Arrilot\Widgets\Factories\AsyncWidgetFactory;
 use Arrilot\Widgets\Factories\WidgetFactory;
 use Arrilot\Widgets\Misc\LaravelApplicationWrapper;
+use Illuminate\Contracts\Foundation\CachesRoutes;
 use Illuminate\Support\Facades\Blade;
 
 class ServiceProvider extends \Illuminate\Support\ServiceProvider
@@ -56,7 +57,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/config/config.php' => config_path('laravel-widgets.php'),
+            __DIR__.'/config/config.php' => $this->app->configPath('laravel-widgets.php'),
         ]);
 
         $routeConfig = [
@@ -65,7 +66,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
             'middleware' => $this->app['config']->get('laravel-widgets.route_middleware', []),
         ];
 
-        if (!$this->app->routesAreCached()) {
+        if (!$this->app instanceof CachesRoutes || !$this->app->routesAreCached()) {
             $this->app['router']->group($routeConfig, function ($router) {
                 $router->get('load-widget', 'WidgetController@showWidget');
             });

@@ -12,7 +12,7 @@ interface ApplicationWrapperContract
      * @param $key
      * @param $minutes
      * @param $tags
-     * @param callable $callback
+     * @param Closure $callback
      *
      * @return mixed
      */

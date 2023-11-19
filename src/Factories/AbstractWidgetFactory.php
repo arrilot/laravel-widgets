@@ -17,7 +17,7 @@ abstract class AbstractWidgetFactory
     /**
      * Widget object to work with.
      *
-     * @var AbstractWidget
+     * @var AbstractWidget|null
      */
     protected $widget;
 

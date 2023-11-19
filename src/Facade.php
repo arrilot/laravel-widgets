@@ -18,6 +18,6 @@ class Facade extends \Illuminate\Support\Facades\Facade
      */
     public static function group($name)
     {
-        return app('arrilot.widget-group-collection')->group($name);
+        return static::$app->make('arrilot.widget-group-collection')->group($name);
     }
 }

@@ -17,10 +17,12 @@
         "illuminate/view": ">=8",
         "illuminate/container": ">=8",
         "illuminate/console": ">=8",
-        "illuminate/cache": ">=8"
+        "illuminate/cache": ">=8",
+        "illuminate/routing": ">=8"
     },
     "require-dev": {
-        "phpunit/phpunit": "~8.0"
+        "phpunit/phpunit": "~8.0",
+        "nunomaduro/larastan": "^2.6"
     },
     "autoload": {
         "psr-4": {
@@ -44,6 +46,7 @@
         }
     },
     "scripts": {
+        "analyse": "vendor/bin/phpstan analyse",
         "test": "phpunit"
     }
 }

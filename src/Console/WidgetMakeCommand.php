@@ -30,37 +30,15 @@ class WidgetMakeCommand extends GeneratorCommand
      */
     protected $type = 'Widget';
 
-    /**
-     * Execute the console command for Laravel >= 5.5.
-     *
-     * @return void
-     */
     public function handle()
     {
-        // hack for Laravel < 5.5
-        if (is_callable('parent::handle')) {
-            parent::handle();
-        } else {
-            parent::fire();
-        }
+        parent::handle();
 
         if (!$this->option('plain')) {
             $this->createView();
         }
-    }
 
-    /**
-     * Execute the console command for Laravel < 5.5.
-     *
-     * @return void
-     */
-    public function fire()
-    {
-        parent::fire();
-
-        if (!$this->option('plain')) {
-            $this->createView();
-        }
+        return null;
     }
 
     /**
@@ -160,7 +138,7 @@ class WidgetMakeCommand extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        $namespace = config('laravel-widgets.default_namespace', $rootNamespace.'\Widgets');
+        $namespace = $this->laravel->make('config')->get('laravel-widgets.default_namespace', $rootNamespace.'\Widgets');
 
         if (!Str::startsWith($namespace, $rootNamespace)) {
             throw new RuntimeException("You can not use the generator if the default namespace ($namespace) does not start with application namespace ($rootNamespace)");
@@ -208,7 +186,7 @@ class WidgetMakeCommand extends GeneratorCommand
      */
     protected function getViewPath()
     {
-        return base_path('resources/views').'/widgets/'.$this->makeViewName().'.blade.php';
+        return $this->laravel->basePath('resources/views').'/widgets/'.$this->makeViewName().'.blade.php';
     }
 
     /**

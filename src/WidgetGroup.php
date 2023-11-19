@@ -54,7 +54,7 @@ class WidgetGroup
     /**
      * A callback that defines extra markup that wraps every widget in the group.
      *
-     * @var callable
+     * @var callable|null
      */
     protected $wrapCallback;
 

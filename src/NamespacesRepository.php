@@ -19,7 +19,7 @@ class NamespacesRepository
      * @param string $alias
      * @param string $namespace
      *
-     * @return WidgetNamespaces
+     * @return $this
      */
     public function registerNamespace($alias, $namespace)
     {
@@ -31,7 +31,7 @@ class NamespacesRepository
     /**
      * Get namespace by his alias.
      *
-     * @param string $label
+     * @param string $alias
      *
      * @throws \Exception
      *
