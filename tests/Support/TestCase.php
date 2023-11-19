@@ -7,7 +7,7 @@ use PHPUnit\Framework\TestCase as BaseTestCase;
 
 class TestCase extends BaseTestCase
 {
-    public function tearDown()
+    public function tearDown(): void
     {
         WidgetId::reset();
     }

@@ -14,7 +14,7 @@ class WidgetFactoryTest extends TestCase
      */
     protected $factory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->factory = new WidgetFactory(new TestApplicationWrapper());
     }

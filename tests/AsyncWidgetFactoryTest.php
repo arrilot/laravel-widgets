@@ -13,7 +13,7 @@ class AsyncWidgetFactoryTest extends TestCase
      */
     protected $factory;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->factory = new AsyncWidgetFactory(new TestApplicationWrapper());
     }

@@ -13,7 +13,7 @@ class WidgetGroupTest extends TestCase
      */
     protected $widgetGroup;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->widgetGroup = new WidgetGroup('key1', new TestApplicationWrapper());
     }

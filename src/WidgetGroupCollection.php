@@ -7,6 +7,13 @@ use Arrilot\Widgets\Contracts\ApplicationWrapperContract;
 class WidgetGroupCollection
 {
     /**
+     * The application wrapper.
+     *
+     * @var ApplicationWrapperContract
+     */
+    protected ApplicationWrapperContract $app;
+
+    /**
      * The array of widget groups.
      *
      * @var array

@@ -11,16 +11,16 @@
     ],
     "homepage": "https://github.com/arrilot/laravel-widgets",
     "require": {
-        "php": ">=7.0",
-        "illuminate/support": ">=5.5",
-        "illuminate/contracts": ">=5.5",
-        "illuminate/view": ">=5.5",
-        "illuminate/container": ">=5.5",
-        "illuminate/console": ">=5.5",
-        "illuminate/cache": ">=5.5"
+        "php": ">=7.4",
+        "illuminate/support": ">=8",
+        "illuminate/contracts": ">=8",
+        "illuminate/view": ">=8",
+        "illuminate/container": ">=8",
+        "illuminate/console": ">=8",
+        "illuminate/cache": ">=8"
     },
     "require-dev": {
-        "phpunit/phpunit": "~6.0"
+        "phpunit/phpunit": "~8.0"
     },
     "autoload": {
         "psr-4": {

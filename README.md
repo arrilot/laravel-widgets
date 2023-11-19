@@ -11,8 +11,6 @@
 
 Run ```composer require arrilot/laravel-widgets```
 
-Laravel >=5.5 uses Package Auto-Discovery, so you don't need to manually add the ServiceProvider and Facades
-
 ## Usage
 
 Let's consider that we want to make a list of recent news and reuse it in several views.
@@ -43,7 +41,7 @@ class RecentNews extends AbstractWidget
      *
      * @var array
      */
-    protected $config = [];
+    protected array $config = [];
 
     /**
      * Treat this method as a controller action.
@@ -92,7 +90,7 @@ This can be easily achieved by:
 class RecentNews extends AbstractWidget
 {
     ...
-    protected $config = [
+    protected array $config = [
         'count' => 5
     ];
     ...
@@ -112,7 +110,7 @@ Config array is available in every widget method so you can use it to configure 
 class RecentNews extends AbstractWidget
 {
     ...
-    protected $config = [
+    protected array $config = [
         'count' => 5,
         'foo'   => 'bar'
     ];
@@ -129,7 +127,7 @@ In this case do the following:
 
 1) Do not add `protected $config = [...]` line to a child.
 
-2) Instead add defaults like this:
+2) Instead, add defaults like this:
 
 ```php
 public function __construct(array $config = [])
@@ -157,7 +155,7 @@ public function run($sortBy, $sortOrder) { }
 
 ## Namespaces
 
-By default the package tries to find your widget in the ```App\Widgets``` namespace.
+By default, the package tries to find your widget in the ```App\Widgets``` namespace.
 
 You can override this by publishing package config (```php artisan vendor:publish --provider="Arrilot\Widgets\ServiceProvider"```) and setting `default_namespace` property.
 
@@ -183,7 +181,7 @@ No problem, there are several ways to call those widgets:
 
 ## Asynchronous widgets
 
-In some situations it can be very beneficial to load widget content with AJAX.
+Sometimes it can be very beneficial to load widget content with AJAX.
 
 Fortunately, this can be achieved very easily!
 All you need to do is to change facade or blade directive - `Widget::` => `AsyncWidget::`, `@widget` => `@asyncWidget`
@@ -195,12 +193,12 @@ For example, if you pass something like user_id through widget params and turn e
 
 > Note: You can set `use_jquery_for_ajax_calls` to `true` in the config file to use it for ajax calls if you want to, but you need to manually add jquery to your page in this case.
 
-By default nothing is shown until ajax call is finished.
+By default, nothing is shown until ajax call is finished.
 
 This can be customized by adding a `placeholder()` method to the widget class.
 
 ```php
-public function placeholder()
+public function placeholder(): string
 {
     return 'Loading...';
 }
@@ -243,7 +241,7 @@ This container is defined by `AbstractWidget::container()` method and can be cus
  *
  * @return array
  */
-public function container()
+public function container(): array
 {
     return [
         'element'       => 'div',
@@ -292,7 +290,7 @@ class RecentNews extends AbstractWidget
      *
      * @var array
      */
-    public $cacheTags = ['news', 'frontend'];
+    public array $cacheTags = ['news', 'frontend'];
 }
 ```
 

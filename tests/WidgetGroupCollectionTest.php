@@ -14,7 +14,7 @@ class WidgetGroupCollectionTest extends TestCase
      */
     protected $collection;
 
-    public function setUp()
+    public function setUp(): void
     {
         $this->collection = new WidgetGroupCollection(new TestApplicationWrapper());
     }
