@@ -1,7 +1,5 @@
 [![Latest Stable Version](https://poser.pugx.org/arrilot/laravel-widgets/v/stable.svg)](https://packagist.org/packages/arrilot/laravel-widgets/)
 [![Total Downloads](https://img.shields.io/packagist/dt/arrilot/laravel-widgets.svg)](https://packagist.org/packages/arrilot/laravel-widgets)
-[![Build Status](https://img.shields.io/travis/arrilot/laravel-widgets/master.svg)](https://travis-ci.org/arrilot/laravel-widgets)
-[![Scrutinizer Quality Score](https://img.shields.io/scrutinizer/g/arrilot/laravel-widgets/master.svg)](https://scrutinizer-ci.com/g/arrilot/laravel-widgets/)
 
 # Widgets for Laravel
 
