@@ -59,7 +59,7 @@ abstract class AbstractWidgetFactory
     /**
      * Laravel application wrapper for better testability.
      *
-     * @var ApplicationWrapperContract;
+     * @var ApplicationWrapperContract
      */
     public $app;
 
