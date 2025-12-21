@@ -90,11 +90,15 @@ class WidgetMakeCommand extends GeneratorCommand
     protected function replaceNamespace(&$stub, $name)
     {
         $stub = str_replace(
-            '{{namespace}}', $this->getNamespace($name), $stub
+            '{{namespace}}',
+            $this->getNamespace($name),
+            $stub
         );
 
         $stub = str_replace(
-            '{{rootNamespace}}', $this->laravel->getNamespace(), $stub
+            '{{rootNamespace}}',
+            $this->laravel->getNamespace(),
+            $stub
         );
 
         return $this;

@@ -59,7 +59,7 @@ class WidgetGroup
     protected $wrapCallback;
 
     /**
-     * @param $name
+     * @param                            $name
      * @param ApplicationWrapperContract $app
      */
     public function __construct($name, ApplicationWrapperContract $app)

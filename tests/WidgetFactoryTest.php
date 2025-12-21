@@ -134,7 +134,9 @@ class WidgetFactoryTest extends TestCase
                         '}, 100);'.
                     '}, 10000)'.
                 '</script>'.
-            '</div>', $output);
+            '</div>',
+            $output
+        );
     }
 
     public function testWidgetContainerCanBeCustomized()
@@ -153,7 +155,9 @@ class WidgetFactoryTest extends TestCase
                         '}, 100);'.
                     '}, 10000)'.
                 '</script>'.
-            '</p>', $output);
+            '</p>',
+            $output
+        );
     }
 
     public function testItCanCacheWidgets()

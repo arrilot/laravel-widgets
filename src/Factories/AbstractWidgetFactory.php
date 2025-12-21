@@ -132,7 +132,7 @@ abstract class AbstractWidgetFactory
         } else {
             $this->customWidgetNamespace = null;
         }
-        
+
         $this->widgetName = $this->parseFullWidgetNameFromString($str);
         $this->widgetFullParams = $params;
         $this->widgetConfig = (array) array_shift($params);
@@ -219,13 +219,13 @@ abstract class AbstractWidgetFactory
 
     /**
      * Get current widget name with optional custom widget namespace.
-     * 
+     *
      * @return string
      */
     public function getWidgetNameWithCustomNamespace()
     {
-        return $this->customWidgetNamespace 
-            ? $this->customWidgetNamespace . '::' . $this->widgetName
+        return $this->customWidgetNamespace
+            ? $this->customWidgetNamespace.'::'.$this->widgetName
             : $this->widgetName;
     }
 }

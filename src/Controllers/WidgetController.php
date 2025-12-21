@@ -35,7 +35,7 @@ class WidgetController extends BaseController
             : $this->factory->decryptWidgetParams($request->input('params', ''));
 
         $decodedParams = json_decode($widgetParams, true);
-        
+
         $params = $decodedParams ?: [];
         array_unshift($params, $widgetName);
 
