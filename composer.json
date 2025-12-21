@@ -2,7 +2,11 @@
     "name": "arrilot/laravel-widgets",
     "description": "A powerful alternative to view composers. Asynchronous widgets, reloadable widgets, console generator, caching - everything you can think of.",
     "license": "MIT",
-    "keywords": ["laravel", "widgets", "ajax"],
+    "keywords": [
+        "laravel",
+        "widgets",
+        "ajax"
+    ],
     "authors": [
         {
             "name": "Nekrasov Ilya",
@@ -11,18 +15,18 @@
     ],
     "homepage": "https://github.com/arrilot/laravel-widgets",
     "require": {
-        "php": ">=7.4",
-        "illuminate/support": ">=9",
-        "illuminate/contracts": ">=9",
-        "illuminate/view": ">=9",
-        "illuminate/container": ">=9",
-        "illuminate/console": ">=9",
-        "illuminate/cache": ">=9",
-        "illuminate/routing": ">=9"
+        "php": ">=8.1",
+        "illuminate/support": ">=11",
+        "illuminate/contracts": ">=11",
+        "illuminate/view": ">=11",
+        "illuminate/container": ">=11",
+        "illuminate/console": ">=11",
+        "illuminate/cache": ">=11",
+        "illuminate/routing": ">=11"
     },
     "require-dev": {
-        "phpunit/phpunit": "~8.0",
-        "nunomaduro/larastan": "^2.6"
+        "phpunit/phpunit": "^11.0",
+        "larastan/larastan": "^3.0"
     },
     "autoload": {
         "psr-4": {

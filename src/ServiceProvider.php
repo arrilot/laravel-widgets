@@ -19,7 +19,8 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/config/config.php', 'laravel-widgets'
+            __DIR__.'/config/config.php',
+            'laravel-widgets'
         );
 
         $this->app->bind('arrilot.widget', function () {

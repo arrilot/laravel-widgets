@@ -9,9 +9,9 @@ interface ApplicationWrapperContract
     /**
      * Wrapper around Cache::remember().
      *
-     * @param $key
-     * @param $minutes
-     * @param $tags
+     * @param         $key
+     * @param         $minutes
+     * @param         $tags
      * @param Closure $callback
      *
      * @return mixed
@@ -21,7 +21,7 @@ interface ApplicationWrapperContract
     /**
      * Wrapper around app()->call().
      *
-     * @param $method
+     * @param       $method
      * @param array $params
      *
      * @return mixed
