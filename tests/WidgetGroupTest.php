@@ -36,7 +36,9 @@ class WidgetGroupTest extends TestCase
                         '}'.
                     '}, 100);'.
                 '</script>'.
-            '</div>', $output);
+            '</div>',
+            $output
+        );
     }
 
     public function testItCanSetAndResetPosition()
@@ -91,7 +93,9 @@ class WidgetGroupTest extends TestCase
                         '}'.
                     '}, 100);'.
                 '</script>'.
-            '</div>', $output);
+            '</div>',
+            $output
+        );
     }
 
     public function testWrap()
@@ -114,7 +118,9 @@ class WidgetGroupTest extends TestCase
                         '}'.
                     '}, 100);'.
                 '</script>'.
-            '</div></div>', $output);
+            '</div></div>',
+            $output
+        );
     }
 
     public function testIsEmpty()
