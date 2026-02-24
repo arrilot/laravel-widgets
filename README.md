@@ -7,7 +7,10 @@
 
 ## Installation
 
-Run ```composer require arrilot/laravel-widgets```
+Run 
+```bash
+composer require arrilot/laravel-widgets
+```
 
 ## Usage
 
