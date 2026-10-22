@@ -10,7 +10,7 @@ abstract class AbstractWidget
      *
      * @var int|float|bool
      */
-    public $reloadTimeout = false;
+    public int|float|bool $reloadTimeout = false;
 
     /**
      * The number of minutes before cache expires.
@@ -18,14 +18,14 @@ abstract class AbstractWidget
      *
      * @var int|float|bool
      */
-    public $cacheTime = false;
+    public int|float|bool $cacheTime = false;
 
     /**
      * Cache tags allow you to tag related items in the cache and then flush all cached values that assigned a given tag.
      *
      * @var array
      */
-    public $cacheTags = [];
+    public array $cacheTags = [];
 
     /**
      * Should widget params be encrypted before sending them to /arrilot/load-widget?
@@ -33,14 +33,14 @@ abstract class AbstractWidget
      *
      * @var bool
      */
-    public $encryptParams = true;
+    public bool $encryptParams = true;
 
     /**
      * The configuration array.
      *
      * @var array
      */
-    protected $config = [];
+    protected array $config = [];
 
     /**
      * Constructor.
@@ -88,7 +88,7 @@ abstract class AbstractWidget
      */
     public function cacheKey(array $params = [])
     {
-        return 'arrilot.widgets.'.serialize($params);
+        return 'arrilot.widgets.' . serialize($params);
     }
 
     /**

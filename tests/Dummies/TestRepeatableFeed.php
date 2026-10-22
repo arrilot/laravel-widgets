@@ -13,7 +13,7 @@ class TestRepeatableFeed extends AbstractWidget
      *
      * @var float|int
      */
-    public $reloadTimeout = 10;
+    public int|float|bool $reloadTimeout = 10;
 
     public function run()
     {

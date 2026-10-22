@@ -28,7 +28,7 @@ class WidgetGroupTest extends TestCase
         $this->assertEquals(
             'Slider was executed with $slides = 5 foo: bar'.
             '<div id="arrilot-widget-container-2" style="display:inline" class="arrilot-widget-container">Placeholder here!'.
-                '<script type="text/javascript">'.
+                '<script type="application/javascript">'.
                     'var widgetTimer2 = setInterval(function() {'.
                         'if (window.$) {'.
                             "$('#arrilot-widget-container-2').load('".$this->ajaxUrl('Slider', [], 2)."');".
@@ -85,7 +85,7 @@ class WidgetGroupTest extends TestCase
             'Slider was executed with $slides = 5 foo: bar'.
             '<hr>'.
             '<div id="arrilot-widget-container-2" style="display:inline" class="arrilot-widget-container">Placeholder here!'.
-                '<script type="text/javascript">'.
+                '<script type="application/javascript">'.
                     'var widgetTimer2 = setInterval(function() {'.
                         'if (window.$) {'.
                             "$('#arrilot-widget-container-2').load('".$this->ajaxUrl('Slider', [], 2)."');".
@@ -110,7 +110,7 @@ class WidgetGroupTest extends TestCase
         $this->assertEquals(
             '<div class=\'widget widget-0-2\'>Slider was executed with $slides = 5 foo: bar</div>'.
             '<div class=\'widget widget-1-2\'><div id="arrilot-widget-container-2" style="display:inline" class="arrilot-widget-container">Placeholder here!'.
-                '<script type="text/javascript">'.
+                '<script type="application/javascript">'.
                     'var widgetTimer2 = setInterval(function() {'.
                         'if (window.$) {'.
                             "$('#arrilot-widget-container-2').load('".$this->ajaxUrl('Slider', [], 2)."');".

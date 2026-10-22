@@ -38,7 +38,7 @@ class JavascriptFactory
     public function getLoader($encryptParams = true)
     {
         return
-            '<script type="text/javascript">'.
+            '<script type="application/javascript">'.
                 $this->constructAjaxCall($encryptParams).
             '</script>';
     }
@@ -56,7 +56,7 @@ class JavascriptFactory
         $timeout = $timeout * 1000;
 
         return
-            '<script type="text/javascript">'.
+            '<script type="application/javascript">'.
                 'setTimeout( function() {'.
                     $this->constructAjaxCall($encryptParams).
                 '}, '.$timeout.')'.

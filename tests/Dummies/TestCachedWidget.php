@@ -6,9 +6,9 @@ use Arrilot\Widgets\AbstractWidget;
 
 class TestCachedWidget extends AbstractWidget
 {
-    public $cacheTime = 60;
+    public int|float|bool $cacheTime = 60;
 
-    public $cacheTags = ['test'];
+    public array $cacheTags = ['test'];
 
     protected $slides = 6;
 

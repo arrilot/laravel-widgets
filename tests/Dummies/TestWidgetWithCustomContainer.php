@@ -6,7 +6,7 @@ use Arrilot\Widgets\AbstractWidget;
 
 class TestWidgetWithCustomContainer extends AbstractWidget
 {
-    public $reloadTimeout = 10;
+    public int|float|bool $reloadTimeout = 10;
 
     public function run()
     {

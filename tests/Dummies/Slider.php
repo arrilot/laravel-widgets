@@ -6,7 +6,7 @@ use Arrilot\Widgets\AbstractWidget;
 
 class Slider extends AbstractWidget
 {
-    protected $config = [
+    protected array $config = [
         'slides' => 6,
         'foo'    => 'bar',
     ];

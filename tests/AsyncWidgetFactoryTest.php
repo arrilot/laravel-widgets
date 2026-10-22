@@ -24,7 +24,7 @@ class AsyncWidgetFactoryTest extends TestCase
 
         $expected =
             '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">'.
-                '<script type="text/javascript">'.
+                '<script type="application/javascript">'.
                     'var widgetTimer1 = setInterval(function() {'.
                         'if (window.$) {'.
                             "$('#arrilot-widget-container-1').load('".$this->ajaxUrl('TestDefaultSlider')."');".
@@ -43,7 +43,7 @@ class AsyncWidgetFactoryTest extends TestCase
 
         $expected =
             '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">Placeholder here!'.
-                '<script type="text/javascript">'.
+                '<script type="application/javascript">'.
                     'var widgetTimer1 = setInterval(function() {'.
                         'if (window.$) {'.
                             "$('#arrilot-widget-container-1').load('".$this->ajaxUrl('Slider')."');".
@@ -62,7 +62,7 @@ class AsyncWidgetFactoryTest extends TestCase
 
         $expected =
             '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">Placeholder here!'.
-                '<script type="text/javascript">'.
+                '<script type="application/javascript">'.
                     'var widgetTimer1 = setInterval(function() {'.
                         'if (window.$) {'.
                             "$('#arrilot-widget-container-1').load('".$this->ajaxUrl('Slider')."');".
@@ -78,7 +78,7 @@ class AsyncWidgetFactoryTest extends TestCase
 
         $expected =
             '<div id="arrilot-widget-container-2" style="display:inline" class="arrilot-widget-container">'.
-                '<script type="text/javascript">'.
+                '<script type="application/javascript">'.
                     'var widgetTimer2 = setInterval(function() {'.
                         'if (window.$) {'.
                             "$('#arrilot-widget-container-2').load('".$this->ajaxUrl('TestDefaultSlider', [], 2)."');".
@@ -102,7 +102,7 @@ class AsyncWidgetFactoryTest extends TestCase
 
         $expected =
             '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">Placeholder here!'.
-                '<script type="text/javascript">'.
+                '<script type="application/javascript">'.
                     'var widgetTimer1 = setInterval(function() {'.
                         'if (window.$) {'.
                             "$('#arrilot-widget-container-1').load('".$this->ajaxUrl('TestWidgetWithParamsInRun', $params)."');".
@@ -121,7 +121,7 @@ class AsyncWidgetFactoryTest extends TestCase
 
         $expected =
             '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">Placeholder here!'.
-                '<script type="text/javascript">'.
+                '<script type="application/javascript">'.
                     'var widgetTimer1 = setInterval(function() {'.
                         'if (window.$) {'.
                             "$('#arrilot-widget-container-1').load('".$this->ajaxUrl('Slider')."');".
@@ -140,7 +140,7 @@ class AsyncWidgetFactoryTest extends TestCase
 
         $expected =
             '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">'.
-                '<script type="text/javascript">'.
+                '<script type="application/javascript">'.
                     'var widgetTimer1 = setInterval(function() {'.
                         'if (window.$) {'.
                             "$('#arrilot-widget-container-1').load('".$this->ajaxUrl('Profile\TestNamespace\TestFeed')."');".
@@ -159,7 +159,7 @@ class AsyncWidgetFactoryTest extends TestCase
 
         $expected =
             '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">'.
-                '<script type="text/javascript">'.
+                '<script type="application/javascript">'.
                     'var widgetTimer1 = setInterval(function() {'.
                         'if (window.$) {'.
                             "$('#arrilot-widget-container-1').load('".$this->ajaxUrl('Profile\TestNamespace\TestFeed')."');".
@@ -180,7 +180,7 @@ class AsyncWidgetFactoryTest extends TestCase
 
         $expected =
             '<div id="arrilot-widget-container-1" style="display:inline" class="arrilot-widget-container">'.
-                '<script type="text/javascript">'.
+                '<script type="application/javascript">'.
                     'setTimeout(function() {'.
                         'var xhr = new XMLHttpRequest();'.
                         'xhr.open("GET", "'.$this->ajaxUrl('TestDefaultSlider').'", true);'.
