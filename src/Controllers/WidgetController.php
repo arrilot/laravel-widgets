@@ -26,20 +26,30 @@ class WidgetController extends BaseController
      */
     public function showWidget(Request $request)
     {
-        $this->prepareGlobals($request);
+        $previousWidgetId = WidgetId::get();
+        $previousSkipWidgetContainer = AbstractWidgetFactory::$skipWidgetContainer;
+        $previousAllowOnlyWidgetsWithDisabledEncryption = AbstractWidgetFactory::$allowOnlyWidgetsWithDisabledEncryption;
 
-        $widgetName = $request->input('name', '');
+        try {
+            $this->prepareGlobals($request);
 
-        $widgetParams = $request->input('skip_encryption', '')
-            ? $request->input('params', '')
-            : $this->factory->decryptWidgetParams($request->input('params', ''));
+            $widgetName = $request->input('name', '');
 
-        $decodedParams = json_decode($widgetParams, true);
+            $widgetParams = $request->input('skip_encryption', '')
+                ? $request->input('params', '')
+                : $this->factory->decryptWidgetParams($request->input('params', ''));
 
-        $params = $decodedParams ?: [];
-        array_unshift($params, $widgetName);
+            $decodedParams = json_decode($widgetParams, true);
 
-        return call_user_func_array([$this->factory, 'run'], $params);
+            $params = $decodedParams ?: [];
+            array_unshift($params, $widgetName);
+
+            return call_user_func_array([$this->factory, 'run'], $params);
+        } finally {
+            WidgetId::set($previousWidgetId);
+            AbstractWidgetFactory::$skipWidgetContainer = $previousSkipWidgetContainer;
+            AbstractWidgetFactory::$allowOnlyWidgetsWithDisabledEncryption = $previousAllowOnlyWidgetsWithDisabledEncryption;
+        }
     }
 
     /**
